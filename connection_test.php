@@ -26,6 +26,12 @@ else
      echo "Error in statement execution.\n";
      die( print_r( sqlsrv_errors(), true));
 }
+session_start();
+	$ldapusername = "laassessor"."\\".$_POST["username"];
+	$_SESSION['USERNAME']=$_POST["username"];
+	$ldappassword = $_POST["password"];
+	$_SESSION['password']=$_POST["password"];
+
 
 /* Iterate through the result set printing a row of data upon each iteration.*/
 
@@ -36,7 +42,8 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
      echo "Col3: ".$row[2]."<br>\n";
      echo "-----------------<br>\n";
 }
-
+ echo "Username: "$_POST["username"]."<br>\n";
+ echo "Password: "$_POST["password"]."<br>\n";
 /* Free statement and connection resources. */
 sqlsrv_free_stmt( $stmt);
 sqlsrv_close( $conn);
