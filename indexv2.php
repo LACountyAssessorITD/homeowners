@@ -23,14 +23,20 @@
 </head>
 
 <body class="jumbotron d-flex align-items-start">
-	<div class="container rounded col-auto" id="signin-container">
+	<div class="container rounded col-12 col-sm-auto" id="signin-container">
 		<div class="row">
 			<div class="col">
 				<h1 class="text-center" id="signin-text">Employee Sign-In</h1>
 				<div class="alert alert-warning alert-dismissible fade show" role="alert">
 					<!-- Please log in below for access -->
 					<!-- Invalid login, please try again -->
-					Please log in below for access
+					<?php
+						if (isset($_GET['loginfail']) && $_GET['loginfail']=="true") {
+							echo "Invalid login, please try again";
+						} else {
+							echo "Please log in below for access";
+						}
+					?>
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -51,7 +57,9 @@
 						<input class="form-control" id="password" name="password" placeholder="**********" type="password">
 					</div>
 
-					<button type="submit" class="btn btn-primary">Sign In</button>
+					<div class="form-group text-right">
+						<button type="submit" class="btn btn-primary">Sign In</button>
+					</div>
 
 				</form> <!-- end form -->
 			</div>
