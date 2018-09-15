@@ -65,11 +65,14 @@
 
             // if login invalid, redirect back to login page
             //  so login page displays errer message
+            //commented this out cause im testing single sign on
+            /*
             if ($loggedIn != "true") {
                 $url = "indexv2.php?loginfail=true";
                 header("Location:" . $url);
                 exit();
             }
+            */
 
             echo "Entered Username: ".$_POST["username"]."<br>\n";
             echo "Entered Password: ".$_POST["password"]."<br>\n";
