@@ -42,7 +42,6 @@
 	</style>
 
 	<!-- Custom JS -->
-	<!-- TODO: MAKE ALL FIELDS REQUIRED -->
 	<!--script type="text/javascript" src="scripts/script.js"></script-->
 </head>
 
@@ -54,13 +53,33 @@
 
 					<div class="form-row">
 						<div class="col form-group required">
-							<label for="claimant" class='control-label'>Claimant:</label>
+							<label for="claimant">Claimant:</label>
 							<input class="form-control" id="claimant" name="claimant" placeholder="Last, First Middle" type="text">
 						</div>
-
 						<div class="col form-group required">
-							<label for="spouse" class='control-label'>Spouse:</label>
+							<label for="claimantDOB" class="control-label">Date of Birth:</label>
+							<input class="form-control" id="claimantDOB" name="claimantDOB" type="date">
+						</div>
+						<div class="col form-group required">
+							<label for="claimantSSN" class="control-label">SSN:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control" id="claimantSSN" name="claimantSSN" placeholder="123456789" type="number" min="0" data-bind="value:claimantSSN">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col form-group required">
+							<label for="spouse">Spouse:</label>
 							<input class="form-control" id="spouse" name="spouse" placeholder="Last, First Middle" type="text">
+						</div>
+						<div class="col form-group required">
+							<label for="spouseDOB" class="control-label">Date of Birth:</label>
+							<input class="form-control" id="spouseDOB" name="spouseDOB" type="date">
+						</div>
+						<div class="col form-group required">
+							<label for="spouseSSN" class="control-label">SSN:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control" id="spouseSSN" name="spouseSSN" placeholder="123456789" type="number" min="0" data-bind="value:spouseSSN">
 						</div>
 					</div>
 					
@@ -73,12 +92,10 @@
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="currentAPN" name="currentAPN" placeholder="1234567890" type="number" min="0" data-bind="value:currentAPN">
 						</div>
-					
 						<div class="col form-group required">
 							<label for="dateAcquired">Date Acquired:</label>
 							<input class="form-control" id="dateAcquired" name="dateAcquired" placeholder="1/23/2000" type="date">
 						</div>
-
 						<div class="col form-group required">
 							<label for="dateOccupied">Date Occupied:</label>
 							<input class="form-control" id="dateOccupied" name="dateOccupied" placeholder="1/23/2000" type="date">
@@ -91,7 +108,6 @@
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="currentStNum" name="currentStNum" placeholder="123" type="number" min="0" data-bind="value:currentStNum">
 						</div>
-
 						<div class="col-8 form-group required">
 							<label for="currentStName">Current St. Name:</label>
 							<input class="form-control" id="currentStName" name="currentStName" placeholder="Any Street" type="text">
@@ -103,7 +119,6 @@
 							<label for="currentCity">Current City:</label>
 							<input class="form-control" id="currentCity" name="currentCity" placeholder="Los Angeles" type="text">
 						</div>
-
 						<div class="col form-group required">
 							<label for="currentZip">Current Zip:</label>
 							<!-- TODO: onchange valid number check and formatting -->
@@ -119,7 +134,6 @@
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="priorAPN" name="priorAPN" placeholder="1234567890" type="number" min="0" data-bind="value:priorAPN">
 						</div>
-
 						<div class="col form-group required">
 							<label for="dateMovedOut">Date Moved Out:</label>
 							<input class="form-control" id="dateMovedOut" name="dateMovedOut" placeholder="1/23/2000" type="date">
@@ -132,7 +146,6 @@
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="priorStNum" name="priorStNum" placeholder="123" type="number" min="0" data-bind="value:priorStNum">
 						</div>
-
 						<div class="col-8 form-group required">
 							<label for="priorStName">Prior St. Name:</label>
 							<input class="form-control" id="priorStName" name="priorStName" placeholder="Any Street" type="text">
@@ -144,7 +157,6 @@
 							<label for="priorCity">Prior City:</label>
 							<input class="form-control" id="priorCity" name="priorCity" placeholder="Los Angeles" type="text">
 						</div>
-
 						<div class="col form-group required">
 							<label for="priorZip">Prior Zip:</label>
 							<!-- TODO: onchange valid number check and formatting -->
@@ -160,7 +172,6 @@
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="rollTaxYear" name="rollTaxYear" placeholder="218000" type="number" min="0" data-bind="value:rollTaxYear">
 						</div>
-
 						<div class="col form-group required">
 							<label for="exemptRE">ExemptRE:</label>
 							<!-- TODO: onchange valid number check and formatting -->
@@ -176,7 +187,6 @@
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="suppTaxYear" name="suppTaxYear" placeholder="218000" type="number" min="0" data-bind="value:suppTaxYear">
 						</div>
-
 						<div class="col form-group required">
 							<label for="exemptRE2">ExemptRE2:</label>
 							<!-- TODO: onchange valid number check and formatting -->
@@ -190,15 +200,16 @@
 						<div class="col form-group required">
 							<label for="claimAction">Claim Action:</label>
 							<select class="form-control" id="claimAction" name="claimAction">
+								<option value="" disabled selected>Select</option>
 								<option>Met</option>
 								<option>Partially Met</option>
 								<option>Denied</option>
 							</select>
 						</div>
-
 						<div class="col form-group required">
 							<label for="findingReason">Finding Reason:</label>
 							<select class="form-control" id="findingReason" name="findingReason">
+								<option value="" disabled selected>Select</option>
 								<option>Missing SSN</option>
 								<option>Missing Signature</option>
 								<option>Incomplete Address</option>
