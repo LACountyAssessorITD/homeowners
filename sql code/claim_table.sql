@@ -4,7 +4,7 @@ drop table [dbo].[claim_table];
 
 create table claim_table
 (
-	claimID IDENTITY(1,1) PRIMARY KEY,
+	claimID int IDENTITY(1,1) PRIMARY KEY,
 	claimant varchar(50) not null,
 	claimantDOB date not null,
 	claimantSSN numeric(9) not null,
@@ -44,15 +44,8 @@ create table claim_table
 	caseClosed date
 );
 
-select * from [temp_table];
-
-
-/*
-insert into [dbo].[claim_table] values (03456789, 'Porter', 'Harry', 'cs_phx', 23581234, 10.50, 'COMP',to_date('03-09-07','DD-MM-YY'));
-*/
+select * from [claim_table];
 
 
 
-
-
-
+insert into [dbo].[claim_table] values ('he, molly', '1997-01-01', 123456789, null, null, null, 1234567890, '2015-12-12',' 2015-12-13', 123, 'any street', 'los angeles', 90012, 1234567890, '2015-01-01', 123, 'any street', 'los angeles', 90012, 218000, 7000, 218000, 7000, 'Met', 'Other', '2018-01-01', '2018-01-02', '2018-01-03', '2018-01-04', '2018-01-05', '2018-01-06');

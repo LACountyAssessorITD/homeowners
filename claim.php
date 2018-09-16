@@ -49,7 +49,7 @@
 	<div class="container rounded col-12" id="signin-container">
 		<div class="row">
 			<div class="col" id="form-col">
-				<form id="login-form" action="home.php" method="post">
+				<form id="login-form" action="write_claim.php" method="post">
 
 					<div class="form-row">
 						<div class="col form-group required">
