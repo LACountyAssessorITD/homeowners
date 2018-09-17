@@ -42,6 +42,48 @@
 	</style>
 	<!-- Custom JS -->
 	<!--script type="text/javascript" src="scripts/script.js"></script-->
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script>
+      $(function () {
+        $('form').on('submit', function (e) {
+            //TODO: There should be some error checking to make sure no important fields are empty
+            console.log("wee");
+          	e.preventDefault();
+
+          	var homeownerFirstname = document.getElementById("homeownerFirstname").value;
+          	var homeownerLastname = document.getElementById("homeownerLastname").value;
+          	var homeownerSSN = document.getElementById("homeownerSSN").value;
+          	var spouseFirstname = document.getElementById("spouseFirstname").value;
+          	var spouseLastname = document.getElementById("spouseLastname").value;
+          	var spouseSSN = document.getElementById("spouseSSN").value;
+          	var propertyAIN = document.getElementById("propertyAIN").value;
+          	var propertyVacated = document.getElementById("propertyVacated").value;
+          	var propertyAquired = document.getElementById("propertyAquired").value;
+          	var propertyOccupied = document.getElementById("propertyOccupied").value;
+          	var propertyAddress = document.getElementById("propertyAddress").value;
+          	var propertyApartment = document.getElementById("propertyApartment").value;
+          	var propertyCity = document.getElementById("propertyCity").value;
+          	var propertyState = document.getElementById("propertyState").value;
+          	var propertyZIP = document.getElementById("propertyZIP").value;
+          	var claimNumber = document.getElementById("claimNumber").value;
+          	var taxYear = document.getElementById("taxYear").value;
+          	
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("infoLookup").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "InfoLookup.php?q=" + homeownerFirstname
+                    + homeownerLastname + homeownerSSN + spouseFirstname + spouseLastname
+                    + spouseSSN + propertyAIN + propertyVacated + propertyAquired + propertyOccupied
+                    + propertyAddress + propertyApartment + propertyCity + propertyState + propertyZIP
+                    + claimNumber + taxYear, true);
+            xmlhttp.send();
+        });
+      });
+    </script>	
+	
 </head>
 
 
@@ -50,7 +92,7 @@
 	<div class="container rounded col-12" id="signin-container">
 		<div class="row">
 			<div class="col" id="form-col">
-				<form id="login-form" action="home.php" method="post">
+				<form id="login-form" action="script">	<!--action="home.php" method="post">-->
 
 					<h5>Homeowner Information</h5>
 					<div class="form-row">
@@ -155,12 +197,12 @@
 							<input class="form-control" id="taxYear" name="taxYear" placeholder="1/23/2000" type="date">
 						</div>
 					</div>
-					<div class="form-row">
-						[SearchButton]
+					<div class="form-group text-left p-3">
+						<button type="search" class="btn btn-danger">Search</button>
 					</div>
 					<!--  -->
 				</form> <!-- end form -->
-				[Search Results]
+				<div id="infoLookup">[SEARCH RESULTS]</div>
 			</div>
 		</div> <!-- end row -->
 	</div> <!-- end container -->
