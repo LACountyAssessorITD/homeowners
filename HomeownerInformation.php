@@ -15,6 +15,29 @@
 
 	<!-- Custom CSS -->
 	<style type="text/css">
+	ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
 		body {
 			background-color: pink;
 			background-size: cover;
@@ -67,7 +90,7 @@
           	var propertyZIP = document.getElementById("propertyZIP").value;
           	var claimNumber = document.getElementById("claimNumber").value;
           	var taxYear = document.getElementById("taxYear").value;
-          	
+
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -75,39 +98,43 @@
                 }
             };
             xmlhttp.open("GET", "InfoLookup.php?homeownerFirstname="+homeownerFirstname
-                    + "&homeownerLastname=" + homeownerLastname 
-                    + "&homeownerSSN=" + homeownerSSN 
-                    + "&spouseFirstname=" + spouseFirstname 
+                    + "&homeownerLastname=" + homeownerLastname
+                    + "&homeownerSSN=" + homeownerSSN
+                    + "&spouseFirstname=" + spouseFirstname
                     + "&spouseLastname=" + spouseLastname
-                    + "&spouseSSN=" + spouseSSN 
-                    + "&propertyAIN=" + propertyAIN 
-                    + "&propertyVacated=" + propertyVacated 
-                    + "&propertyAquired=" + propertyAquired 
+                    + "&spouseSSN=" + spouseSSN
+                    + "&propertyAIN=" + propertyAIN
+                    + "&propertyVacated=" + propertyVacated
+                    + "&propertyAquired=" + propertyAquired
                     + "&propertyOccupied=" + propertyOccupied
-                    + "&propertyAddress=" + propertyAddress 
-                    + "&propertyApartment=" + propertyApartment 
-                    + "&propertyCity=" + propertyCity 
-                    + "&propertyState=" + propertyState 
+                    + "&propertyAddress=" + propertyAddress
+                    + "&propertyApartment=" + propertyApartment
+                    + "&propertyCity=" + propertyCity
+                    + "&propertyState=" + propertyState
                     + "&propertyZIP=" + propertyZIP
-                    + "&claimNumber=" + claimNumber 
-                    + "&taxYear=" + taxYear, 
+                    + "&claimNumber=" + claimNumber
+                    + "&taxYear=" + taxYear,
                     true);
             xmlhttp.send();
         });
       });
-    </script>	
-	
+    </script>
+
 </head>
 
 
-<body class="jumbotron">
-<h1>[HOX Navigation Bar Placeholder]</h1>
+<body>
+<ul>
+  <li><a href="claim.php">Claim</a></li>
+  <li><a href="HomeownerInformation.php">Advanced Search</a></li>
+  <li><a href="indexv2.php">Logout</a></li>
+</ul>
 	<div class="container rounded col-12" id="signin-container">
 		<div class="row">
 			<div class="col" id="form-col">
 				<form id="login-form" action="script">	<!--action="home.php" method="post">-->
 
-					<h5>Homeowner Information</h5>
+					<h1>Advanced Search</h1>
 					<div class="form-row">
 						<div class="col form-group required">
 							<label for="homeownerFirstname">Homeowner First Name:</label>
@@ -123,7 +150,7 @@
 							<input class="form-control" id="homeownerSSN" name="homeownerSSN" placeholder="123456789" type="number" min="0" data-bind="value:homeownerSSN">
 						</div>
 					</div>
-					
+
 					<h6>Spouse/Partner Information (If applicable)</h5>
 					<div class="form-row">
 						<div class="col form-group">
@@ -140,9 +167,9 @@
 							<input class="form-control" id="spouseSSN" name="spouseSSN" placeholder="123456789" type="number" min="0" data-bind="value:spouseSSN">
 						</div>
 					</div>
-					
+
 					<!--  -->
-					
+
 					<hr class="my-4">
 
 					<h5>Property Information</h5>
@@ -165,7 +192,7 @@
 							<input class="form-control" id="propertyOccupied" name="propertyOccupied" placeholder="1/23/2000" type="date">
 						</div>
 					</div>
-					
+
 					<div class="form-row">
 						<div class="col-8 form-group required">
 							<label for="propertyAddress">Street Address:</label>
@@ -174,9 +201,9 @@
 						<div class="col form-group">
 							<label for="propertyApartment">Apartment:</label>
 							<input class="form-control" id="propertyApartment" name="propertyApartment" type="text">
-						</div>			
+						</div>
 					</div>
-					
+
 					<div class="form-row">
 						<div class="col form-group required">
 							<label for="propertyCity">City:</label>
@@ -191,9 +218,9 @@
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="propertyZIP" name="propertyZIP" type="number" min="0" max="99999" data-bind="value:propertyZIP">
 						</div>
-								
+
 					</div>
-					
+
 					<!--  -->
 
   					<hr class="my-4">
@@ -204,7 +231,7 @@
 							<label for="claimNumber">Claim Number:</label>
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="claimNumber" name="claimNumber" placeholder="1234567890" type="number" min="0" max="9999999999" data-bind="claimNumber">
-						</div>						
+						</div>
 						<div class="col form-group required">
 							<label for="taxYear">Tax Year:</label>
 							<input class="form-control" id="taxYear" name="taxYear" placeholder="1/23/2000" type="date">
@@ -221,4 +248,4 @@
 	</div> <!-- end container -->
 
 </body>
-</html> 
+</html>

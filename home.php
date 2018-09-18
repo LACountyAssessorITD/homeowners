@@ -3,22 +3,38 @@
 <head>
     <meta charset="utf-8" />
     <title>Homeowner Fraud</title>
-    <style type="text/css">
-    .wrap { max-width: 720px; margin: 50px auto; padding: 30px 40px; text-align: center; box-shadow: 0 4px 25px -4px #9da5ab; }
-    article { text-align: left; padding: 40px; line-height: 150%; }
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
 </style>
 </head>
 <body>
-    <div class="wrap">
-
-        <header>
-            <h2>Homeowner Fraud</h2>
-            <nav class="menu">
-            </nav>
-        </header>
-
-        <article>
-            <h3>Homeowner Fraud</h3>
+    <ul>
+  <li><a href="claim.php">Claim</a></li>
+  <li><a href="HomeownerInformation.php">Search Page</a></li>
+  <li><a href="indexv2.php">Logout</a></li>
+</ul>
             <?php
             $serverName = "Assessor";
             $uid = "zhdllwyc";
@@ -74,17 +90,13 @@
             }
 
 
-            echo "Entered Username: ".$_POST["username"]."<br>\n";
-            echo "Entered Password: ".$_POST["password"]."<br>\n";
-            echo "Logged In Status= ".$loggedIn."<br>\n";
+            //echo "Entered Username: ".$_POST["username"]."<br>\n";
+            //echo "Entered Password: ".$_POST["password"]."<br>\n";
+            //echo "Logged In Status= ".$loggedIn."<br>\n";
             /* Free statement and connection resources. */
             sqlsrv_free_stmt( $stmt);
             sqlsrv_close( $conn);
             ?>
-
-        </article>
-        <a href="claim.php">Claim</a>
-        <footer><small>&copy;<?php echo date('Y'); ?> Homeowner Fraud.<br>1.0</small></footer>
 
     </div>
 </body>
