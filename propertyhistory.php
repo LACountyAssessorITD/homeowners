@@ -3,6 +3,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="styles/home-style.css">
 <style>
 .button {
     background-color: #4CAF50;
@@ -31,16 +36,13 @@ table, th, td {
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>Los Angeles County Office of the Assessor</h1>
-</div>
+  <ul>
+  <li><a href="home.php">Home</a></li>
+  <li><a href="claim.php">Claim</a></li>
+  <li><a href="HomeownerInformation.php">Advanced Search</a></li>
+  <li><a href="indexv2.php">Logout</a></li>
+</ul>
 
-<hr>
-
-<input type="button" class="button" value="Home">
-<input type="button" class="button" value="Enter Claim">
-<input type="button" class="button" value="Advanced Search">
-<input type="button" class="button" value="Property History">
 
 <hr>
 <form action="/action_page.php">
@@ -54,7 +56,7 @@ Address: <input type="text" name="address" value="1600 Pennsylvania Ave"><br>
 <table style="width:100%">
   <tr>
     <th>Homeowner</th>
-    <th>Year</th> 
+    <th>Year</th>
     <th>Exemption</th>
   </tr>
   <tr>
