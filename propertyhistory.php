@@ -8,32 +8,6 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" type="text/css" href="styles/home-style.css">
-<style>
-.button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-table, th, td {
-    border: 0.5px solid black;
-}
-.header img {
-  float: left;
-  width: 150px;
-  height: 100px;
-  background: #555;
-}
-
-
-</style>
 </head>
 <body>
   <ul>
@@ -45,36 +19,52 @@ table, th, td {
 
 
 <hr>
-<form action="/action_page.php">
-Property Name/AIN: <input type="text" name="propertyName" value="xxx-xxxxx"><br>
-Address: <input type="text" name="address" value="1600 Pennsylvania Ave"><br>
-<input type="submit" value="Submit">
-</form>
+<?php
+	$AIN = $_GET['AIN'];
+	            $serverName = "Assessor";
+            $uid = "zhdllwyc";
+            $pwd = 'A$$essortrain123';
+            $databaseName = "homeowner_test";
+
+            $connectionInfo = array( "UID"=>$uid,
+                "PWD"=>$pwd,
+                "Database"=>$databaseName);
+
+            /* Connect using SQL Server Authentication. */
+            $conn = sqlsrv_connect( $serverName, $connectionInfo);
+
+            $tsql = "SELECT AIN, Street_Number, Street_Name, City, State, Zip, Suffix, Suite, Direction FROM temp_property_table WHERE AIN=".$AIN;
+
+            /* Execute the query. */
+
+            $stmt = sqlsrv_query( $conn, $tsql);
+
+            if ( $stmt )
+            {
+            	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+	            {
+	                echo "".$row[1]."\n";
+	                echo " ".$row[2]."\n".$row[6];
+	                echo ",".$row[3]."\n";
+	                echo ",".$row[4]."\n";
+	                echo ",".$row[5]."<br><br><hr>";
+	                echo "AIN: ".$row[0]."<br>";
+	                echo "Street_Number: ".$row[1]."<br>";
+	                echo "Street_Name: ".$row[2]."<br>";
+	                echo "City: ".$row[3]."<br>";
+	                echo "State: ".$row[4]."<br>";
+	                echo "Zip: ".$row[5]."<br>";
+	                echo "Suffix: ".$row[6]."<br>";
+	            }
+            }
+            else
+            {
+                echo "Error in statement execution.\n";
+                die( print_r( sqlsrv_errors(), true));
+            }
+?>
 
 <hr>
-
-<table style="width:100%">
-  <tr>
-    <th>Homeowner</th>
-    <th>Year</th>
-    <th>Exemption</th>
-  </tr>
-  <tr>
-    <td>Nick</td>
-    <td>2017-present</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Molly</td>
-    <td>2010-2017</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Molly</td>
-    <td>2005-2010</td>
-    <td>NONE</td>
-  </tr>
-</table>
 
 </body>
 </html>
