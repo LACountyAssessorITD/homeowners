@@ -11,7 +11,7 @@
 <ul>
   <li><a href="home.php">Home</a></li>
   <li><a href="claim.php">Claim</a></li>
-  <li><a href="HomeownerInformation.php">Search Page</a></li>
+  <li><a href="HomeownerInformation.php">Advanced Search</a></li>
   <li><a href="indexv2.php">Logout</a></li>
 </ul>
             <?php
