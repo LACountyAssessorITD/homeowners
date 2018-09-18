@@ -14,68 +14,24 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 	<!-- Custom CSS -->
-	<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
+	<link rel="stylesheet" type="text/css" href="styles/home-style.css">
 
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover {
-    background-color: #111;
-}
-body {
-			background-color: pink;
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-
-		.jumbotron {
-			background-color: #669900;
-			padding-top: 32px;
-		}
-
-		#signin-container {
-			background-color: rgba(245, 245, 245, 0.4);
-			padding: 40px;
-		}
-
-		#form-col {
-		}
-
-		.form-group.required .control-label:after {
-			content:" *";
-			color:red;
-		}
-</style>
 	<!-- Custom JS -->
 	<!--script type="text/javascript" src="scripts/script.js"></script-->
 </head>
 
 <body>
 <ul>
+  <li><a href="home.php">Home</a></li>
   <li><a href="claim.php">Claim</a></li>
-  <li><a href="HomeownerInformation.php">Advanced Search</a></li>
+  <li><a href="HomeownerInformation.php">Search Page</a></li>
   <li><a href="indexv2.php">Logout</a></li>
 </ul>
 	<div class="container rounded col-12" id="signin-container">
 		<div class="row">
 			<div class="col" id="form-col">
 				<form id="login-form" action="write_claim.php" method="post">
+					<br>
 					<h1>Claim</h1>
 					<div class="form-row">
 						<div class="col form-group required">

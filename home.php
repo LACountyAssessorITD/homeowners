@@ -3,34 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <title>Homeowner Fraud</title>
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover {
-    background-color: #111;
-}
-</style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles/home-style.css">
 </head>
 <body>
-    <ul>
+<ul>
+  <li><a href="home.php">Home</a></li>
   <li><a href="claim.php">Claim</a></li>
   <li><a href="HomeownerInformation.php">Search Page</a></li>
   <li><a href="indexv2.php">Logout</a></li>
@@ -68,10 +47,6 @@ li a:hover {
             $loggedIn='false';
             while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
             {
-                // echo "Col1: ".$row[0]."\n";
-                // echo "Col2: ".$row[1]."\n";
-                // echo "Col3: ".$row[2]."<br>\n";
-                // echo "-----------------<br>\n";
                 if(strcmp($_POST["username"], $row[1])==0){
                     if(strcmp($_POST["password"], $row[2])==0){
                         $loggedIn='true';
@@ -88,11 +63,6 @@ li a:hover {
                 header("Location:" . $url);
                 exit();
             }
-
-
-            //echo "Entered Username: ".$_POST["username"]."<br>\n";
-            //echo "Entered Password: ".$_POST["password"]."<br>\n";
-            //echo "Logged In Status= ".$loggedIn."<br>\n";
             /* Free statement and connection resources. */
             sqlsrv_free_stmt( $stmt);
             sqlsrv_close( $conn);
