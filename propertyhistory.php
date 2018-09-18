@@ -19,6 +19,7 @@
 
 
 <hr>
+<h1> Property History </h1>
 <?php
 	$AIN = $_GET['AIN'];
 	            $serverName = "Assessor";

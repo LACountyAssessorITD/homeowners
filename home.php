@@ -69,6 +69,6 @@
             ?>
 
     </div>
-    <h1>Example Search For Property <h1><a href="propertyhistory.php?AIN=1234567890">HERE</a>
+    <h1>Home Page</h1>
 </body>
 </html>
