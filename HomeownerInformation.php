@@ -74,11 +74,24 @@
                     document.getElementById("infoLookup").innerHTML = this.responseText;
                 }
             };
-            xmlhttp.open("GET", "InfoLookup.php?q=" + homeownerFirstname
-                    + homeownerLastname + homeownerSSN + spouseFirstname + spouseLastname
-                    + spouseSSN + propertyAIN + propertyVacated + propertyAquired + propertyOccupied
-                    + propertyAddress + propertyApartment + propertyCity + propertyState + propertyZIP
-                    + claimNumber + taxYear, true);
+            xmlhttp.open("GET", "InfoLookup.php?homeownerFirstname="+homeownerFirstname
+                    + "&homeownerLastname=" + homeownerLastname 
+                    + "&homeownerSSN=" + homeownerSSN 
+                    + "&spouseFirstname=" + spouseFirstname 
+                    + "&spouseLastname=" + spouseLastname
+                    + "&spouseSSN=" + spouseSSN 
+                    + "&propertyAIN=" + propertyAIN 
+                    + "&propertyVacated=" + propertyVacated 
+                    + "&propertyAquired=" + propertyAquired 
+                    + "&propertyOccupied=" + propertyOccupied
+                    + "&propertyAddress=" + propertyAddress 
+                    + "&propertyApartment=" + propertyApartment 
+                    + "&propertyCity=" + propertyCity 
+                    + "&propertyState=" + propertyState 
+                    + "&propertyZIP=" + propertyZIP
+                    + "&claimNumber=" + claimNumber 
+                    + "&taxYear=" + taxYear, 
+                    true);
             xmlhttp.send();
         });
       });

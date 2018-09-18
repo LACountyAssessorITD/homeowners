@@ -1,5 +1,4 @@
 <?php
-//This is the part that does a lookup and returns an echotable to HomeownerInformation.php
 	$serverName = "Assessor";
 	$uid = "zhdllwyc";
 	$pwd = 'A$$essortrain123';
@@ -13,7 +12,9 @@
 		echo "Could not connect.\n";
 		die(print_r( sqlsrv_errors(), true));
 	}
-	$homeownerSSN = $_POST["homeownerSSN"];
+	
+	
+	$homeownerSSN = intval($_GET['homeownerSSN']);;
 	//FOR TESTING PURPOSES: I WILL ONLY USE THE CLAIMANT, AND USE THE CLAIM TABLE FROM WRITE_CLAIM.PHP
 	$stmt = "SELECT claimantSSN FROM dbo.claim_table WHERE claimantSSN='$homeownerSSN'";
 	/*
@@ -38,7 +39,7 @@
 	
 	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	{
-		echo "Col1: ".$row[0]."\n";
+		echo "Col1: ".$row[claimantSSN]."\n";
 		echo "-----------------<br>\n";
 	}
 	/* Free statement and connection resources. */
