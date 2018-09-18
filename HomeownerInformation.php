@@ -23,7 +23,6 @@
       $(function () {
         $('form').on('submit', function (e) {
             //TODO: There should be some error checking to make sure no important fields are empty
-            console.log("wee");
           	e.preventDefault();
 
           	var homeownerFirstname = document.getElementById("homeownerFirstname").value;
@@ -196,7 +195,7 @@
 					</div>
 					<!--  -->
 				</form> <!-- end form -->
-				<div id="infoLookup">[SEARCH RESULTS]</div>
+				<div id="infoLookup"></div>
 			</div>
 		</div> <!-- end row -->
 	</div> <!-- end container -->
