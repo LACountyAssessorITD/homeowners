@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -21,7 +21,7 @@
 <hr>
 <h1> Claim History </h1>
 <?php
-	// $AIN = $_GET['AIN'];
+	$claimID = $_GET['claimID'];
 	            $serverName = "Assessor";
             $uid = "zhdllwyc";
             $pwd = 'A$$essortrain123';
@@ -31,38 +31,55 @@
                 "PWD"=>$pwd,
                 "Database"=>$databaseName);
 
-            // /* Connect using SQL Server Authentication. */
-            // $conn = sqlsrv_connect( $serverName, $connectionInfo);
+            /* Connect using SQL Server Authentication. */
+            $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-            // $tsql = "SELECT AIN, Street_Number, Street_Name, City, State, Zip, Suffix, Suite, Direction FROM temp_property_table WHERE AIN=".$AIN;
+            $tsql = "SELECT claimID, claimant, claimantDOB, claimantSSN, spouse, spouseDOB, spouseSSN, currentAPN, dateAcquired, dateOccupied, currentStNum, currentStName, currentCity, currentZip, priorAPN, dateMovedOut, priorStNum, priorStName, priorCity, priorZip, rollTaxYear, exemptRE, suppTaxYear, exemptRE2, claimAction, findingReason, claimReceived, supervisorWorkload, staffReview, staffReviewDate, supervisorReview, caseClosed FROM claim_table WHERE claimID=".$claimID;
 
-            // /* Execute the query. */
+            /* Execute the query. */
 
-            // $stmt = sqlsrv_query( $conn, $tsql);
+            $stmt = sqlsrv_query( $conn, $tsql);
 
-            // if ( $stmt )
-            // {
-            // 	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-	           //  {
-	           //      echo "".$row[1]."\n";
-	           //      echo " ".$row[2]."\n".$row[6];
-	           //      echo ",".$row[3]."\n";
-	           //      echo ",".$row[4]."\n";
-	           //      echo ",".$row[5]."<br><br><hr>";
-	           //      echo "AIN: ".$row[0]."<br>";
-	           //      echo "Street_Number: ".$row[1]."<br>";
-	           //      echo "Street_Name: ".$row[2]."<br>";
-	           //      echo "City: ".$row[3]."<br>";
-	           //      echo "State: ".$row[4]."<br>";
-	           //      echo "Zip: ".$row[5]."<br>";
-	           //      echo "Suffix: ".$row[6]."<br>";
-	           //  }
-            // }
-            // else
-            // {
-            //     echo "Error in statement execution.\n";
-            //     die( print_r( sqlsrv_errors(), true));
-            // }
+            if ( $stmt )
+            {
+            	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+	            {
+	                echo "claimID: ".$row[0]."<br>";
+	                echo "claimant: ".$row[1]."<br>";
+	                //echo "claimantDOB: ".$row[2]."<br>";
+	                echo "claimantSSN: ".$row[3]."<br>";
+	                echo "spouse: ".$row[4]."<br>";
+	                //echo "spouseDOB: ".$row[5]."<br>";
+	                echo "spouseSSN: ".$row[6]."<br>";
+                  echo "currentAPN: ".$row[7]."<br>";
+                  //echo "dateAcquired: ".$row[8]."<br>";
+                  //echo "dateOccupied: ".$row[9]."<br>";
+                  echo "currentStNum: ".$row[10]."<br>";
+                  echo "currentStName: ".$row[11]."<br>";
+                  echo "currentCity: ".$row[12]."<br>";
+                  echo "currentZip: ".$row[13]."<br>";
+                  echo "priorAPN: ".$row[14]."<br>";
+                  //echo "dateMovedOut: ".$row[15]."<br>";
+                  echo "priorStNum: ".$row[16]."<br>";
+                  echo "priorStName: ".$row[17]."<br>";
+                  echo "priorCity: ".$row[18]."<br>";
+                  echo "priorZip: ".$row[19]."<br>";
+                  echo "rollTaxYear: ".$row[20]."<br>";
+                  echo "exemptRE: ".$row[21]."<br>";
+                  echo "suppTaxYear: ".$row[22]."<br>";
+                  echo "exemptRE2: ".$row[23]."<br>";
+                  echo "claimAction: ".$row[24]."<br>";
+                  echo "findingReason: ".$row[25]."<br>";
+                  //echo "claimReceived: ".$row[26]."<br>";
+                  //echo "supervisorWorkload: ".$row[27]."<br>";
+                  //echo "staffReview: ".$row[28]."<br>";
+	            }
+            }
+            else
+            {
+                echo "Error in statement execution.\n";
+                die( print_r( sqlsrv_errors(), true));
+            }
 ?>
 
 <hr>
