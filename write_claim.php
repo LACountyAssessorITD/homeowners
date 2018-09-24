@@ -18,27 +18,56 @@
 	}
 
 	/* query building */
-	$query = "INSERT INTO dbo.claim_table
-			(claimant,claimantDOB,claimantSSN,spouse,spouseDOB,spouseSSN,currentAPN,
-			dateAcquired,dateOccupied,currentStNum,currentStName,currentCity,currentZip,
-			priorAPN,dateMovedOut,priorStNum,priorStName,priorCity,priorZip,rollTaxYear,
-			exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,claimReceived,
+	$claim_query = "INSERT INTO dbo.claim_table
+			(claimant,claimantSSN,spouse,spouseSSN,currentAPN,dateAcquired,dateOccupied,
+			currentStName,currentApt,currentCity,currentState,currentZip,
+			mailingStName,mailingApt,mailingCity,mailingState,mailingZip,
+			priorAPN,dateMovedOut,priorStName,priorApt,priorCity,priorState,priorZip,
+			rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,claimReceived,
 			supervisorWorkload,staffReview,staffReviewDate,supervisorReview,caseClosed)
-			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	$claim_params = array($_POST['claimant'],$_POST['claimantDOB'],$_POST['claimantSSN'],
-			$_POST['spouse'],$_POST['spouseDOB'],$_POST['spouseSSN'],$_POST['currentAPN'],
-			$_POST['dateAcquired'],$_POST['dateOccupied'],$_POST['currentStNum'],
-			$_POST['currentStName'],$_POST['currentCity'],$_POST['currentZip'],$_POST['priorAPN'],
-			$_POST['dateMovedOut'],$_POST['priorStNum'],$_POST['priorStName'],$_POST['priorCity'],
-			$_POST['priorZip'],$_POST['rollTaxYear'],$_POST['exemptRE'],$_POST['suppTaxYear'],
-			$_POST['exemptRE2'],$_POST['claimAction'],$_POST['findingReason'],
-			$_POST['claimReceived'],$_POST['supervisorWorkload'],$_POST['staffReview'],
-			$_POST['staffReviewDate'],$_POST['supervisorReview'],$_POST['caseClosed']);     
+			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	$claim_params = array($_POST['claimant'],$_POST['claimantSSN'],$_POST['spouse'],$_POST['spouseSSN'],
+			$_POST['currentAPN'],$_POST['dateAcquired'],$_POST['dateOccupied'],$_POST['currentStName'],
+			$_POST['currentApt'],$_POST['currentCity'],$_POST['currentState'],$_POST['currentZip'],
+			$_POST['mailingStName'],$_POST['mailingApt'],$_POST['mailingCity'],$_POST['mailingState'],
+			$_POST['mailingZip'],$_POST['priorAPN'],$_POST['dateMovedOut'],$_POST['priorStName'],
+			$_POST['priorApt'],$_POST['priorCity'],$_POST['priorState'],$_POST['priorZip'],
+			$_POST['rollTaxYear'],$_POST['exemptRE'],$_POST['suppTaxYear'],$_POST['exemptRE2'],
+			$_POST['claimAction'],$_POST['findingReason'],$_POST['claimReceived'],
+			$_POST['supervisorWorkload'],$_POST['staffReview'],$_POST['staffReviewDate'],
+			$_POST['supervisorReview'],$_POST['caseClosed']);
+
+
+	$claimant_query = "INSERT INTO dbo.claimant_table
+			(claimant,claimantSSN,spouse,spouseSSN,
+			mailingStName,mailingApt,mailingCity,mailingState,mailingZip)
+			VALUES(?,?,?,?,?,?,?,?,?)";
+	$claimant_params = array($_POST['claimant'],$_POST['claimantSSN'],$_POST['spouse'],$_POST['spouseSSN'],
+			$_POST['mailingStName'],$_POST['mailingApt'],$_POST['mailingCity'],$_POST['mailingState'],
+			$_POST['mailingZip'];
+
+
+	$property_query = "INSERT INTO dbo.temp_property_table
+			(AIN,streetName,apt,city,state,zip,ownerName,ownerSSN,dateAcquired,dateOccupied,dateMovedOut)
+			VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	$property_params = array($_POST['currentAPN'],$_POST['currentStName'],$_POST['currentApt'],$_POST['currentCity'],
+			$_POST['currentState'],$_POST['currentZip'],$_POST['claimant'],$_POST['claimantSSN'],
+			$_POST['dateAcquired'],$_POST['dateOccupied'],null;
+
+
+	$claims_list_query = "INSERT INTO dbo.claims_list
+			(claimID,AIN,claimantSSN)
+			VALUES(?,?,?)";
+	$claims_list_params = array($_POST['currentAPN'],$_POST['currentAPN'],$_POST['claimantSSN'])
 
 	/* Execute the query. */                  
-	$result = sqlsrv_query($conn,$query,$claim_params);
+	$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+	$claimant_result = sqlsrv_query($conn,$claimant_query,$claimant_params);
+	$property_result = sqlsrv_query($conn,$claimant_query,$claimant_params);
+	$claims_list_result = sqlsrv_query($conn,$claims_list_query,$claims_list_params);
 
-	if ($result) {
+	// check success
+	if ($claim_result && $claimant_result && $property_result && $claims_list_result) {
 		echo "Submission success.\n";
 	}
 	else {

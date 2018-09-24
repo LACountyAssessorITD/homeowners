@@ -16,8 +16,7 @@ session_start();
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="styles/home-style.css">
 
-	<!-- Custom JS -->
-	<!--script type="text/javascript" src="scripts/script.js"></script-->
+
 </head>
 
 <body>
@@ -34,35 +33,37 @@ session_start();
 	<div class="row">
 		<div class="col" id="form-col">
 			<form id="login-form" action="write_claim.php" method="post">
-				<div>
-					<h5>Personal Information</h5>
-				</div>
-				<!-- personal info row -->
-				<div class="form-row">
-					<div class="col-4 form-group required">
-						<label for="claimant">Claimant:</label>
-						<input class="form-control" id="claimant" name="claimant" placeholder="Last, First Middle" type="text">
+				<div class="form-group p-1">
+					<!-- personal info row -->
+					<div>
+						<h5>Personal Information</h5>
 					</div>
-					<div class="col-2 form-group required">
-						<label for="claimantSSN" class="control-label">SSN:</label>
-						<!-- TODO: onchange valid number check and formatting -->
-						<input class="form-control" id="claimantSSN" name="claimantSSN" placeholder="123456789" type="number" min="0" data-bind="value:claimantSSN">
-					</div>
-					<div class="col-4 form-group required">
-						<label for="spouse">Spouse (If applicable):</label>
-						<input class="form-control" id="spouse" name="spouse" placeholder="Last, First Middle" type="text">
-					</div>
-					<div class="col-2 form-group required">
-						<label for="spouseSSN" class="control-label">Spouse SSN:</label>
-						<!-- TODO: onchange valid number check and formatting -->
-						<input class="form-control" id="spouseSSN" name="spouseSSN" placeholder="123456789" type="number" min="0" data-bind="value:spouseSSN">
+					<div class="form-row">
+						<div class="col-4 form-group required">
+							<label for="claimant">Claimant:</label>
+							<input class="form-control" id="claimant" name="claimant" placeholder="Last, First Middle" type="text">
+						</div>
+						<div class="col-2 form-group required">
+							<label for="claimantSSN" class="control-label">SSN:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control" id="claimantSSN" name="claimantSSN" placeholder="123456789" type="number" min="0" data-bind="value:claimantSSN">
+						</div>
+						<div class="col-4 form-group required">
+							<label for="spouse">Spouse (If applicable):</label>
+							<input class="form-control" id="spouse" name="spouse" placeholder="Last, First Middle" type="text">
+						</div>
+						<div class="col-2 form-group required">
+							<label for="spouseSSN" class="control-label">Spouse SSN:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control" id="spouseSSN" name="spouseSSN" placeholder="123456789" type="number" min="0" data-bind="value:spouseSSN">
+						</div>
 					</div>
 				</div>
 				<hr class="my-4">
 
 				<!-- situs info row -->
 				<div class="form-row"> 
-					<div class="form-col col"> 
+					<div class="form-col col p-2"> 
 						<div>
 							<h5>Situs Information</h5>
 						</div>
@@ -72,8 +73,8 @@ session_start();
 								<input class="form-control" id="currentStName" name="currentStName" placeholder="123 Any Street" type="text">
 							</div>
 							<div class="col-3 form-group required">
-								<label for="currentAptNum">Apt/Ste/Flr #:</label>
-								<input class="form-control" id="currentAptNum" name="currentAptNum" placeholder="APT 101" type="text">
+								<label for="currentApt">Apt/Ste/Flr #:</label>
+								<input class="form-control" id="currentApt" name="currentApt" placeholder="APT 101" type="text">
 							</div>
 						</div>
 						<div class="form-row">
@@ -162,28 +163,28 @@ session_start();
 					</div> <!-- end situs info col -->
 					
 					<!-- begin mailing address col -->
-					<div class="form-col col">
+					<div class="form-col col p-2">
 						<div>
-							<h5>Mailing Address (Leave blank if it's same as situs address)</h5>
+							<h5>Mailing Address</h5>
 						</div>
 						<div class="form-row">
 							<div class="col-9 form-group required">
 								<label for="mailingStName">Street Number and Name:</label>
-								<input class="form-control" id="mailingStName" name="mailingStName" placeholder="123 Any Street" type="text">
+								<input class="form-control" id="mailingStName" name="mailingStName" placeholder="123 Any Street" type="text" disabled="true">
 							</div>
 							<div class="col-3 form-group required">
-								<label for="mailingAptNum">Apt/Ste/Flr #:</label>
-								<input class="form-control" id="mailingAptNum" name="mailingAptNum" placeholder="APT 101" type="text">
+								<label for="mailingApt">Apt/Ste/Flr #:</label>
+								<input class="form-control" id="mailingApt" name="mailingApt" placeholder="APT 101" type="text" disabled="true">
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="col-6 form-group required">
 								<label for="mailingCity">City or Town:</label>
-								<input class="form-control" id="mailingCity" name="mailingCity" placeholder="Los Angeles" type="text">
+								<input class="form-control" id="mailingCity" name="mailingCity" placeholder="Los Angeles" type="text" disabled="true">
 							</div>
 							<div class="col-3 form-group required">
 								<label for="mailingState">State:</label>
-								<select class="form-control" id="mailingState" name="mailingState">
+								<select class="form-control" id="mailingState" name="mailingState" disabled="true">
 									<option value="NA" disabled selected>Select</option>
 									<option value="AL">Alabama</option>
 									<option value="AK">Alaska</option>
@@ -241,8 +242,12 @@ session_start();
 							<div class="col-3 form-group required">
 								<label for="mailingZip">ZIP Code:</label>
 								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="mailingZip" name="mailingZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:mailingZip">
+								<input class="form-control" id="mailingZip" name="mailingZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:mailingZip" disabled="true">
 							</div>
+						</div>
+						<div class="col form-check required">
+							<input class="form-check-input" type="checkbox" value="" id="enableMailing">
+							<label  class="form-check-label" for="enableMailing">Check if mailing address is different from situs address to enable input</label>
 						</div>
 					</div> <!-- end mailing col -->
 				</div> <!-- end situs row -->
@@ -267,24 +272,79 @@ session_start();
 						</div>
 
 						<div class="form-row">
-							<div class="col-4 form-group required">
-								<label for="priorStNum">Prior St. Number:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="priorStNum" name="priorStNum" placeholder="123" type="number" min="0" data-bind="value:priorStNum">
+							<div class="col-9 form-group required">
+								<label for="priorStName">Street Number and Name:</label>
+								<input class="form-control" id="priorStName" name="priorStName" placeholder="123 Any Street" type="text">
 							</div>
-							<div class="col-8 form-group required">
-								<label for="priorStName">Prior St. Name:</label>
-								<input class="form-control" id="priorStName" name="priorStName" placeholder="Any Street" type="text">
+							<div class="col-3 form-group required">
+								<label for="priorApt">Apt/Ste/Flr #:</label>
+								<input class="form-control" id="priorApt" name="priorApt" placeholder="APT 101" type="text">
 							</div>
 						</div>
-
 						<div class="form-row">
-							<div class="col form-group required">
+							<div class="col-6 form-group required">
 								<label for="priorCity">Prior City:</label>
 								<input class="form-control" id="priorCity" name="priorCity" placeholder="Los Angeles" type="text">
 							</div>
-							<div class="col form-group required">
-								<label for="priorZip">Prior Zip:</label>
+							<div class="col-3 form-group required">
+								<label for="priorState">Prior State:</label>
+								<select class="form-control" id="priorState" name="priorState">
+									<option value="NA" disabled selected>Select</option>
+									<option value="AL">Alabama</option>
+									<option value="AK">Alaska</option>
+									<option value="AZ">Arizona</option>
+									<option value="AR">Arkansas</option>
+									<option value="CA">California</option>
+									<option value="CO">Colorado</option>
+									<option value="CT">Connecticut</option>
+									<option value="DE">Delaware</option>
+									<option value="DC">District Of Columbia</option>
+									<option value="FL">Florida</option>
+									<option value="GA">Georgia</option>
+									<option value="HI">Hawaii</option>
+									<option value="ID">Idaho</option>
+									<option value="IL">Illinois</option>
+									<option value="IN">Indiana</option>
+									<option value="IA">Iowa</option>
+									<option value="KS">Kansas</option>
+									<option value="KY">Kentucky</option>
+									<option value="LA">Louisiana</option>
+									<option value="ME">Maine</option>
+									<option value="MD">Maryland</option>
+									<option value="MA">Massachusetts</option>
+									<option value="MI">Michigan</option>
+									<option value="MN">Minnesota</option>
+									<option value="MS">Mississippi</option>
+									<option value="MO">Missouri</option>
+									<option value="MT">Montana</option>
+									<option value="NE">Nebraska</option>
+									<option value="NV">Nevada</option>
+									<option value="NH">New Hampshire</option>
+									<option value="NJ">New Jersey</option>
+									<option value="NM">New Mexico</option>
+									<option value="NY">New York</option>
+									<option value="NC">North Carolina</option>
+									<option value="ND">North Dakota</option>
+									<option value="OH">Ohio</option>
+									<option value="OK">Oklahoma</option>
+									<option value="OR">Oregon</option>
+									<option value="PA">Pennsylvania</option>
+									<option value="RI">Rhode Island</option>
+									<option value="SC">South Carolina</option>
+									<option value="SD">South Dakota</option>
+									<option value="TN">Tennessee</option>
+									<option value="TX">Texas</option>
+									<option value="UT">Utah</option>
+									<option value="VT">Vermont</option>
+									<option value="VA">Virginia</option>
+									<option value="WA">Washington</option>
+									<option value="WV">West Virginia</option>
+									<option value="WI">Wisconsin</option>
+									<option value="WY">Wyoming</option>
+								</select>
+							</div>
+							<div class="col-3 form-group required">
+								<label for="priorZip">Prior ZIP:</label>
 								<!-- TODO: onchange valid number check and formatting -->
 								<input class="form-control" id="priorZip" name="priorZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:priorZip">
 							</div>
@@ -343,6 +403,7 @@ session_start();
 							<option value="Missing SSN">Missing SSN</option>
 							<option value="Missing Signature">Missing Signature</option>
 							<option value="Incomplete Address">Incomplete Address</option>
+							<option value="N/A">N/A</option>
 							<option value="Other">Other</option>
 						</select>
 					</div>
@@ -387,5 +448,16 @@ session_start();
 		</div>
 	</div> <!-- end row -->
 </div> <!-- end container -->
+
+<!-- Custom JS -->
+<script type="text/javascript">
+	document.getElementById("enableMailing").onchange = function() {
+		document.getElementById("mailingStName").disabled = !this.checked;
+		document.getElementById("mailingApt").disabled = !this.checked;
+		document.getElementById("mailingCity").disabled = !this.checked;
+		document.getElementById("mailingState").disabled = !this.checked;
+		document.getElementById("mailingZip").disabled = !this.checked;
+	};
+</script>
 </body>
 </html>
