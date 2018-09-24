@@ -4,9 +4,8 @@ drop table [dbo].[claimant_table];
 
 create table claimant_table
 (
-	claimantID int IDENTITY(1,1) PRIMARY KEY,
 	claimant varchar(50),
-	claimantSSN numeric(9),
+	claimantSSN numeric(9) primary key,
 
 	spouse varchar(50),
 	spouseSSN numeric(9),

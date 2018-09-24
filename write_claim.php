@@ -44,7 +44,7 @@
 			VALUES(?,?,?,?,?,?,?,?,?)";
 	$claimant_params = array($_POST['claimant'],$_POST['claimantSSN'],$_POST['spouse'],$_POST['spouseSSN'],
 			$_POST['mailingStName'],$_POST['mailingApt'],$_POST['mailingCity'],$_POST['mailingState'],
-			$_POST['mailingZip'];
+			$_POST['mailingZip']);
 
 
 	$property_query = "INSERT INTO dbo.temp_property_table
@@ -52,13 +52,13 @@
 			VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	$property_params = array($_POST['currentAPN'],$_POST['currentStName'],$_POST['currentApt'],$_POST['currentCity'],
 			$_POST['currentState'],$_POST['currentZip'],$_POST['claimant'],$_POST['claimantSSN'],
-			$_POST['dateAcquired'],$_POST['dateOccupied'],null;
+			$_POST['dateAcquired'],$_POST['dateOccupied'],null);
 
 
 	$claims_list_query = "INSERT INTO dbo.claims_list
-			(claimID,AIN,claimantSSN)
-			VALUES(?,?,?)";
-	$claims_list_params = array($_POST['currentAPN'],$_POST['currentAPN'],$_POST['claimantSSN'])
+			(AIN,claimantSSN)
+			VALUES(?,?)";
+	$claims_list_params = array($_POST['currentAPN'],$_POST['claimantSSN']);
 
 	/* Execute the query. */                  
 	$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
@@ -76,6 +76,9 @@
 	}
 
 	/* Free statement and connection resources. */
-	sqlsrv_free_stmt($result);
+	sqlsrv_free_stmt($claim_result);
+	sqlsrv_free_stmt($claimant_result);
+	sqlsrv_free_stmt($property_result);
+	sqlsrv_free_stmt($claims_list_result);
 	sqlsrv_close($conn);
 ?>
