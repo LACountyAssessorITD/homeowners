@@ -246,7 +246,7 @@ session_start();
 							</div>
 						</div>
 						<div class="col form-check required">
-							<input class="form-check-input" type="checkbox" value="" id="enableMailing">
+							<input class="form-check-input" type="checkbox" value="" id="enableMailing" name="enableMailing">
 							<label  class="form-check-label" for="enableMailing">Check if mailing address is different from situs address to enable input</label>
 						</div>
 					</div> <!-- end mailing col -->
@@ -289,7 +289,7 @@ session_start();
 							<div class="col-3 form-group required">
 								<label for="priorState">Prior State:</label>
 								<select class="form-control" id="priorState" name="priorState">
-									<option value="NA" disabled selected>Select</option>
+									<option value="N/A" disabled selected>Select</option>
 									<option value="AL">Alabama</option>
 									<option value="AK">Alaska</option>
 									<option value="AZ">Arizona</option>
