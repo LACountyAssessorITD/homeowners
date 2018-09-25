@@ -13,12 +13,12 @@
 		die(print_r( sqlsrv_errors(), true));
 	}
 	
-	$homeownerName = $_GET(['homeownerLastname'])+" "+$_GET(['homeownerFirstname']);
+	$homeownerName = $_GET['homeownerLastname']+" "+$_GET['homeownerFirstname'];
 
 	echo "<script>console.log(".$homeownerName+")</script>";
 
 	$homeownerSSN = intval($_GET['homeownerSSN']);
-	$spouseName = $_GET(['spouseLastname'])+" "+$_GET(['spouseFirstname']);
+	$spouseName = $_GET['spouseLastname']+" "+$_GET['spouseFirstname'];
 	$spouseSSN = intval($_GET['spouseSSN']);
 	$propertyAIN = intval($_GET['propertyAIN']);
 	$propertyVacated = $_GET['propertyVacated'];
