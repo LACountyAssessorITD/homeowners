@@ -12,29 +12,116 @@
 		echo "Could not connect.\n";
 		die(print_r( sqlsrv_errors(), true));
 	}
-	
+
+	//There's a cleaner way to write this code, and it involves a pretty array, but I needed to write this in a few hours. *I'll go back and fix it later*
+
+	$sql = "SELECT claimID, claimant, claimantSSN, currentAPN FROM dbo.claim_table WHERE";
+	$populated = False; //Represents need for "and" in the SQL statement, and if there is no minimum by the end, there is no need to query the database
+
 	$homeownerName = $_GET['homeownerLastname']." ".$_GET['homeownerFirstname'];
+	if(!empty($homeownerName)){
+		$sql= $sql." claimant = '$homeownerName'";
+		$populated = True;
+	}
+	// $homeownerSSN = intval($_GET['homeownerSSN']);
+	// if(!empty($homeownerSSN)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." claimantSSN = '$homeownerSSN'";
+	// 	$populated = True;
+	// }
+	// $spouseName = $_GET['spouseLastname']." ".$_GET['spouseFirstname'];
+	// if(!empty($spouseName)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." spouse = '$spouseName'";
+	// 	$populated = True;
+	// }
+	// $spouseSSN = intval($_GET['spouseSSN']);
+	// if(!is_null($spouseSSN)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." spouseSSN = '$spouseSSN'";
+	// 	$populated = True;
+	// }
+	// $propertyAquired = $_GET['propertyAquired'];
+	// if(!is_null($propertyAquired)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." dateAquired = '$propertyAquired'";
+	// 	$populated = True;
+	// }
+	// $propertyOccupied = $_GET['propertyOccupied'];
+	// if(!is_null($propertyOccupied)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." dateOccupied = '$propertyOccupied'";
+	// 	$populated = True;
+	// }
+	// $propertyAddress = $_GET['propertyAddress'];
+	// if(!is_null($propertyAddress)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." currentStName = '$propertyAddress'";
+	// 	$populated = True;
+	// }
+	// $propertyApartment = $_GET['propertyApartment'];
+	// if(!is_null($propertyApartment)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." currentApt = '$propertyApartment'";
+	// 	$populated = True;
+	// }
+	// $propertyCity = $_GET['propertyCity'];
+	// if(!is_null($propertyCity)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." currentCity = '$propertyCity'";
+	// 	$populated = True;
+	// }
+	// $propertyState = $_GET['propertyState'];
+	// if(!is_null($propertyState)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." currentState = '$propertyState'";
+	// 	$populated = True;
+	// }
+	// $propertyZIP = intval($_GET['propertyZIP']);
+	// if(!is_null($propertyZIP)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." currentZip = '$propertyZIP'";
+	// 	$populated = True;
+	// }
+	// $claimNumber = intval($_GET['claimNumber']);
+	// if(!is_null($claimNumber)){
+	// 	if($populated)
+	// 		$sql=$sql." AND ";
+	// 	$sql= $sql." claimID = '$claimNumber'";
+	// 	$populated = True;
+	// }
 
-	"'<script>console.log(\"$homeownerName\")</script>'";
+	//grab this from dbo.claims_list TODO
+	// $propertyAIN = intval($_GET['propertyAIN']);
+	// if($propertyAIN !is_null){
+	// 	$sql_2= $sql_2." AIN = '$propertyAIN'";
+	// 	$populated2 = True;
+	// }
 
-	$homeownerSSN = intval($_GET['homeownerSSN']);
-	$spouseName = $_GET['spouseLastname']." ".$_GET['spouseFirstname'];
-	$spouseSSN = intval($_GET['spouseSSN']);
-	$propertyAIN = intval($_GET['propertyAIN']);
-	$propertyVacated = $_GET['propertyVacated'];
-	$propertyAquired = $_GET['propertyAquired'];
-	$propertyOccupied = $_GET['propertyOccupied'];
-	$propertyAddress = $_GET['propertyAddress'];
-	$propertyApartment = $_GET['propertyApartment'];
-	$propertyCity = $_GET['propertyCity'];
-	$propertyState = $_GET['propertyState'];
-	$propertyZIP = intval($_GET['propertyZIP']);
-	$claimNumber = intval($_GET['claimNumber']);
-	$taxYear = $_GET['taxYear'];
-	
-	
+	//Unsure/unstated properties in the tables: TODO
+	// $propertyVacated = $_GET['propertyVacated'];
+	// if($propertyVacated !is_null){
+	// 	$sql= $sql." claimant = '$propertyVacated'";
+	// 	$populated = True;
+	// }
+	// $taxYear = $_GET['taxYear'];
+	// if($taxYear !is_null){
+	// 	$sql= $sql." claimant = '$taxYear'";
+	// 	$populated = True;
+	// }
+
 	//FOR TESTING PURPOSES: I WILL ONLY USE THE CLAIMANT, AND USE THE CLAIM TABLE FROM WRITE_CLAIM.PHP
-	$sql = "SELECT claimID, claimant, claimantSSN, currentAPN  FROM dbo.claim_table WHERE claimantSSN = '$homeownerSSN'";
+	//$sql = "SELECT claimID, claimant, claimantSSN, currentAPN  FROM dbo.claim_table WHERE claimant = '$homeownerName'";
 	/*
 	$sql = "SELECT homeownerFirstname, homeownerLastname, homeownerSSN, spouseFirstname, spouseLastname,
 		spouseSSN, propertyAIN, propertyVacated, propertyAquired, propertyOccupied, propertyAddress,
@@ -64,9 +151,6 @@
 	}
 
 	session_start();
-
-
-	/* Should just print ssn*/
 
 	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	{
