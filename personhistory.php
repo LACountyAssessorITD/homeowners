@@ -21,7 +21,7 @@
 <hr>
 <h1> Person History </h1>
 <?php
-	// $AIN = $_GET['AIN'];
+	$claimantSSN = $_GET['claimantSSN'];
 	            $serverName = "Assessor";
             $uid = "zhdllwyc";
             $pwd = 'A$$essortrain123';
@@ -32,37 +32,34 @@
                 "Database"=>$databaseName);
 
             // /* Connect using SQL Server Authentication. */
-            // $conn = sqlsrv_connect( $serverName, $connectionInfo);
+             $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-            // $tsql = "SELECT AIN, Street_Number, Street_Name, City, State, Zip, Suffix, Suite, Direction FROM temp_property_table WHERE AIN=".$AIN;
+            $tsql = "SELECT claimant, claimantSSN, spouse, spouseSSN, mailingStName, mailingApt, mailingCity, mailingState, mailingZip FROM claimant_table WHERE claimantSSN=".$claimantSSN;
 
             // /* Execute the query. */
 
-            // $stmt = sqlsrv_query( $conn, $tsql);
+            $stmt = sqlsrv_query( $conn, $tsql);
 
-            // if ( $stmt )
-            // {
-            // 	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-	           //  {
-	           //      echo "".$row[1]."\n";
-	           //      echo " ".$row[2]."\n".$row[6];
-	           //      echo ",".$row[3]."\n";
-	           //      echo ",".$row[4]."\n";
-	           //      echo ",".$row[5]."<br><br><hr>";
-	           //      echo "AIN: ".$row[0]."<br>";
-	           //      echo "Street_Number: ".$row[1]."<br>";
-	           //      echo "Street_Name: ".$row[2]."<br>";
-	           //      echo "City: ".$row[3]."<br>";
-	           //      echo "State: ".$row[4]."<br>";
-	           //      echo "Zip: ".$row[5]."<br>";
-	           //      echo "Suffix: ".$row[6]."<br>";
-	           //  }
-            // }
-            // else
-            // {
-            //     echo "Error in statement execution.\n";
-            //     die( print_r( sqlsrv_errors(), true));
-            // }
+            if ( $stmt )
+            {
+            	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+	            {
+	                echo "Claimant: ".$row[0]."<br>";
+	                echo "claimantSSN: ".$row[1]."<br>";
+	                echo "spouse: ".$row[2]."<br>";
+	                echo "spouseSSN: ".$row[3]."<br>";
+	                echo "mailingStName: ".$row[4]."<br>";
+	                echo "mailingApt: ".$row[5]."<br>";
+	                echo "mailingCity: ".$row[6]."<br>";
+	                echo "mailingState: ".$row[7]."<br>";
+	                echo "mailingZip: ".$row[8]."<br>";
+	            }
+            }
+            else
+            {
+                echo "Error in statement execution.\n";
+                die( print_r( sqlsrv_errors(), true));
+            }
 ?>
 
 <hr>

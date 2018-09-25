@@ -34,7 +34,7 @@
             /* Connect using SQL Server Authentication. */
             $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-            $tsql = "SELECT claimID, claimant, claimantDOB, claimantSSN, spouse, spouseDOB, spouseSSN, currentAPN, dateAcquired, dateOccupied, currentStNum, currentStName, currentCity, currentZip, priorAPN, dateMovedOut, priorStNum, priorStName, priorCity, priorZip, rollTaxYear, exemptRE, suppTaxYear, exemptRE2, claimAction, findingReason, claimReceived, supervisorWorkload, staffReview, staffReviewDate, supervisorReview, caseClosed FROM claim_table WHERE claimID=".$claimID;
+            $tsql = "SELECT claimID, claimant, claimantSSN, spouse, spouseSSN, currentAPN, dateAcquired, dateOccupied, currentStName, currentCity, currentZip, priorAPN, dateMovedOut, priorStName, priorCity, priorZip, rollTaxYear, exemptRE, suppTaxYear, exemptRE2, claimAction, findingReason, claimReceived, supervisorWorkload, staffReview, staffReviewDate, supervisorReview, caseClosed FROM claim_table WHERE claimID=".$claimID;
 
             /* Execute the query. */
 
@@ -46,30 +46,26 @@
 	            {
 	                echo "claimID: ".$row[0]."<br>";
 	                echo "claimant: ".$row[1]."<br>";
-	                //echo "claimantDOB: ".$row[2]."<br>";
-	                echo "claimantSSN: ".$row[3]."<br>";
-	                echo "spouse: ".$row[4]."<br>";
-	                //echo "spouseDOB: ".$row[5]."<br>";
-	                echo "spouseSSN: ".$row[6]."<br>";
-                  echo "currentAPN: ".$row[7]."<br>";
+	                echo "claimantSSN: ".$row[2]."<br>";
+	                echo "spouse: ".$row[3]."<br>";
+	                echo "spouseSSN: ".$row[4]."<br>";
+                  echo "currentAPN: ".$row[5]."<br>";
                   //echo "dateAcquired: ".$row[8]."<br>";
                   //echo "dateOccupied: ".$row[9]."<br>";
-                  echo "currentStNum: ".$row[10]."<br>";
-                  echo "currentStName: ".$row[11]."<br>";
-                  echo "currentCity: ".$row[12]."<br>";
-                  echo "currentZip: ".$row[13]."<br>";
-                  echo "priorAPN: ".$row[14]."<br>";
-                  //echo "dateMovedOut: ".$row[15]."<br>";
-                  echo "priorStNum: ".$row[16]."<br>";
-                  echo "priorStName: ".$row[17]."<br>";
-                  echo "priorCity: ".$row[18]."<br>";
-                  echo "priorZip: ".$row[19]."<br>";
-                  echo "rollTaxYear: ".$row[20]."<br>";
-                  echo "exemptRE: ".$row[21]."<br>";
-                  echo "suppTaxYear: ".$row[22]."<br>";
-                  echo "exemptRE2: ".$row[23]."<br>";
-                  echo "claimAction: ".$row[24]."<br>";
-                  echo "findingReason: ".$row[25]."<br>";
+                  echo "currentStName: ".$row[8]."<br>";
+                  echo "currentCity: ".$row[9]."<br>";
+                  echo "currentZip: ".$row[10]."<br>";
+                  echo "priorAPN: ".$row[11]."<br>";
+                  //echo "dateMovedOut: ".$row[13]."<br>";
+                  echo "priorStName: ".$row[13]."<br>";
+                  echo "priorCity: ".$row[14]."<br>";
+                  echo "priorZip: ".$row[15]."<br>";
+                  echo "rollTaxYear: ".$row[16]."<br>";
+                  echo "exemptRE: ".$row[17]."<br>";
+                  echo "suppTaxYear: ".$row[18]."<br>";
+                  echo "exemptRE2: ".$row[19]."<br>";
+                  echo "claimAction: ".$row[20]."<br>";
+                  echo "findingReason: ".$row[21]."<br>";
                   //echo "claimReceived: ".$row[26]."<br>";
                   //echo "supervisorWorkload: ".$row[27]."<br>";
                   //echo "staffReview: ".$row[28]."<br>";

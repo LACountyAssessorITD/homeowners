@@ -52,7 +52,7 @@
 
 	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	{
-		echo "<a href='claimhistory.php?claimID=".$row[0]."'>Claim ID#=".$row[0]."</a>____<a href='personhistory.php?SSN=".$row[2]."'>PersonID=".$row[1]."-".$row[2]."</a>____<a href='propertyhistory.php?AIN=".$row[3]."'>PropertyID=".$row[3]."</a> " ;
+		echo "<a href='claimhistory.php?claimID=".$row[0]."'>Claim ID#=".$row[0]."</a>____<a href='personhistory.php?claimantSSN=".$row[2]."'>SSN=".$row[2]."</a>____<a href='propertyhistory.php?AIN=".$row[3]."'>PropertyID=".$row[3]."</a> " ;
 	}
 
 	/* Free statement and connection resources. */
