@@ -12,9 +12,27 @@
 		echo "Could not connect.\n";
 		die(print_r( sqlsrv_errors(), true));
 	}
+	
+	$homeownerName = $_GET(['homeownerLastname'])+" "+$_GET(['homeownerFirstname']);
 
+	echo "<script>console.log(".$homeownerName+")</script>";
 
-	$homeownerSSN = intval($_GET['homeownerSSN']);;
+	$homeownerSSN = intval($_GET['homeownerSSN']);
+	$spouseName = $_GET(['spouseLastname'])+" "+$_GET(['spouseFirstname']);
+	$spouseSSN = intval($_GET['spouseSSN']);
+	$propertyAIN = intval($_GET['propertyAIN']);
+	$propertyVacated = $_GET['propertyVacated'];
+	$propertyAquired = $_GET['propertyAquired'];
+	$propertyOccupied = $_GET['propertyOccupied'];
+	$propertyAddress = $_GET['propertyAddress'];
+	$propertyApartment = $_GET['propertyApartment'];
+	$propertyCity = $_GET['propertyCity'];
+	$propertyState = $_GET['propertyState'];
+	$propertyZIP = intval($_GET['propertyZIP']);
+	$claimNumber = intval($_GET['claimNumber']);
+	$taxYear = $_GET['taxYear'];
+	
+	
 	//FOR TESTING PURPOSES: I WILL ONLY USE THE CLAIMANT, AND USE THE CLAIM TABLE FROM WRITE_CLAIM.PHP
 	$sql = "SELECT claimID, claimant, claimantSSN, currentAPN  FROM dbo.claim_table WHERE claimantSSN = '$homeownerSSN'";
 	/*
