@@ -11,10 +11,10 @@
 </head>
 <body>
   <ul>
-  <li><a href="home.php">Home</a></li>
-  <li><a href="claim.php">Claim</a></li>
-  <li><a href="HomeownerInformation.php">Advanced Search</a></li>
-  <li><a href="indexv2.php">Logout</a></li>
+  <li><a href="home_page.php">Home</a></li>
+  <li><a href="create_claim_page.php">Claim</a></li>
+  <li><a href="advanced_search_page.php">Advanced Search</a></li>
+  <li><a href="index.php">Logout</a></li>
 </ul>
 
 

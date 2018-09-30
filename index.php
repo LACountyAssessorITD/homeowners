@@ -50,7 +50,7 @@
 		<div class="row">
 			<div class="col" id="form-col">
 				<!-- LDAP/login.php -->
-				<form id="login-form" action="home.php" method="post">
+				<form id="login-form" action="home_page.php" method="post">
 					<div class="form-group">
 						<label for="username">Username:</label>
 						<input class="form-control" id="username" name="username" placeholder="Your Employee ID" type="text">
