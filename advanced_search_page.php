@@ -46,10 +46,10 @@
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("infoLookup").innerHTML = this.responseText;
+                    document.getElementById("search").innerHTML = this.responseText;
                 }
             };
-            xmlhttp.open("GET", "InfoLookup.php?homeownerFirstname="+homeownerFirstname
+            xmlhttp.open("GET", "search.php?homeownerFirstname="+homeownerFirstname
                     + "&homeownerLastname=" + homeownerLastname
                     + "&homeownerSSN=" + homeownerSSN
                     + "&spouseFirstname=" + spouseFirstname
@@ -78,6 +78,7 @@
 <body>
 <ul>
   <li><a href="home_page.php">Home</a></li>
+  <li><a href="scan_claims_page.php">Scan Claims</a></li>
   <li><a href="create_claim_page.php">Claim</a></li>
   <li><a href="advanced_search_page.php">Advanced Search</a></li>
   <li><a href="index.php">Logout</a></li>
