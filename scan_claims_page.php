@@ -41,22 +41,18 @@ session_start();
 			  <option value="Closed">Closed</option>
 			  <option value="Preprint Sent">Preprint Sent</option>
 			</select>
-			<form id="login-form" action="" method="post">
+			<form id="login-form" action="write_scanned_claims.php" method="post">
 				<div class="form-group p-1">
-					<!-- personal info row -->
-					<div>
-						<h5>Scan Claims</h5>
-					</div>
-					<div id="items">
-						<div class="form-row">
-							<div class="col-8 form-group required">
-								<p>Claim IDs:</p>
-								<textarea id="Claim_ID" rows="10" cols="50">
-								</textarea>
-							</div>
+					<div class="form-row">
+						<div class="col-8 form-group required">
+							<p>Claim IDs:</p>
+							<textarea id="claimID" name="claimID" rows="10" cols="50">
+							</textarea>
 						</div>
-						<div id="reset" class="btn btn-danger">Reset</div>
-						<div id="process" class="btn btn-secondary">Process</div>
+					</div>
+					<div id="options">
+						<button type="submit" class="btn btn-danger">Process</button>
+						<div id="reset" class="btn btn-secondary">Reset</div>
 					</div>
 				</div>
 			</form>
@@ -67,10 +63,8 @@ session_start();
 <script type="text/javascript">
 //when the reset Field button is clicked
 $("#reset").click(function () {
-	console.log("clicked");
-});
-$("#process").click(function () {
-	console.log("clicked");
+	$("#Claim_ID").val('');
+	console.log("reset");
 });
 </script>
 </body>
