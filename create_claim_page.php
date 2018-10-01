@@ -4,7 +4,7 @@ session_start();
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Claim Page</title>
+	<title>File a HOX Claim</title>
 
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -13,9 +13,14 @@ session_start();
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="styles/home-style.css">
-
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 
 </head>
 
@@ -61,6 +66,29 @@ session_start();
 					</div>
 				</div>
 				<hr class="my-4">
+
+				<!-- AIN lookup -->
+				<div class="form-group row p-1">
+					<label for="AINSearchInput" class="col-auto col-form-label">
+						<h4>Enter AIN here to search for a match:</h4>
+					</label>
+					<div class="col-9 col-sm-9 col-md-4">
+						<input class="form-control" id="AINSearchInput" name="AINSearchInput" placeholder="1234567890" type="number" min="0" data-bind="value:AINSearchInput">
+						<!--div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text"><i class="fas fa-search"></i></div>
+							</div>
+							<input class="form-control" id="AINSearchInput" name="AINSearchInput" placeholder="1234567890" type="number" min="0" data-bind="value:AINSearchInput">
+						</div-->
+					</div>
+					<div class="col-auto">
+						<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2">Search</button>
+					</div>
+				</div>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" id="searchAlert">
+					<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+					<button type="button" class="close" data-hide="alert">&times;</button>
+				</div>
 
 				<!-- situs info row -->
 				<div class="form-row"> 
@@ -459,6 +487,19 @@ session_start();
 		document.getElementById("mailingState").disabled = !this.checked;
 		document.getElementById("mailingZip").disabled = !this.checked;
 	};
+
+	$('#searchAlert').hide();
+
+	document.getElementById("AINSearchBtn").onclick = function() {
+		$('#searchAlert').show();
+	};
+
+	// for re-showing alert
+	$(function(){
+	    $("[data-hide]").on("click", function(){
+	        $(this).closest("." + $(this).attr("data-hide")).hide();
+	    });
+	});
 </script>
 </body>
 </html>
