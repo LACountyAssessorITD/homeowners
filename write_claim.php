@@ -59,14 +59,14 @@
 
 	/* query building */
 	$claim_query = "INSERT INTO dbo.claim_table
-			(claimant,claimantSSN,spouse,spouseSSN,currentAPN,dateAcquired,dateOccupied,
+			(claimID, claimant,claimantSSN,spouse,spouseSSN,currentAPN,dateAcquired,dateOccupied,
 			currentStName,currentApt,currentCity,currentState,currentZip,
 			mailingStName,mailingApt,mailingCity,mailingState,mailingZip,
 			priorAPN,dateMovedOut,priorStName,priorApt,priorCity,priorState,priorZip,
 			rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,claimReceived,
 			supervisorWorkload,staffReview,staffReviewDate,supervisorReview,caseClosed)
-			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	$claim_params = array($_POST['claimant'],$_POST['claimantSSN'],$spouse,$spouseSSN,
+			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	$claim_params = array((int)$_POST['claimID'],$_POST['claimant'],$_POST['claimantSSN'],$spouse,$spouseSSN,
 			$_POST['currentAPN'],$_POST['dateAcquired'],$_POST['dateOccupied'],$_POST['currentStName'],
 			$_POST['currentApt'],$_POST['currentCity'],$_POST['currentState'],$_POST['currentZip'],
 			$mailingStName,$mailingApt,$mailingCity,$mailingState,$mailingZip,
@@ -93,9 +93,9 @@
 
 
 	$claims_list_query = "INSERT INTO dbo.claims_list
-			(AIN,claimantSSN)
-			VALUES(?,?)";
-	$claims_list_params = array($_POST['currentAPN'],$_POST['claimantSSN']);
+			(claimID, AIN,claimantSSN)
+			VALUES(?, ?,?)";
+	$claims_list_params = array($_POST['claimID'], $_POST['currentAPN'],$_POST['claimantSSN']);
 
 	/* Execute the query. */                  
 	$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);

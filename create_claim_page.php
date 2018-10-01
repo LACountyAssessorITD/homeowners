@@ -45,7 +45,11 @@ session_start();
 						<h5>Personal Information</h5>
 					</div>
 					<div class="form-row">
-						<div class="col-4 form-group required">
+						<div class="col-2 form-group required">
+							<label for="claimID">ClaimID:</label>
+							<input class="form-control" id="claimID" name="claimID" placeholder="1234567" type="text">
+						</div>
+						<div class="col-2 form-group required">
 							<label for="claimant">Claimant:</label>
 							<input class="form-control" id="claimant" name="claimant" placeholder="Last, First Middle" type="text">
 						</div>
