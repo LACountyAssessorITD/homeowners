@@ -70,7 +70,7 @@ session_start();
 				<!-- AIN lookup -->
 				<div class="form-group row p-1">
 					<label for="AINSearchInput" class="col-auto col-form-label">
-						<h4>Enter AIN here to search for a match:</h4>
+						<h4 id="searchText">Enter AIN here to search for a match:</h4>
 					</label>
 					<div class="col-9 col-sm-9 col-md-4">
 						<input class="form-control" id="AINSearchInput" name="AINSearchInput" placeholder="1234567890" type="number" min="0" data-bind="value:AINSearchInput">
@@ -85,8 +85,10 @@ session_start();
 						<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2">Search</button>
 					</div>
 				</div>
-				<div class="alert alert-warning alert-dismissible fade show" role="alert" id="searchAlert">
-					<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+				<div class="alert alert-warning alert-dismissible collapse" role="alert" id="searchAlert">
+					<div id="alertMsg">
+						<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+					</div>
 					<button type="button" class="close" data-hide="alert">&times;</button>
 				</div>
 
@@ -480,6 +482,7 @@ session_start();
 
 <!-- Custom JS -->
 <script type="text/javascript">
+	// enable input for mailing if box is checked
 	document.getElementById("enableMailing").onchange = function() {
 		document.getElementById("mailingStName").disabled = !this.checked;
 		document.getElementById("mailingApt").disabled = !this.checked;
@@ -488,18 +491,42 @@ session_start();
 		document.getElementById("mailingZip").disabled = !this.checked;
 	};
 
-	$('#searchAlert').hide();
+	// for re-showing alert
+	$(function(){
+		$("[data-hide]").on("click", function(){
+			$(this).closest("." + $(this).attr("data-hide")).hide();
+		});
+	});
 
+	// if i can do all the db calling in js that would be great
 	document.getElementById("AINSearchBtn").onclick = function() {
+		var ainValue = document.getElementById("AINSearchInput").value;
+
+		// PHP AJAX
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				$('#searchText').text(this.responseText);
+			}
+		};
+		xmlhttp.open("GET", "ainlookup.php?ain="+ainValue,true);
+		xmlhttp.send();
+
+		var ownerName = "mhe";
+
+
+		var failMsg = "No match was found in database."
+		var successMsg = "Match found. Homeowner name on file: ";
+
+		if (true) {
+			$('#alertMsg').html(successMsg+"<strong>"+ownerName+"</strong>");
+		} else {
+			$('#alertMsg').html("<strong>"+failMsg+"</strong>");
+		}
+		
 		$('#searchAlert').show();
 	};
 
-	// for re-showing alert
-	$(function(){
-	    $("[data-hide]").on("click", function(){
-	        $(this).closest("." + $(this).attr("data-hide")).hide();
-	    });
-	});
 </script>
 </body>
 </html>
