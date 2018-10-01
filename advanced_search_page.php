@@ -25,15 +25,16 @@
             //TODO: There should be some error checking to make sure no important fields are empty
           	e.preventDefault();
 
+
           	var homeownerFirstname = document.getElementById("homeownerFirstname").value;
-          	var homeownerLastname = document.getElementById("homeownerLastname").value;
+          	// var homeownerLastname = document.getElementById("homeownerLastname").value;
           	var homeownerSSN = document.getElementById("homeownerSSN").value;
           	var spouseFirstname = document.getElementById("spouseFirstname").value;
-          	var spouseLastname = document.getElementById("spouseLastname").value;
+          	// var spouseLastname = document.getElementById("spouseLastname").value;
           	var spouseSSN = document.getElementById("spouseSSN").value;
           	var propertyAIN = document.getElementById("propertyAIN").value;
           	var propertyVacated = document.getElementById("propertyVacated").value;
-          	var propertyAquired = document.getElementById("propertyAquired").value;
+          	var propertyAcquired = document.getElementById("propertyAcquired").value;
           	var propertyOccupied = document.getElementById("propertyOccupied").value;
           	var propertyAddress = document.getElementById("propertyAddress").value;
           	var propertyApartment = document.getElementById("propertyApartment").value;
@@ -43,6 +44,13 @@
           	var claimNumber = document.getElementById("claimNumber").value;
           	var taxYear = document.getElementById("taxYear").value;
 
+          	console.log("Property state: " + propertyState);
+          	console.log("Date Acquire: " + propertyAcquired);
+          	console.log("Date Occupied:x" + propertyOccupied);
+
+
+
+
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -50,14 +58,14 @@
                 }
             };
             xmlhttp.open("GET", "search.php?homeownerFirstname="+homeownerFirstname
-                    + "&homeownerLastname=" + homeownerLastname
+                    // + "&homeownerLastname=" + homeownerLastname
                     + "&homeownerSSN=" + homeownerSSN
                     + "&spouseFirstname=" + spouseFirstname
-                    + "&spouseLastname=" + spouseLastname
+                    // + "&spouseLastname=" + spouseLastname
                     + "&spouseSSN=" + spouseSSN
                     + "&propertyAIN=" + propertyAIN
                     + "&propertyVacated=" + propertyVacated
-                    + "&propertyAquired=" + propertyAquired
+                    + "&propertyAcquired=" + propertyAcquired
                     + "&propertyOccupied=" + propertyOccupied
                     + "&propertyAddress=" + propertyAddress
                     + "&propertyApartment=" + propertyApartment
@@ -98,14 +106,16 @@
 					<h1>Advanced Search</h1>
 					<div class="form-row">
 						<div class="col form-group required">
-							<label for="homeownerFirstname">Homeowner First Name:</label>
-							<input class="form-control" id="homeownerFirstname" name="homeownerFirstname" placeholder="" type="text">
+							<label for="homeownerFirstname">Homeowner Name:</label>
+							<input class="form-control" id="homeownerFirstname" name="homeownerFirstname" placeholder="Last, First Middle" type="text">
 						</div>
+<!-- 
 						<div class="col form-group required">
 							<label for="homeownerLastname" class="control-label">Homeowner Last Name:</label>
 							<input class="form-control" id="homeownerLastname" name="homeownerLastname" placeholder="" type="text">
 						</div>
-						<div class="col form-group required">
+						 -->
+						<div class="col-2 form-group required">
 							<label for="homeownerSSN" class="control-label">SSN:</label>
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="homeownerSSN" name="homeownerSSN" placeholder="" type="number" min="0" data-bind="value:homeownerSSN">
@@ -115,14 +125,16 @@
 					<h6>Spouse/Partner Information (If applicable)</h5>
 					<div class="form-row">
 						<div class="col form-group">
-							<label for="spouseFirstname">Spouse First Name:</label>
-							<input class="form-control" id="spouseFirstname" name="spouseFirstname" placeholder="" type="text">
+							<label for="spouseFirstname">Spouse Name:</label>
+							<input class="form-control" id="spouseFirstname" name="spouseFirstname" placeholder="Last, First Middle" type="text">
 						</div>
+<!-- 
 						<div class="col form-group">
 							<label for="spouseLastname" class="control-label">Spouse Last Name:</label>
 							<input class="form-control" id="spouseLastname" name="spouseLastname" placeholder="" type="text">
 						</div>
-						<div class="col form-group">
+						 -->
+						<div class="col-2 form-group">
 							<label for="spouseSSN" class="control-label">SSN:</label>
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="spouseSSN" name="spouseSSN" placeholder="" type="number" min="0" data-bind="value:spouseSSN">
@@ -145,8 +157,8 @@
 							<input class="form-control" id="propertyVacated" name="propertyVacated" placeholder="" type="date">
 						</div>
 						<div class="col form-group required">
-							<label for="propertyAquired">Date Aquired:</label>
-							<input class="form-control" id="propertyAquired" name="propertyAquired" placeholder="" type="date">
+							<label for="propertyAcquired">Date Acquired:</label>
+							<input class="form-control" id="propertyAcquired" name="propertyAcquired" placeholder="" type="date">
 						</div>
 						<div class="col form-group required">
 							<label for="propertyOccupied">Date Occupied:</label>
