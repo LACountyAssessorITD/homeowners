@@ -34,7 +34,7 @@
             /* Connect using SQL Server Authentication. */
             $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-            $tsql = "SELECT AIN, Street_Number, Street_Name, City, State, Zip, Suffix, Suite, Direction FROM temp_property_table WHERE AIN=".$AIN;
+            $tsql = "SELECT AIN, streetName, apt, city, state, zip, ownerName FROM property_table WHERE AIN=".$AIN;
 
             /* Execute the query. */
 
@@ -44,18 +44,13 @@
             {
             	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	            {
-	                echo "".$row[1]."\n";
-	                echo " ".$row[2]."\n".$row[6];
-	                echo ",".$row[3]."\n";
-	                echo ",".$row[4]."\n";
-	                echo ",".$row[5]."<br><br><hr>";
 	                echo "AIN: ".$row[0]."<br>";
-	                echo "Street_Number: ".$row[1]."<br>";
-	                echo "Street_Name: ".$row[2]."<br>";
+	                echo "Street: ".$row[1]."<br>";
+	                echo "Apt: ".$row[2]."<br>";
 	                echo "City: ".$row[3]."<br>";
 	                echo "State: ".$row[4]."<br>";
 	                echo "Zip: ".$row[5]."<br>";
-	                echo "Suffix: ".$row[6]."<br>";
+	                echo "Owner: ".$row[6]."<br>";
 	            }
             }
             else

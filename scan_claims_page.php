@@ -32,7 +32,6 @@ session_start();
 	</div>
 	<div class="row">
 		<div class="col" id="form-col">
-			<div id="add" class="btn btn-primary">+</div>
 			<select>
 			  <option value="Claim Received">Claim Received</option>
 			  <option value="Supervisor Workload">Supervisor Workload</option>
@@ -42,7 +41,6 @@ session_start();
 			  <option value="Closed">Closed</option>
 			  <option value="Preprint Sent">Preprint Sent</option>
 			</select>
-			<div id="add" class="btn btn-secondary">Process</div>
 			<form id="login-form" action="" method="post">
 				<div class="form-group p-1">
 					<!-- personal info row -->
@@ -51,11 +49,14 @@ session_start();
 					</div>
 					<div id="items">
 						<div class="form-row">
-							<div class="col-4 form-group required">
-								<label for="Claim ID">Claim ID:</label>
-								<input class="id" id="Claim_ID" name="Claim ID" placeholder="" type="text">
+							<div class="col-8 form-group required">
+								<p>Claim IDs:</p>
+								<textarea id="Claim_ID" rows="10" cols="50">
+								</textarea>
 							</div>
 						</div>
+						<div id="reset" class="btn btn-danger">Reset</div>
+						<div id="process" class="btn btn-secondary">Process</div>
 					</div>
 				</div>
 			</form>
@@ -64,16 +65,12 @@ session_start();
 </div> <!-- end container -->
 <!-- Custom JS -->
 <script type="text/javascript">
-//when the Add Field button is clicked
-$("#add").click(function () {
+//when the reset Field button is clicked
+$("#reset").click(function () {
 	console.log("clicked");
-//Append a new row of code to the "#items" div
-  $("#items").append('<div class="form-row">'+
-							'<div class="col-4 form-group required">'+
-								'<label for="Claim ID">Claim ID:</label>'+
-								'<input class="id" id="Claim_ID" name="Claim ID" placeholder="" type="text">'+
-							'</div>'+
-						'</div>');
+});
+$("#process").click(function () {
+	console.log("clicked");
 });
 </script>
 </body>
