@@ -91,7 +91,6 @@ session_start();
 				</div>
 				<div class="alert alert-warning alert-dismissible collapse" role="alert" id="searchAlert">
 					<div id="alertMsg">
-						<strong>Holy guacamole!</strong> You should check in on some of those fields below.
 					</div>
 					<button type="button" class="close" data-hide="alert">&times;</button>
 				</div>
@@ -508,33 +507,29 @@ session_start();
 
 		var failMsg = "No match was found in database."
 		var successMsg = "Match found. Homeowner name on file: ";
-
-		/*
 		var ainValue = document.getElementById("AINSearchInput").value;
 
-		// PHP AJAX
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				$('#searchText').text(this.responseText);
-			}
-		};
-		xmlhttp.open("GET", "ainlookup.php?ain="+ainValue,true);
-		xmlhttp.send();
-		*/
+		var request = new XMLHttpRequest();
+		request.overrideMimeType("application/json");
+		request.open("GET", "ainlookup.php?ain="+ainValue,true);
 
-		var query = "ain=" + encodeURIComponent($("#AINSearchInput").val());
+		request.onload = function () {
+			// begin accessing JSON data here
+			// console.log(this.response);
+			var jsonResponse = JSON.parse(this.response);
+			console.log(jsonResponse);
 
-		$.getJSON("ainlookup.php", query, function(data) {
-			$('#searchText').text("working");
-			if (data.available == "yes") {
-				//$("#unavailError").show();
-				$('#alertMsg').html(successMsg+"<strong>"+ownerName+"</strong>");
-			}
-			else {
+			// $('#searchText').text("working");
+			if (jsonResponse == null || jsonResponse == "null") {
 				$('#alertMsg').html("<strong>"+failMsg+"</strong>");
 			}
-		});
+			else {
+				$('#alertMsg').html(successMsg+"<strong>"+ownerName+"</strong>");
+			}
+			
+		}
+		request.send();
+
 		
 		$('#searchAlert').show();
 	};
