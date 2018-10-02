@@ -102,15 +102,27 @@
 		$populated = True;
 	}
 
-
-
 	//grab this from dbo.claims_list TODO
-	// $propertyAIN = intval($_GET['propertyAIN']);
-	// if($propertyAIN !empty){
-	// 	$sql_2= $sql_2." AIN = '$propertyAIN'";
-	// 	$populated2 = True;
-	// }
+	$sql_2 = NULL;
+	$exists_AIN = true;
+	$propertyAIN = intval($_GET['propertyAIN']);
+	if(!empty($propertyAIN)){
+		$sql_2= "SELECT claimID FROM dbo.claim_table WHERE AIN = '$propertyAIN'";
+	}
+	if(!is_null($sql_2)){
+		$stmt = sqlsrv_query( $conn, $sql );
 
+		if( $stmt === false) {
+	    	die();
+		}else{
+			$row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC);
+			if(!$row){
+				$exists_AIN = false;
+			}else{
+				// $exists_AIN=true; //true by default
+			}
+		}
+	}
 	//Unsure/unstated properties in the tables: TODO
 	// $propertyVacated = $_GET['propertyVacated'];
 	// if($propertyVacated !empty){
@@ -124,8 +136,6 @@
 	// }
 
 	$stmt = sqlsrv_query( $conn, $sql );
-
-	$sql = "SELECT FirstName, LastName FROM SomeTable";
 
 	if( $stmt === false) {
     	die();
@@ -141,12 +151,12 @@
 	}
 
 	session_start();
-
-	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-	{
-		echo "<a href='claim_page.php?claimID=".$row[0]."'>Claim ID#=".$row[0]."</a>____<a href='person_page.php?claimantSSN=".$row[2]."'>SSN=".$row[2]."</a>____<a href='property_page.php?AIN=".$row[3]."'>PropertyID=".$row[3]."</a><br>" ;
-	}
-
+	if(is_null($sql_2) || $exists_AIN){
+		while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+		{
+			echo "<a href='claim_page.php?claimID=".$row[0]."'>Claim ID#=".$row[0]."</a>____<a href='person_page.php?claimantSSN=".$row[2]."'>SSN=".$row[2]."</a>____<a href='property_page.php?AIN=".$row[3]."'>PropertyID=".$row[3]."</a><br>" ;
+		}
+	}	
 	/* Free statement and connection resources. */
 	sqlsrv_free_stmt( $stmt);
 	sqlsrv_close( $conn);
