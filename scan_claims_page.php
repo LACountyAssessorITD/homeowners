@@ -28,20 +28,33 @@ session_start();
 </ul>
 <div class="container rounded col-12 p-3" id="signin-container">
 	<div class="row">
-		<h1 class="col" style="padding-bottom: 20px;">Scan Claims Page</h1>
+		<h1 class="col" style="padding-bottom: 20px;">Scan Claims</h1>
 	</div>
 	<div class="row">
 		<div class="col" id="form-col">
-			<select>
-			  <option value="Claim Received">Claim Received</option>
-			  <option value="Supervisor Workload">Supervisor Workload</option>
-			  <option value="Staff Review">Staff Review</option>
-			  <option value="Supervisor Review">Supervisor Review</option>
-			  <option value="Hold">Hold</option>
-			  <option value="Closed">Closed</option>
-			  <option value="Preprint Sent">Preprint Sent</option>
-			</select>
 			<form id="login-form" action="write_scanned_claims.php" method="post">
+				<div class="col-2 form-group required">
+					<span>Assign To:</span>
+					<select id="assign" name="assign">
+					  <option value="Nick">Nick</option>
+					  <option value="Molly">Molly</option>
+					  <option value="Henry">Henry</option>
+					  <option value="Aneesh">Aneesh</option>
+					</select>
+				</div>
+				<span>Claim Status:</span>
+				<select id="option" name="option">
+				  <option value="Claim Received">Claim Received</option>
+				  <option value="Supervisor Workload">Supervisor Workload</option>
+				  <option value="Staff Review">Staff Review</option>
+				  <option value="Supervisor Review">Supervisor Review</option>
+				  <option value="Hold">Hold</option>
+				  <option value="Closed">Closed</option>
+				  <option value="Preprint Sent">Preprint Sent</option>
+				</select>
+				<br>
+				<hr>
+				<br>
 				<div class="form-group p-1">
 					<div class="form-row">
 						<div class="col-8 form-group required">
@@ -63,7 +76,7 @@ session_start();
 <script type="text/javascript">
 //when the reset Field button is clicked
 $("#reset").click(function () {
-	$("#Claim_ID").val('');
+	$("#claimID").val('');
 	console.log("reset");
 });
 </script>

@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,11 +49,14 @@
 
             /* Iterate through the result set printing a row of data upon each iteration.*/
             $loggedIn='false';
-            while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-            {
-                if(strcmp($_POST["username"], $row[1])==0){
-                    if(strcmp($_POST["password"], $row[2])==0){
-                        $loggedIn='true';
+            if(!$_SESSION["loggedIn"]){
+                while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+                {
+                    if(strcmp($_POST["username"], $row[1])==0){
+                        if(strcmp($_POST["password"], $row[2])==0){
+                            $_SESSION["loggedIn"] = true;
+                            $loggedIn='true';
+                        }
                     }
                 }
             }
@@ -59,7 +65,7 @@
             //  so login page displays errer message
             //commented this out cause im testing single sign on
 
-            if ($loggedIn != "true") {
+            if (!$_SESSION["loggedIn"]) {
                 $url = "index.php?loginfail=true";
                 header("Location:" . $url);
                 exit();
