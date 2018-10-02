@@ -215,7 +215,7 @@
 					</div>
 					<!--  -->
 				</form> <!-- end form -->
-				<div id="search"></div>
+				<div id="search" class="container rounded"></div>
 			</div>
 		</div> <!-- end row -->
 	</div> <!-- end container -->

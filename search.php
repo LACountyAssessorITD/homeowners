@@ -142,7 +142,7 @@
 	}
 
 	if($stmt){
-     	echo "Results:<br>\n";
+     	echo "<h5 class='col'>Results:</h5><br>\n";
 	}
 	else
 	{
@@ -154,7 +154,7 @@
 	if(is_null($sql_2) || $exists_AIN){
 		while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 		{
-			echo "<a href='claim_page.php?claimID=".$row[0]."'>Claim ID#=".$row[0]."</a>____<a href='person_page.php?claimantSSN=".$row[2]."'>SSN=".$row[2]."</a>____<a href='property_page.php?AIN=".$row[3]."'>PropertyID=".$row[3]."</a><br>" ;
+			echo "<a href='claim_page.php?claimID=".$row[0]."' class='col-sm-4'>Claim ID#=".$row[0]."</a><a href='person_page.php?claimantSSN=".$row[2]."' class='col-sm-4'>SSN=".$row[2]."</a><a href='property_page.php?AIN=".$row[3]."' class='col-sm-4'>PropertyID=".$row[3]."</a><br>" ;
 		}
 	}	
 	/* Free statement and connection resources. */
