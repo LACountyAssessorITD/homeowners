@@ -503,8 +503,6 @@ session_start();
 
 	// if i can do all the db calling in js that would be great
 	document.getElementById("AINSearchBtn").onclick = function() {
-		var ownerName = "mhe";
-
 		var failMsg = "No match was found in database."
 		var successMsg = "Match found. Homeowner name on file: ";
 		var ainValue = document.getElementById("AINSearchInput").value;
@@ -516,17 +514,52 @@ session_start();
 		request.onload = function () {
 			// begin accessing JSON data here
 			// console.log(this.response);
-			var jsonResponse = JSON.parse(this.response);
-			console.log(jsonResponse);
+			if (this.response!=null) {
+				var jsonResponse = JSON.parse(this.response);
+				console.log(jsonResponse);
 
-			// $('#searchText').text("working");
-			if (jsonResponse == null || jsonResponse == "null") {
+				if (jsonResponse["hasData"]=="true") {
+					// valid data
+					// set form input val to jsonResponse
+					// ["4109018003","211060850",7000,"7918"," ","COWAN AVE"," "," ","LOS ANGELES CA","CA","900451139",null,null,null,null,null,null,"SHIKIAR,ANDREW AND"]
+					$('#currentAPN').val(jsonResponse["AIN"]);
+					$('#rollTaxYear').val(jsonResponse["RecDate"]);
+					$('#exemptRE').val(jsonResponse["HOXAmount"]);
+
+					var streetAddr = jsonResponse["SitusHouseNo"] + " " + jsonResponse["SitusStreet"];
+					$('#currentStName').val(streetAddr);
+					$('#currentApt').val(jsonResponse["SitusUnit"]);
+					$('#currentCity').val(jsonResponse["SitusCity"]);
+					$('#currentState').val(jsonResponse["SitusState"]);
+					//$('#currentAPN').val(jsonResponse["OwnerName"]);
+
+					$('#alertMsg').html(successMsg+"<strong>"+jsonResponse["OwnerName"]+"</strong>");
+				} else {
+					$('#alertMsg').html("<strong>"+failMsg+"</strong>");
+
+					// reset
+					$('#currentAPN').val('');
+					$('#rollTaxYear').val('');
+					$('#exemptRE').val('');
+					$('#currentStName').val('');
+					$('#currentApt').val('');
+					$('#currentCity').val('');
+					$('#currentState').val('');
+				}
+
+				
+			} else {
 				$('#alertMsg').html("<strong>"+failMsg+"</strong>");
-			}
-			else {
-				$('#alertMsg').html(successMsg+"<strong>"+ownerName+"</strong>");
-			}
-			
+
+				// reset
+				$('#currentAPN').val('');
+				$('#rollTaxYear').val('');
+				$('#exemptRE').val('');
+				$('#currentStName').val('');
+				$('#currentApt').val('');
+				$('#currentCity').val('');
+				$('#currentState').val('');
+			}	
 		}
 		request.send();
 

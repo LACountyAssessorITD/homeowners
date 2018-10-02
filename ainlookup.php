@@ -42,7 +42,25 @@
 	session_start();
 
 	$row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC);
-	$data = json_encode($row);
+	if ($row != null) {
+		$data["hasData"] = "true";
+
+		$data["AIN"] = $row[0];
+		$data["RecDate"] = $row[1];
+		$data["HOXAmount"] = $row[2];
+		$data["SitusHouseNo"] = $row[3];
+		$data["SitusFraction"] = $row[4];
+		$data["SitusStreet"] = $row[5];
+		$data["SitusDirection"] = $row[6];
+		$data["SitusUnit"] = $row[7];
+		$data["SitusCity"] = $row[8];
+		$data["SitusState"] = $row[9];
+		$data["OwnerName"] = $row[17];
+		// TODO: MAILING
+	} else {
+		$data["hasData"] = "false";
+	}
+
 
 	/* Free statement and connection resources. */
 	sqlsrv_free_stmt( $stmt);
