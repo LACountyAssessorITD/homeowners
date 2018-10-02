@@ -50,4 +50,11 @@
 	sqlsrv_free_stmt( $stmt);
 	sqlsrv_close( $conn);
 
+	// experiment
+	$data = [ 'name' => 'God', 'age' => -1 ];
+	// will encode to JSON object: {"name":"God","age":-1}  
+	// accessed as example in JavaScript like: result.name or result['name'] (returns "God")
+
+	header('Content-type: application/json');
+	echo json_encode( $data );
 ?>
