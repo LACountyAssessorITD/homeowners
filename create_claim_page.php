@@ -96,8 +96,8 @@ session_start();
 				</div>
 
 				<!-- situs info row -->
-				<div class="form-row"> 
-					<div class="form-col col p-2"> 
+				<div class="form-row">
+					<div class="form-col col p-2">
 						<div>
 							<h5>Situs Information</h5>
 						</div>
@@ -193,9 +193,9 @@ session_start();
 								<label for="dateOccupied">Date Occupied:</label>
 								<input class="form-control" id="dateOccupied" name="dateOccupied" placeholder="1/23/2000" type="date">
 							</div>
-						</div> 
+						</div>
 					</div> <!-- end situs info col -->
-					
+
 					<!-- begin mailing address col -->
 					<div class="form-col col p-2">
 						<div>
@@ -285,10 +285,10 @@ session_start();
 						</div>
 					</div> <!-- end mailing col -->
 				</div> <!-- end situs row -->
-				<hr class="my-4"> 
+				<hr class="my-4">
 
 				<!-- begin prior info row -->
-				<div class="form-row"> 
+				<div class="form-row">
 					<div class="form-col col p-2"> <!-- begin prior info col -->
 						<div>
 							<h5>Prior Address (If applicable)</h5>
@@ -503,8 +503,6 @@ session_start();
 
 	// if i can do all the db calling in js that would be great
 	document.getElementById("AINSearchBtn").onclick = function() {
-		var ownerName = "mhe";
-
 		var failMsg = "No match was found in database."
 		var successMsg = "Match found. Homeowner name on file: ";
 		var ainValue = document.getElementById("AINSearchInput").value;
@@ -516,21 +514,56 @@ session_start();
 		request.onload = function () {
 			// begin accessing JSON data here
 			// console.log(this.response);
-			var jsonResponse = JSON.parse(this.response);
-			console.log(jsonResponse);
+			if (this.response!=null) {
+				var jsonResponse = JSON.parse(this.response);
+				console.log(jsonResponse);
 
-			// $('#searchText').text("working");
-			if (jsonResponse == null || jsonResponse == "null") {
+				if (jsonResponse["hasData"]=="true") {
+					// valid data
+					// set form input val to jsonResponse
+					// ["4109018003","211060850",7000,"7918"," ","COWAN AVE"," "," ","LOS ANGELES CA","CA","900451139",null,null,null,null,null,null,"SHIKIAR,ANDREW AND"]
+					$('#currentAPN').val(jsonResponse["AIN"]);
+					$('#rollTaxYear').val(jsonResponse["RecDate"]);
+					$('#exemptRE').val(jsonResponse["HOXAmount"]);
+
+					var streetAddr = jsonResponse["SitusHouseNo"] + " " + jsonResponse["SitusStreet"];
+					$('#currentStName').val(streetAddr);
+					$('#currentApt').val(jsonResponse["SitusUnit"]);
+					$('#currentCity').val(jsonResponse["SitusCity"]);
+					$('#currentState').val(jsonResponse["SitusState"]);
+					//$('#currentAPN').val(jsonResponse["OwnerName"]);
+
+					$('#alertMsg').html(successMsg+"<strong>"+jsonResponse["OwnerName"]+"</strong>");
+				} else {
+					$('#alertMsg').html("<strong>"+failMsg+"</strong>");
+
+					// reset
+					$('#currentAPN').val('');
+					$('#rollTaxYear').val('');
+					$('#exemptRE').val('');
+					$('#currentStName').val('');
+					$('#currentApt').val('');
+					$('#currentCity').val('');
+					$('#currentState').val('');
+				}
+
+
+			} else {
 				$('#alertMsg').html("<strong>"+failMsg+"</strong>");
+
+				// reset
+				$('#currentAPN').val('');
+				$('#rollTaxYear').val('');
+				$('#exemptRE').val('');
+				$('#currentStName').val('');
+				$('#currentApt').val('');
+				$('#currentCity').val('');
+				$('#currentState').val('');
 			}
-			else {
-				$('#alertMsg').html(successMsg+"<strong>"+ownerName+"</strong>");
-			}
-			
 		}
 		request.send();
 
-		
+
 		$('#searchAlert').show();
 	};
 </script>
