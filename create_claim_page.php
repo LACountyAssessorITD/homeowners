@@ -525,6 +525,7 @@ session_start();
 					$('#currentAPN').val(jsonResponse["AIN"]);
 					$('#rollTaxYear').val(jsonResponse["RecDate"]);
 					$('#exemptRE').val(jsonResponse["HOXAmount"]);
+<<<<<<< HEAD
 
 					var streetAddr = jsonResponse["SitusHouseNo"] + " " + jsonResponse["SitusStreet"];
 					$('#currentStName').val(streetAddr);
@@ -533,6 +534,16 @@ session_start();
 					$('#currentState').val(jsonResponse["SitusState"]);
 					//$('#currentAPN').val(jsonResponse["OwnerName"]);
 
+=======
+
+					var streetAddr = jsonResponse["SitusHouseNo"] + " " + jsonResponse["SitusStreet"];
+					$('#currentStName').val(streetAddr);
+					$('#currentApt').val(jsonResponse["SitusUnit"]);
+					$('#currentCity').val(jsonResponse["SitusCity"]);
+					$('#currentState').val(jsonResponse["SitusState"]);
+					//$('#currentAPN').val(jsonResponse["OwnerName"]);
+
+>>>>>>> 1e7ba534602f755daa024c117e66e8039183275d
 					$('#alertMsg').html(successMsg+"<strong>"+jsonResponse["OwnerName"]+"</strong>");
 				} else {
 					$('#alertMsg').html("<strong>"+failMsg+"</strong>");
@@ -547,7 +558,11 @@ session_start();
 					$('#currentState').val('');
 				}
 
+<<<<<<< HEAD
 
+=======
+				
+>>>>>>> 1e7ba534602f755daa024c117e66e8039183275d
 			} else {
 				$('#alertMsg').html("<strong>"+failMsg+"</strong>");
 
@@ -559,7 +574,11 @@ session_start();
 				$('#currentApt').val('');
 				$('#currentCity').val('');
 				$('#currentState').val('');
+<<<<<<< HEAD
 			}
+=======
+			}	
+>>>>>>> 1e7ba534602f755daa024c117e66e8039183275d
 		}
 		request.send();
 
