@@ -76,6 +76,7 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -126,17 +127,18 @@ if(isset($_POST['submit'])){ //check if form was submitted
 				<br>
 				<hr>
 				<br>
+				<div>
+					<div id="add" class="btn btn-success">Add Input</div>
+					<button type="submit" name="submit" class="btn btn-danger">Process</button>
+					<div id="reset" class="btn btn-secondary">Reset</div>
+				</div>
+				<hr>
+				<h1>Claim ID:</h1>
 				<div class="form-group p-1">
 					<div class="form-row">
-						<div class="col-8 form-group required">
-							<p>Claim IDs:</p>
-							<textarea id="claimID" name="claimID" rows="10" cols="50">
-							</textarea>
+						<div class="col-4 form-group required" id="items">
+							<input class="inputs" type="text" maxlength="7" class="inputs" />
 						</div>
-					</div>
-					<div id="options">
-						<button type="submit" name="submit" class="btn btn-danger">Process</button>
-						<div id="reset" class="btn btn-secondary">Reset</div>
 					</div>
 				</div>
 			</form>
@@ -147,8 +149,30 @@ if(isset($_POST['submit'])){ //check if form was submitted
 <script type="text/javascript">
 //when the reset Field button is clicked
 $("#reset").click(function () {
-	$("#claimID").val('');
+	//$("#claimID").val('');
 	console.log("reset");
+});
+
+$("#add").click(function () {
+	console.log("clicked");
+//Append a new row of code to the "#items" div
+  $("#items").append('<input class="inputs" type="text" maxlength="7" class="inputs" />');
+  $(".inputs").keyup(function () {
+    if (this.value.length == this.maxLength) {
+    	$(this).next('.inputs').focus();
+	}
+});
+});
+
+
+$(".inputs").keyup(function () {
+    if (this.value.length == this.maxLength) {
+    	$(this).next('.inputs').focus();
+	}
+});
+
+$(document).on("keypress", "form", function(event) { 
+    return event.keyCode != 13;
 });
 </script>
 </body>
