@@ -59,7 +59,11 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	$claimID = null;
 	if (isset($_POST['claimID'])) {
 		$claimID = $_POST['claimID'];
+	}
 
+	$user = null;
+	if (isset($_POST['users'])) {
+		$user = $_POST['users'];
 	}
 
 	if(strcasecmp($option, "Claim Received")==0){
@@ -75,11 +79,65 @@ if(isset($_POST['submit'])){ //check if form was submitted
 				$claim_params = array((int)$item, null, null,null,null,null, null, null, null,null, null, null, null,null, null, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,date("m.d.y"),null,null,null,null,null);
 				/* Execute the query. */                  
 				$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+				$message = $item;
 			}
+	}
+	else if(strcasecmp($option, "Supervisor Workload")==0){
+			$date = date("m.d.y");
+			$tsql = "UPDATE dbo.claim_table   
+         	SET supervisorWorkload = (?)   
+         	WHERE claimID = (?)";  
+
+			foreach($claimID as $item) {
+				$params = array($date, $item);
+				/* Execute the query. */                  
+				$claim_result = sqlsrv_query($conn, $tsql, $params);
+				$message = $item;
+			}
+	}
+	else if(strcasecmp($option, "Staff Review")==0){
+		$date = date("m.d.y");
+		$tsql = "UPDATE dbo.claim_table   
+     	SET staffReview = (?)   
+     	WHERE claimID = (?)";  
+
+		foreach($claimID as $item) {
+			$params = array($date, $item);
+			/* Execute the query. */                  
+			$claim_result = sqlsrv_query($conn, $tsql, $params);
+			$message = $item;
+		}
+	}
+	else if(strcasecmp($option, "Supervisor Review")==0){
+		$date = date("m.d.y");
+		$tsql = "UPDATE dbo.claim_table   
+     	SET supervisorReview = (?)   
+     	WHERE claimID = (?)";  
+
+		foreach($claimID as $item) {
+			$params = array($date, $item);
+			/* Execute the query. */                  
+			$claim_result = sqlsrv_query($conn, $tsql, $params);
+			$message = $item;
+		}
+	}
+	else if(strcasecmp($option, "Hold")==0){
+	}
+	else if(strcasecmp($option, "Closed")==0){
+		$date = date("m.d.y");
+		$tsql = "UPDATE dbo.claim_table   
+     	SET caseClosed = (?)   
+     	WHERE claimID = (?)";  
+
+		foreach($claimID as $item) {
+			$params = array($date, $item);
+			/* Execute the query. */                  
+			$claim_result = sqlsrv_query($conn, $tsql, $params);
+			$message = $item;
+		}
 	}
 
 	sqlsrv_close($conn);
-  	$message = "Processed";
 }    
 ?>
 <!doctype html>
@@ -112,6 +170,10 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	<?php 
 	if($message){
 		echo '<div class="alert alert-success"><strong>Processed!</strong></div>';
+		//echo $message;
+	}
+	else{
+		//echo '<div class="alert alert-danger"><strong>Error!</strong>Something went wrong</div>';
 	}
 	?>
 	<div class="row">
@@ -149,7 +211,7 @@ if(isset($_POST['submit'])){ //check if form was submitted
 				<div class="form-group p-1">
 					<div class="form-row">
 						<div class="col-4 form-group required" id="items">
-							<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" />
+							<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" style="display: block;"/>
 						</div>
 					</div>
 				</div>
@@ -162,13 +224,14 @@ if(isset($_POST['submit'])){ //check if form was submitted
 //when the reset Field button is clicked
 $("#reset").click(function () {
 	//$("#claimID").val('');
+	window.location.reload();
 	console.log("reset");
 });
 
 $("#add").click(function () {
 	console.log("clicked");
 //Append a new row of code to the "#items" div
-  $("#items").append('<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" />');
+  $("#items").append('<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" style="display: block;"/>');
   $(".inputs").keyup(function () {
     if (this.value.length == this.maxLength) {
     	$(this).next('.inputs').focus();
