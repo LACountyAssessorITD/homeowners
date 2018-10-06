@@ -1,38 +1,66 @@
 <?php
 session_start(); 
-$message=null;   
+$message=null;
+function dynamic_select($the_array, $element_name, $label = '', $init_value = '') {
+    $menu = '';
+    if ($label != '') $menu .= '
+    	<label for="'.$element_name.'">'.$label.'</label>';
+    $menu .= '
+    	<select name="'.$element_name.'" id="'.$element_name.'">';
+    if (empty($_REQUEST[$element_name])) {
+        $curr_val = $init_value;
+    } else {
+        $curr_val = $_REQUEST[$element_name];
+    }
+    foreach ($the_array as $key => $value) {
+        $menu .= '
+			<option value="'.$key.'"';
+        if ($key == $curr_val) $menu .= ' selected="selected"';
+        $menu .= '>'.$value.'</option>';
+    }
+    $menu .= '
+    	</select>';
+    return $menu;
+}
+/* better way to connect without exposing password info? */
+$serverName = "Assessor";
+$uid = "zhdllwyc";
+$pwd = 'A$$essortrain123';
+$databaseName = "homeowner_test";
+
+$connectionInfo = array( "UID"=>$uid,
+	"PWD"=>$pwd,
+	"Database"=>$databaseName);
+
+/* Connect using SQL Server Authentication. */
+$conn = sqlsrv_connect( $serverName, $connectionInfo);
+
+if($conn === false) {
+	echo "Could not connect.\n";
+	die(print_r( sqlsrv_errors(), true));
+}
+
+$tsql = "SELECT name FROM temp_table";
+
+$array = array();
+
+$stmt = sqlsrv_query( $conn, $tsql);
+while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+{
+     $array[$row[0]]=$row[0];
+}
 if(isset($_POST['submit'])){ //check if form was submitted
-  	/* better way to connect without exposing password info? */
-	$serverName = "Assessor";
-	$uid = "zhdllwyc";
-	$pwd = 'A$$essortrain123';
-	$databaseName = "homeowner_test";
-
-	$connectionInfo = array( "UID"=>$uid,
-		"PWD"=>$pwd,
-		"Database"=>$databaseName);
-
-	/* Connect using SQL Server Authentication. */
-	$conn = sqlsrv_connect( $serverName, $connectionInfo);
-
-	if($conn === false) {
-		echo "Could not connect.\n";
-		die(print_r( sqlsrv_errors(), true));
-	}
-
-	$claimID = null;
-	if (isset($_POST['claimID'])) {
-		$claimID = htmlspecialchars($_POST['claimID']);
-		$claimID = explode(",", $claimID);
-	}
 
 	$option = null;
 	if (isset($_POST['option'])) {
 		$option = $_POST['option'];
-		// echo $option;
-		// echo strcasecmp($option, "Claim Received");
 	}
 
+	$claimID = null;
+	if (isset($_POST['claimID'])) {
+		$claimID = $_POST['claimID'];
+
+	}
 
 	if(strcasecmp($option, "Claim Received")==0){
 			$claim_query = "INSERT INTO dbo.claim_table
@@ -48,19 +76,6 @@ if(isset($_POST['submit'])){ //check if form was submitted
 				/* Execute the query. */                  
 				$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
 			}
-
-		// check success
-		// if ($claim_result) {
-		// 	echo "Submission success.\n";
-		// }
-		// else if (!$claim_result) {
-		// 	echo "claim_result error";
-		// 	die( print_r( sqlsrv_errors(), true));
-		// }
-
-
-		/* Free statement and connection resources. */
-		//sqlsrv_free_stmt($claim_result);
 	}
 
 	sqlsrv_close($conn);
@@ -106,16 +121,13 @@ if(isset($_POST['submit'])){ //check if form was submitted
 		<div class="col" id="form-col">
 			<form id="login-form" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
 				<div class="col-2 form-group required">
+					<br>
 					<span>Assign To:</span>
-					<select id="assign" name="assign">
-					  <option value="Nick">Nick</option>
-					  <option value="Molly">Molly</option>
-					  <option value="Henry">Henry</option>
-					  <option value="Aneesh">Aneesh</option>
-					</select>
+					<?php echo dynamic_select($array, 'users', ''); ?>
 				</div>
 				<span>Claim Status:</span>
 				<select id="option" name="option">
+				  <option disabled selected value> -- select an option -- </option>
 				  <option value="Claim Received">Claim Received</option>
 				  <option value="Supervisor Workload">Supervisor Workload</option>
 				  <option value="Staff Review">Staff Review</option>
@@ -137,7 +149,7 @@ if(isset($_POST['submit'])){ //check if form was submitted
 				<div class="form-group p-1">
 					<div class="form-row">
 						<div class="col-4 form-group required" id="items">
-							<input class="inputs" type="text" maxlength="7" class="inputs" />
+							<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" />
 						</div>
 					</div>
 				</div>
@@ -156,7 +168,7 @@ $("#reset").click(function () {
 $("#add").click(function () {
 	console.log("clicked");
 //Append a new row of code to the "#items" div
-  $("#items").append('<input class="inputs" type="text" maxlength="7" class="inputs" />');
+  $("#items").append('<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" />');
   $(".inputs").keyup(function () {
     if (this.value.length == this.maxLength) {
     	$(this).next('.inputs').focus();

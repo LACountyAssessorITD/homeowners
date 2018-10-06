@@ -17,17 +17,15 @@
 		die(print_r( sqlsrv_errors(), true));
 	}
 
-	$claimID = null;
-	if (isset($_POST['claimID'])) {
-		$claimID = htmlspecialchars($_POST['claimID']);
-		$claimID = explode(",", $claimID);
-	}
-
 	$option = null;
 	if (isset($_POST['option'])) {
 		$option = $_POST['option'];
-		// echo $option;
-		// echo strcasecmp($option, "Claim Received");
+	}
+
+	$claimID = null;
+	if (isset($_POST['claimID'])) {
+		$claimID = $_POST['claimID'];
+
 	}
 
 
