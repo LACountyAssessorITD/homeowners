@@ -46,8 +46,6 @@
 		$data["hasData"] = "true";
 
 		$data["AIN"] = $row[0];
-		$data["RecDate"] = $row[1];
-		$data["HOXAmount"] = $row[2];
 		$data["SitusHouseNo"] = $row[3];
 		$data["SitusFraction"] = $row[4];
 		$data["SitusStreet"] = $row[5];

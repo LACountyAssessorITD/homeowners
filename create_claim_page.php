@@ -533,8 +533,8 @@ session_start();
 					// set form input val to jsonResponse
 					// ["4109018003","211060850",7000,"7918"," ","COWAN AVE"," "," ","LOS ANGELES CA","CA","900451139",null,null,null,null,null,null,"SHIKIAR,ANDREW AND"]
 					$('#currentAPN').val(jsonResponse["AIN"]);
-					$('#rollTaxYear').val(jsonResponse["RecDate"]);
-					$('#exemptRE').val(jsonResponse["HOXAmount"]);
+					//$('#rollTaxYear').val(jsonResponse["RecDate"]);
+					//$('#exemptRE').val(jsonResponse["HOXAmount"]);
 
 					var streetAddr = jsonResponse["SitusHouseNo"] + " " + jsonResponse["SitusStreet"];
 					$('#currentStName').val(streetAddr);
@@ -549,8 +549,8 @@ session_start();
 
 					// reset
 					$('#currentAPN').val('');
-					$('#rollTaxYear').val('');
-					$('#exemptRE').val('');
+					//$('#rollTaxYear').val('');
+					//$('#exemptRE').val('');
 					$('#currentStName').val('');
 					$('#currentApt').val('');
 					$('#currentCity').val('');
@@ -562,8 +562,8 @@ session_start();
 
 				// reset
 				$('#currentAPN').val('');
-				$('#rollTaxYear').val('');
-				$('#exemptRE').val('');
+				//$('#rollTaxYear').val('');
+				//$('#exemptRE').val('');
 				$('#currentStName').val('');
 				$('#currentApt').val('');
 				$('#currentCity').val('');
@@ -590,10 +590,16 @@ session_start();
 			type: 'POST',
 			success: function (response) {
 				window.location = "#";
-				if (response == "success") {
+				if (response == "create_success") {
+					// show create success msg
+					$('#failAlert').hide();
+					$('#submitSuccess').html("<strong>Create Claim Success</strong>");
+					$('#successAlert').show();
+				}
+				else if (response == "update_success") {
 					// show success msg
 					$('#failAlert').hide();
-					$('#submitSuccess').html("<strong>Submission Success</strong>");
+					$('#submitSuccess').html("<strong>Update Success</strong>");
 					$('#successAlert').show();
 				}
 				else {
