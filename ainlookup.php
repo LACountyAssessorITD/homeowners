@@ -53,6 +53,7 @@
 		$data["SitusUnit"] = $row[7];
 		$data["SitusCity"] = $row[8];
 		$data["SitusState"] = $row[9];
+		$data["situsZip"] = $row[10];
 		$data["OwnerName"] = $row[17];
 		// TODO: MAILING
 	} else {

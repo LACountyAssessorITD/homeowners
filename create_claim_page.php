@@ -541,7 +541,7 @@ session_start();
 					$('#currentApt').val(jsonResponse["SitusUnit"]);
 					$('#currentCity').val(jsonResponse["SitusCity"]);
 					$('#currentState').val(jsonResponse["SitusState"]);
-					//$('#currentAPN').val(jsonResponse["OwnerName"]);
+					$('#currentZip').val(jsonResponse["situsZip"].substring(0, 5));
 
 					$('#alertMsg').html(successMsg+"<strong>"+jsonResponse["OwnerName"]+"</strong>");
 				} else {
@@ -555,6 +555,7 @@ session_start();
 					$('#currentApt').val('');
 					$('#currentCity').val('');
 					$('#currentState').val('');
+					$('#currentZip').val('');
 				}
 
 			} else {
@@ -568,6 +569,7 @@ session_start();
 				$('#currentApt').val('');
 				$('#currentCity').val('');
 				$('#currentState').val('');
+				$('#currentZip').val('');
 			}	
 		}
 		request.send();
@@ -593,7 +595,7 @@ session_start();
 				if (response == "create_success") {
 					// show create success msg
 					$('#failAlert').hide();
-					$('#submitSuccess').html("<strong>Create Claim Success</strong>");
+					$('#submitSuccess').html("<strong>Claim successfully created.</strong>");
 					$('#successAlert').show();
 				}
 				else if (response == "update_success") {
