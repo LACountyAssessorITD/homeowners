@@ -599,7 +599,7 @@ session_start();
 				else {
 					// show error msg
 					$('#successAlert').hide();
-					$('#submitFail').html("<strong>Submission failed. Error: "+data+"</strong>");
+					$('#submitFail').html("Submission failed. <strong>Error: "+response+"</strong>");
 					$('#failAlert').show();
 				}
 			}
