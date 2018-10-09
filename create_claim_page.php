@@ -36,9 +36,19 @@ session_start();
 	<div class="row">
 		<h1 class="col" style="padding-bottom: 20px;">Claim</h1>
 	</div>
+	<div class="alert alert-success alert-dismissible collapse" role="alert" id="successAlert">
+		<div id="submitSuccess"> Submission Success
+		</div>
+		<button type="button" class="close" data-hide="alert">&times;</button>
+	</div>
+	<div class="alert alert-danger alert-dismissible collapse" role="alert" id="failAlert">
+		<div id="submitFail"> Submission Failed
+		</div>
+		<button type="button" class="close" data-hide="alert">&times;</button>
+	</div>
 	<div class="row">
 		<div class="col" id="form-col">
-			<form id="login-form" action="write_claim.php" method="post">
+			<form id="claim-form" method="post" action="">
 				<div class="form-group p-1">
 					<!-- personal info row -->
 					<div>
@@ -474,7 +484,7 @@ session_start();
 
 				<!-- buttons -->
 				<div class="form-group text-right p-3">
-					<button type="submit" class="btn btn-danger">Submit</button>
+					<button type="submit" name="save" class="btn btn-danger">Submit</button>
 					<button type="reset" class="btn btn-secondary">Reset</button>
 				</div>
 
@@ -501,7 +511,7 @@ session_start();
 		});
 	});
 
-	// if i can do all the db calling in js that would be great
+	// autofill with json callback
 	document.getElementById("AINSearchBtn").onclick = function() {
 		var failMsg = "No match was found in database."
 		var successMsg = "Match found. Homeowner name on file: ";
@@ -565,6 +575,41 @@ session_start();
 
 		$('#searchAlert').show();
 	};
+
+	// post form with ajax, think this will help staying on same page
+	$("#claim-form").on("submit", function() {
+		var cform = document.getElementById("claim-form");
+		var fd = new FormData(cform);
+		
+		$.ajax({
+			url: "write_claim.php",
+			data: fd,
+			cache: false,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function (response) {
+				window.location = "#";
+				if (response == "success") {
+					// show success msg
+					$('#failAlert').hide();
+					$('#submitSuccess').html("<strong>Submission Success</strong>");
+					$('#successAlert').show();
+				}
+				else {
+					// show error msg
+					$('#successAlert').hide();
+					$('#submitFail').html("<strong>Submission failed. Error: "+data+"</strong>");
+					$('#failAlert').show();
+				}
+			}
+		});
+
+		// forgetting to return false will cause page to refresh 
+		// and lose control on all prev objects...
+    	return false;
+	});
+
 </script>
 </body>
 </html>

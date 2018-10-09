@@ -105,7 +105,7 @@
 
 	// check success
 	if ($claim_result && $claimant_result && $property_result && $claims_list_result) {
-		echo "Submission success.\n";
+		echo "success";
 	}
 	else if (!$claim_result) {
 		echo "claim_result error";
