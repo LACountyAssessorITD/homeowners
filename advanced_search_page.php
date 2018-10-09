@@ -97,6 +97,7 @@
   <li><a href="create_claim_page.php">Claim</a></li>
   <li><a href="advanced_search_page.php">Advanced Search</a></li>
   <li><a href="index.php">Logout</a></li>
+  <li style="float:right" ><input type="text" placeholder="Search by Claim ID..."></li>
 </ul>
 	<div class="container rounded col-12" id="signin-container">
 		<div class="row">
