@@ -68,73 +68,93 @@ if(isset($_POST['submit'])){ //check if form was submitted
 
 	if(strcasecmp($option, "Claim Received")==0){
 			$claim_query = "INSERT INTO dbo.claim_table
-			(claimID, claimant,claimantSSN,spouse,spouseSSN,currentAPN,dateAcquired,dateOccupied,
-			currentStName,currentApt,currentCity,currentState,currentZip,
-			mailingStName,mailingApt,mailingCity,mailingState,mailingZip,
-			priorAPN,dateMovedOut,priorStName,priorApt,priorCity,priorState,priorZip,
-			rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,claimReceived,
-			supervisorWorkload,staffReview,staffReviewDate,supervisorReview,caseClosed)
-			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			(claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor)
+			VALUES(?,?,?,?)";
 			foreach($claimID as $item) {
-				$claim_params = array((int)$item, null, null,null,null,null, null, null, null,null, null, null, null,null, null, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,date("m.d.y"),null,null,null,null,null);
-				/* Execute the query. */                  
-				$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
-				$message = $item;
+				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"]);
+				/* Execute the query. */
+				if($item!=""){
+					$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+				}              
 			}
+		$message = "processed";
 	}
 	else if(strcasecmp($option, "Supervisor Workload")==0){
 			$date = date("m.d.y");
 			$tsql = "UPDATE dbo.claim_table   
-         	SET supervisorWorkload = (?)   
+         	SET supervisorWorkload = (?), supervisorWorkloadAssignee = (?), supervisorWorkloadAssignor = (?) 
          	WHERE claimID = (?)";  
 
 			foreach($claimID as $item) {
-				$params = array($date, $item);
-				/* Execute the query. */                  
-				$claim_result = sqlsrv_query($conn, $tsql, $params);
-				$message = $item;
+				$params = array($date, $user, $_SESSION["name"], $item);
+				/* Execute the query. */    
+				if($item!=""){              
+					$claim_result = sqlsrv_query($conn, $tsql, $params);
+				}
 			}
+		$message = "processed";
 	}
 	else if(strcasecmp($option, "Staff Review")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
-     	SET staffReview = (?)   
+     	SET staffReview = (?), staffReviewAssignee = (?), staffReviewAssignor = (?)  
      	WHERE claimID = (?)";  
 
 		foreach($claimID as $item) {
-			$params = array($date, $item);
+			$params = array($date, $user, $_SESSION["name"], $item);
 			/* Execute the query. */                  
-			$claim_result = sqlsrv_query($conn, $tsql, $params);
-			$message = $item;
+			if($item!=""){              
+				$claim_result = sqlsrv_query($conn, $tsql, $params);
+			}
 		}
+		$message = "processed";
+	}
+	else if(strcasecmp($option, "Staff Review Date")==0){
+		$date = date("m.d.y");
+		$tsql = "UPDATE dbo.claim_table   
+     	SET staffReviewDate = (?), staffReviewDateAssignee = (?), staffReviewDateAssignor = (?)  
+     	WHERE claimID = (?)";  
+
+		foreach($claimID as $item) {
+			$params = array($date, $user, $_SESSION["name"], $item);
+			/* Execute the query. */                  
+			if($item!=""){              
+				$claim_result = sqlsrv_query($conn, $tsql, $params);
+			}
+		}
+		$message = "processed";
 	}
 	else if(strcasecmp($option, "Supervisor Review")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
-     	SET supervisorReview = (?)   
+     	SET supervisorReview = (?), supervisorReviewAssignee = (?), supervisorReviewAssignor = (?)   
      	WHERE claimID = (?)";  
 
 		foreach($claimID as $item) {
-			$params = array($date, $item);
+			$params = array($date, $user, $_SESSION["name"], $item);
 			/* Execute the query. */                  
-			$claim_result = sqlsrv_query($conn, $tsql, $params);
-			$message = $item;
+			if($item!=""){              
+				$claim_result = sqlsrv_query($conn, $tsql, $params);
+			}
 		}
+		$message = "processed";
 	}
 	else if(strcasecmp($option, "Hold")==0){
 	}
 	else if(strcasecmp($option, "Closed")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
-     	SET caseClosed = (?)   
+     	SET caseClosed = (?), caseClosedAssignee = (?), caseClosedAssignor = (?)   
      	WHERE claimID = (?)";  
 
 		foreach($claimID as $item) {
-			$params = array($date, $item);
+			$params = array($date, $user, $_SESSION["name"], $item);
 			/* Execute the query. */                  
-			$claim_result = sqlsrv_query($conn, $tsql, $params);
-			$message = $item;
+			if($item!=""){              
+				$claim_result = sqlsrv_query($conn, $tsql, $params);
+			}
 		}
+		$message = "processed";
 	}
 
 	sqlsrv_close($conn);
@@ -172,9 +192,6 @@ if(isset($_POST['submit'])){ //check if form was submitted
 		echo '<div class="alert alert-success"><strong>Processed!</strong></div>';
 		//echo $message;
 	}
-	else{
-		//echo '<div class="alert alert-danger"><strong>Error!</strong>Something went wrong</div>';
-	}
 	?>
 	<div class="row">
 		<h1 class="col" style="padding-bottom: 20px;">Scan Claims</h1>
@@ -193,6 +210,7 @@ if(isset($_POST['submit'])){ //check if form was submitted
 				  <option value="Claim Received">Claim Received</option>
 				  <option value="Supervisor Workload">Supervisor Workload</option>
 				  <option value="Staff Review">Staff Review</option>
+				  <option value="Staff Review Date">Staff Review Date</option>
 				  <option value="Supervisor Review">Supervisor Review</option>
 				  <option value="Hold">Hold</option>
 				  <option value="Closed">Closed</option>

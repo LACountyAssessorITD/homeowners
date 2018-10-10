@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	$_SESSION["loggedIn"] = false;
+	$_SESSION["name"] = null;
 ?>
 <!doctype html>
 <html lang="en">

@@ -31,7 +31,7 @@
             /* Connect using SQL Server Authentication. */
             $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-            $tsql = "SELECT id, username, password FROM temp_table";
+            $tsql = "SELECT id, username, password, name FROM temp_table";
 
             /* Execute the query. */
 
@@ -39,7 +39,6 @@
 
             if ( $stmt )
             {
-                // echo "You are Logged in!<br>\n";
             }
             else
             {
@@ -48,14 +47,14 @@
             }
 
             /* Iterate through the result set printing a row of data upon each iteration.*/
-            $loggedIn='false';
-            if(!$_SESSION["loggedIn"]){
+            //$loggedIn='false';
+            if($_SESSION["name"]==null){
                 while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
                 {
                     if(strcmp($_POST["username"], $row[1])==0){
                         if(strcmp($_POST["password"], $row[2])==0){
-                            $_SESSION["loggedIn"] = true;
-                            $loggedIn='true';
+                            $_SESSION["name"] = $row[3];
+                            //$loggedIn=$row[3];
                         }
                     }
                 }
@@ -65,7 +64,7 @@
             //  so login page displays errer message
             //commented this out cause im testing single sign on
 
-            if (!$_SESSION["loggedIn"]) {
+            if ($_SESSION["name"]==null) {
                 $url = "index.php?loginfail=true";
                 header("Location:" . $url);
                 exit();
@@ -73,9 +72,9 @@
             /* Free statement and connection resources. */
             sqlsrv_free_stmt( $stmt);
             sqlsrv_close( $conn);
+            echo "<h1> You are logged in as ".$_SESSION["name"];
             ?>
 
     </div>
-    <h1>Home Page</h1>
 </body>
 </html>
