@@ -129,24 +129,26 @@ if(isset($_POST['submit'])){ //check if form was submitted
 		foreach($claimID as $item) {
 			$params = array($date, $user, $_SESSION["name"], $item);
 			/* Execute the query. */                  
-			if($item!=""){              
+			if($item!=""){
+				//update the claim              
 				$claim_result = sqlsrv_query($conn, $tsql, $params);
+
+				//get the row corresponding to the claimID in the claim table
+				$sql = "SELECT claimID, claimant, mailingStName, mailingApt, mailingCity, mailingState, mailingZip, claimAction, findingReason, rollTaxYear, exemptRE, suppTaxYear, exemptRE2 FROM dbo.claim_table WHERE";
+				$sql= $sql." claimID = '$item'";
+				$stmt = sqlsrv_query( $conn, $sql );
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+				{
+					//and insert it into the harvest table since the claim is closed
+					$claim_query = "INSERT INTO dbo.harvest_table
+					(claimID, claimant, mailingStName, mailingApt, mailingCity, mailingState, mailingZip, claimAction, findingReason, rollTaxYear, exemptRE, suppTaxYear, exemptRE2)
+					VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					$claim_params = array($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12]);
+					$claim_result_new = sqlsrv_query($conn,$claim_query,$claim_params);
+				}
 			}
 		}
 
-		$sql = "SELECT claimID, mailingStName, mailingApt, mailingCity, mailingState, mailingZip, claimAction, findingReason, rollTaxYear, exemptRE, suppTaxYear, exemptRE2 FROM dbo.claim_table WHERE";
-		$sql= $sql." claimID = '$item'";
-
-		$claim_query = "INSERT INTO dbo.harvest_table
-			(claimID, mailingStName, mailingApt, mailingCity, mailingState, mailingZip, claimAction, findingReason, rollTaxYear, exemptRE, suppTaxYear, exemptRE2)
-			VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-			foreach($claimID as $item) {
-				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"]);
-				/* Execute the query. */
-				if($item!=""){
-					$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
-				}              
-			}
 		$message = "processed";
 	}
 
