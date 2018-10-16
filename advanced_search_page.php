@@ -21,7 +21,7 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script>
       $(function () {
-        $('form').on('submit', function (e) {
+        $("#advanced-search").on('submit', function (e) {
             //TODO: There should be some error checking to make sure no important fields are empty
           	e.preventDefault();
 
@@ -97,12 +97,12 @@
   <li><a href="create_claim_page.php">Claim</a></li>
   <li><a href="advanced_search_page.php">Advanced Search</a></li>
   <li><a href="index.php">Logout</a></li>
-  <li style="float:right" ><input type="text" placeholder="Search by Claim ID..."></li>
+  <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
 </ul>
 	<div class="container rounded col-12" id="signin-container">
 		<div class="row">
 			<div class="col" id="form-col">
-				<form id="login-form" action="script">	<!--action="home.php" method="post">-->
+				<form id="advanced-search" action="script">	<!--action="home.php" method="post">-->
 					<br>
 					<h1>Advanced Search</h1>
 					<div class="form-row">

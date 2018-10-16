@@ -31,6 +31,7 @@ session_start();
   <li><a href="create_claim_page.php">Claim</a></li>
   <li><a href="advanced_search_page.php">Advanced Search</a></li>
   <li><a href="index.php">Logout</a></li>
+  <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
 </ul>
 <div class="container rounded col-12 p-3" id="signin-container">
 	<div class="row">
