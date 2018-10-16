@@ -87,12 +87,12 @@
 	$exemptRE = $_POST['exemptRE'];
 	$suppTaxYear = $_POST['suppTaxYear'];
 	$exemptRE2 = $_POST['exemptRE2'];
-	$claimReceived = $_POST['claimReceived'];
+/*	$claimReceived = $_POST['claimReceived'];
 	$supervisorWorkload = $_POST['supervisorWorkload'];
 	$staffReview = $_POST['staffReview'];
 	$staffReviewDate = $_POST['staffReviewDate'];
 	$supervisorReview = $_POST['supervisorReview'];
-	$caseClosed = $_POST['caseClosed'];
+	$caseClosed = $_POST['caseClosed'];*/
 
 
 	// check if ain exists
@@ -156,7 +156,7 @@
 				staffReviewDate,staffReviewDateAssignee,staffReviewDateAssignor,
 				supervisorReview,supervisorReviewAssignee,supervisorReviewAssignor,
 				caseClosed,caseClosedAssignee,caseClosedAssignor)
-				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$claim_params = array($_POST['claimID'],$_POST['claimant'],$_POST['claimantSSN'],$spouse,$spouseSSN,
 				$_POST['currentAPN'],$_POST['dateAcquired'],$_POST['dateOccupied'],$_POST['currentStName'],
 				$_POST['currentApt'],$_POST['currentCity'],$_POST['currentState'],$_POST['currentZip'],
@@ -165,7 +165,11 @@
 				$_POST['priorCity'],$priorState,$_POST['priorZip'],$_POST['rollTaxYear'],
 				$_POST['exemptRE'],$_POST['suppTaxYear'],$_POST['exemptRE2'],$claimAction,$findingReason,
 				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
-				null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
+				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
+				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
+				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
+				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor']);
 
 		$claimant_query = "INSERT INTO dbo.claimant_table
 				(claimant,claimantSSN,spouse,spouseSSN,
