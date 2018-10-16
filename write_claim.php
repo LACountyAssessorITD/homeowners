@@ -149,9 +149,14 @@
 				currentStName,currentApt,currentCity,currentState,currentZip,
 				mailingStName,mailingApt,mailingCity,mailingState,mailingZip,
 				priorAPN,dateMovedOut,priorStName,priorApt,priorCity,priorState,priorZip,
-				rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,claimReceived,
-				supervisorWorkload,staffReview,staffReviewDate,supervisorReview,caseClosed)
-				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,
+				claimReceived,claimReceivedAssignee,claimReceivedAssignor,
+				supervisorWorkload,supervisorWorkloadAssignee,supervisorWorkloadAssignor,
+				staffReview,staffReviewAssignee,staffReviewAssignor,
+				staffReviewDate,staffReviewDateAssignee,staffReviewDateAssignor,
+				supervisorReview,supervisorReviewAssignee,supervisorReviewAssignor,
+				caseClosed,caseClosedAssignee,caseClosedAssignor)
+				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$claim_params = array($_POST['claimID'],$_POST['claimant'],$_POST['claimantSSN'],$spouse,$spouseSSN,
 				$_POST['currentAPN'],$_POST['dateAcquired'],$_POST['dateOccupied'],$_POST['currentStName'],
 				$_POST['currentApt'],$_POST['currentCity'],$_POST['currentState'],$_POST['currentZip'],
@@ -159,8 +164,8 @@
 				$_POST['priorAPN'],$_POST['dateMovedOut'],$_POST['priorStName'],$_POST['priorApt'],
 				$_POST['priorCity'],$priorState,$_POST['priorZip'],$_POST['rollTaxYear'],
 				$_POST['exemptRE'],$_POST['suppTaxYear'],$_POST['exemptRE2'],$claimAction,$findingReason,
-				$_POST['claimReceived'],$_POST['supervisorWorkload'],$_POST['staffReview'],
-				$_POST['staffReviewDate'],$_POST['supervisorReview'],$_POST['caseClosed']);
+				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
+				null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
 
 		$claimant_query = "INSERT INTO dbo.claimant_table
 				(claimant,claimantSSN,spouse,spouseSSN,

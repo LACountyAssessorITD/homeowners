@@ -458,28 +458,27 @@ session_start();
 				<h5>Status Dates</h5>
 				<div class="form-row">
 					<div class="col form-group required">
-						<label for="claimReceived">Claim Received:</label>
-						<input class="form-control" id="claimReceived" name="claimReceived" placeholder="1/1/2018" type="date">
+						<label for="chooseStatus">Choose Status:</label>
+						<select class="form-control" id="chooseStatus" name="chooseStatus">
+							<option value="Claim Received">Claim Received</option>
+							<option value="Supervisor Workload">Supervisor Workload</option>
+							<option value="Staff Review">Staff Review</option>
+							<option value="Staff Review Date">Staff Review Date</option>
+							<option value="Supervisor Review">Supervisor Review</option>
+							<option value="Case Closed">Case Closed</option>
+						</select>
 					</div>
 					<div class="col form-group required">
-						<label for="supervisorWorkload">Supervisor Workload:</label>
-						<input class="form-control" id="supervisorWorkload" name="supervisorWorkload" placeholder="1/1/2018" type="date">
+						<label for="statusDate">Date:</label>
+						<input class="form-control" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date">
 					</div>
 					<div class="col form-group required">
-						<label for="staffReview">Staff Review:</label>
-						<input class="form-control" id="staffReview" name="staffReview" placeholder="8/1/2018" type="date">
+						<label for="assignee">Assignee:</label>
+						<input class="form-control" id="assignee" name="assignee" placeholder="Last, First" type="text">
 					</div>
 					<div class="col form-group required">
-						<label for="staffReviewDate">Staff Review Date:</label>
-						<input class="form-control" id="staffReviewDate" name="staffReviewDate" placeholder="1/2/2018" type="date">
-					</div>
-					<div class="col form-group required">
-						<label for="supervisorReview">Supervisor Review:</label>
-						<input class="form-control" id="supervisorReview" name="supervisorReview" placeholder="1/3/2018" type="date">
-					</div>
-					<div class="col form-group required">
-						<label for="caseClosed">Case Closed:</label>
-						<input class="form-control" id="caseClosed" name="caseClosed" placeholder="1/11/2018" type="date">
+						<label for="assignor">Assignor:</label>
+						<input class="form-control" id="assignor" name="assignor" placeholder="Last, First" type="text">
 					</div>
 				</div>
 
