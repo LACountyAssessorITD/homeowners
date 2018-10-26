@@ -19,8 +19,9 @@
 </head>
 <!-- <body onload="rePlaceholder()"> -->
 <body>
-  <ul>
+<ul>
   <li><a href="home_page.php">Home</a></li>
+  <li><a href="scan_claims_page.php">Scan Claims</a></li>
   <li><a href="create_claim_page.php">Claim</a></li>
   <li><a href="advanced_search_page.php">Advanced Search</a></li>
   <li><a href="index.php">Logout</a></li>
@@ -33,28 +34,6 @@
 
 
 <hr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="container rounded col-12 p-3" id="signin-container">
   <div class="row">
     <h1 class="col" style="padding-bottom: 20px;">Claim</h1>
@@ -469,32 +448,110 @@
 
         <hr class="my-4">
         <h5>Status Dates</h5>
-        <div class="form-row">
-          <div class="col form-group required">
-            <label for="claimReceived">Claim Received:</label>
-            <input class="form-control" id="claimReceived" name="claimReceived" placeholder="1/1/2018" type="date">
+     <div class="form-row">
+          <div class="col-2">
+          	<p>Claim Receieved:  </p>
           </div>
-          <div class="col form-group required">
-            <label for="supervisorWorkload">Supervisor Workload:</label>
-            <input class="form-control" id="supervisorWorkload" name="supervisorWorkload" placeholder="1/1/2018" type="date">
+          <div class="col-2">
+          	<div id="claimReceived"></div>
           </div>
-          <div class="col form-group required">
-            <label for="staffReview">Staff Review:</label>
-            <input class="form-control" id="staffReview" name="staffReview" placeholder="8/1/2018" type="date">
+          <div class="col-2">
+          	<div id="claimReceivedDays"></div>
           </div>
-          <div class="col form-group required">
-            <label for="staffReviewDate">Staff Review Date:</label>
-            <input class="form-control" id="staffReviewDate" name="staffReviewDate" placeholder="1/2/2018" type="date">
+          <div class="col-2">
+          	<div id="claimReceivedAssignor"></div>
           </div>
-          <div class="col form-group required">
-            <label for="supervisorReview">Supervisor Review:</label>
-            <input class="form-control" id="supervisorReview" name="supervisorReview" placeholder="1/3/2018" type="date">
+          <div class="col-2">
+          	<div id="claimReceivedAssignee"></div> 
           </div>
-          <div class="col form-group required">
-            <label for="caseClosed">Case Closed:</label>
-            <input class="form-control" id="caseClosed" name="caseClosed" placeholder="1/11/2018" type="date">
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Supervisor Workload:  </p>
           </div>
-        </div>
+          <div class="col-2">
+          	<div id="supervisorWorkload"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorWorkloadDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorWorkloadAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorWorkloadAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Staff Review:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="staffReview"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Staff Review Date:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDate"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDateDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDateAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDateAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Supervisor Review:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorReview"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorReviewDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorReviewAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorReviewAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Case Closed:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="caseClosed"></div>
+          </div>
+          <div class="col-2">
+          	<div id="caseClosedDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="caseClosedAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="caseClosedAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+      </div>
 
         <!-- buttons -->
         <div class="form-group text-right p-3">
@@ -553,7 +610,48 @@
         document.getElementById('exemptRE2').placeholder =phpObj.exemptRE2;
         document.getElementById('claimAction').placeholder =phpObj.claimAction;
         document.getElementById('findingReason').placeholder =phpObj.findingReason;
+        document.getElementById('claimReceived').innerHTML = "Date: "+phpObj.claimReceived.date.substring(0,10);
+ document.getElementById('claimReceivedDays').innerHTML = "Days: "+days_between(new Date(phpObj.claimReceived.date), new Date());
+        document.getElementById('claimReceivedAssignor').innerHTML = "Assignor: "+phpObj.claimReceivedAssignor;
+        document.getElementById('claimReceivedAssignee').innerHTML = "Assignee: "+phpObj.claimReceivedAssignee;
+        document.getElementById('supervisorWorkload').innerHTML = "Date: "+phpObj.supervisorWorkload.date.substring(0,10);
+ document.getElementById('supervisorWorkloadDays').innerHTML = "Days: "+days_between(new Date(phpObj.supervisorWorkload.date), new Date());
+        document.getElementById('supervisorWorkloadAssignor').innerHTML = "Assignor: "+phpObj.supervisorWorkloadAssignor;
+        document.getElementById('supervisorWorkloadAssignee').innerHTML = "Assignee: "+phpObj.supervisorWorkloadAssignee;
+                document.getElementById('staffReview').innerHTML = "Date: "+phpObj.staffReview.date.substring(0,10);
+ document.getElementById('staffReviewDays').innerHTML = "Days: "+days_between(new Date(phpObj.staffReview.date), new Date());
+        document.getElementById('staffReviewAssignor').innerHTML = "Assignor: "+phpObj.staffReviewAssignor;
+        document.getElementById('staffReviewAssignee').innerHTML = "Assignee: "+phpObj.staffReviewAssignee;
+        document.getElementById('staffReviewDate').innerHTML = "Date: "+phpObj.staffReviewDate.date.substring(0,10);
+ document.getElementById('staffReviewDateDays').innerHTML = "Days: "+days_between(new Date(phpObj.staffReviewDate.date), new Date());
+        document.getElementById('staffReviewDateAssignor').innerHTML = "Assignor: "+phpObj.staffReviewDateAssignor;
+        document.getElementById('staffReviewDateAssignee').innerHTML = "Assignee: "+phpObj.staffReviewDateAssignee;
+document.getElementById('supervisorReview').innerHTML = "Date: "+phpObj.supervisorReview.date.substring(0,10);
+ document.getElementById('supervisorReviewDays').innerHTML = "Days: "+days_between(new Date(phpObj.supervisorReview.date), new Date());
+        document.getElementById('supervisorReviewAssignor').innerHTML = "Assignor: "+phpObj.supervisorReviewAssignor;
+        document.getElementById('supervisorReviewAssignee').innerHTML = "Assignee: "+phpObj.supervisorReviewAssignee;
+      document.getElementById('caseClosed').innerHTML = "Date: "+phpObj.caseClosed.date.substring(0,10);
+ document.getElementById('caseClosedDays').innerHTML = "Days: "+days_between(new Date(phpObj.caseClosed.date), new Date());
+        document.getElementById('caseClosedAssignor').innerHTML = "Assignor: "+phpObj.caseClosedAssignor;
+        document.getElementById('caseClosedAssignee').innerHTML = "Assignee: "+phpObj.caseClosedAssignee;
       }
+
+      function days_between(date1, date2) {
+
+	    // The number of milliseconds in one day
+	    var ONE_DAY = 1000 * 60 * 60 * 24;
+
+	    // Convert both dates to milliseconds
+	    var date1_ms = date1.getTime();
+	    var date2_ms = date2.getTime();
+
+	    // Calculate the difference in milliseconds
+	    var difference_ms = Math.abs(date1_ms - date2_ms);
+
+	    // Convert back to days and return
+	    return Math.round(difference_ms/ONE_DAY);
+
+	}
   </script>
 
 </body>

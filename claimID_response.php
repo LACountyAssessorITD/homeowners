@@ -12,7 +12,13 @@
             /* Connect using SQL Server Authentication. */
             $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-            $tsql = "SELECT claimID, claimant, claimantSSN, spouse, spouseSSN, currentAPN, dateAcquired, dateOccupied, currentStName, currentCity, currentZip, priorAPN, dateMovedOut, priorStName, priorCity, priorZip, rollTaxYear, exemptRE, suppTaxYear, exemptRE2, claimAction, findingReason, claimReceived, supervisorWorkload, staffReview, staffReviewDate, supervisorReview, caseClosed FROM claim_table WHERE claimID=".$claimID;
+            $tsql = "SELECT claimID, claimant, claimantSSN, spouse, spouseSSN, currentAPN, dateAcquired, dateOccupied, currentStName, currentCity, currentZip, priorAPN, dateMovedOut, priorStName, priorCity, priorZip, rollTaxYear, exemptRE, suppTaxYear, exemptRE2, claimAction, findingReason, claimReceived, claimReceivedAssignor, claimReceivedAssignee,
+              supervisorWorkload, supervisorWorkloadAssignor, supervisorWorkloadAssignee,
+              staffReview, staffReviewAssignor, staffReviewAssignee, 
+              staffReviewDate, staffReviewDateAssignor, staffReviewDateAssignee, 
+              supervisorReview, supervisorReviewAssignor, supervisorReviewAssignee,
+              caseClosed, caseClosedAssignor, caseClosedAssignee
+              FROM claim_table WHERE claimID=".$claimID;
 
             /* Execute the query. */
 
@@ -44,7 +50,24 @@
                   $myObj->exemptRE2 = $row[19];
                   $myObj->claimAction = $row[20];
                   $myObj->findingReason = $row[21];
-
+                  $myObj->claimReceived = $row[22];
+                  $myObj->claimReceivedAssignor = $row[23];
+                  $myObj->claimReceivedAssignee = $row[24];
+                  $myObj->supervisorWorkload = $row[25];
+                  $myObj->supervisorWorkloadAssignor = $row[26];
+                  $myObj->supervisorWorkloadAssignee = $row[27];
+                  $myObj->staffReview = $row[28];
+                  $myObj->staffReviewAssignor = $row[29];
+                  $myObj->staffReviewAssignee = $row[30];
+                  $myObj->staffReviewDate = $row[31];
+                  $myObj->staffReviewDateAssignor = $row[32];
+                  $myObj->staffReviewDateAssignee = $row[33];
+                  $myObj->supervisorReview = $row[34];
+                  $myObj->supervisorReviewAssignor = $row[35];
+                  $myObj->supervisorReviewAssignee = $row[36];
+                  $myObj->caseClosed = $row[37];
+                  $myObj->caseClosedAssignor = $row[38];
+                  $myObj->caseClosedAssignee = $row[39];
                   $myJSON = json_encode($myObj);
                   echo $myJSON;
                   //echo "var phpObj = ".$myJSON.";";
