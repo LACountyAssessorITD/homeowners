@@ -25,7 +25,7 @@
 	$claimantSSN = $_GET['claimantSSN'];
 	            $serverName = "Assessor";
             $uid = "zhdllwyc";
-            $pwd = 'A$$essortrain123';
+            $pwd = 'A$$essortrain456';
             $databaseName = "homeowner_test";
 
             $connectionInfo = array( "UID"=>$uid,

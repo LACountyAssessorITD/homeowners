@@ -1,7 +1,7 @@
 <?php
 	$serverName = "Assessor";
 	$uid = "zhdllwyc";
-	$pwd = 'A$$essortrain123';
+	$pwd = 'A$$essortrain456';
 	$databaseName = "HOX_USC";
 	$connectionInfo = array("UID"=>$uid,
 		"PWD"=>$pwd,

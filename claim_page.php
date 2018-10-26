@@ -61,8 +61,8 @@
   </div>
   <div class="row">
     <div class="col" id="form-col">
-      <form id="login-form">
-      <!--form id="login-form" action="write_claim.php" method="post"-->
+      <!-- <form id="login-form"> -->
+      <form id="login-form" action="update_claim.php" method="get">
         <div class="form-group p-1">
           <!-- personal info row -->
           <div>
@@ -534,25 +534,25 @@
         console.log(phpObj);
         console.log(phpObj.claimID);
 
-        document.getElementById('claimID').value=phpObj.claimID;
-        document.getElementById('claimant').value=phpObj.claimant;
-        document.getElementById('claimantSSN').value=phpObj.claimantSSN;
-        document.getElementById('spouse').value=phpObj.spouse;
-        document.getElementById('spouseSSN').value=phpObj.spouseSSN;
-        document.getElementById('currentAPN').value=phpObj.currentAPN;
-        document.getElementById('currentStName').value=phpObj.currentStName;
-        document.getElementById('currentCity').value=phpObj.currentCity;
-        document.getElementById('currentZip').value=phpObj.currentZip;
-        document.getElementById('priorAPN').value=phpObj.priorAPN;
-        document.getElementById('priorStName').value=phpObj.priorStName;
-        document.getElementById('priorCity').value=phpObj.priorCity;
-        document.getElementById('priorZip').value=phpObj.priorZip;
-        document.getElementById('rollTaxYear').value=phpObj.rollTaxYear;
-        document.getElementById('exemptRE').value=phpObj.exemptRE;
-        document.getElementById('suppTaxYear').value=phpObj.suppTaxYear;
-        document.getElementById('exemptRE2').value=phpObj.exemptRE2;
-        document.getElementById('claimAction').value=phpObj.claimAction;
-        document.getElementById('findingReason').value=phpObj.findingReason;
+        document.getElementById('claimID').value =phpObj.claimID;
+        document.getElementById('claimant').placeholder =phpObj.claimant;
+        document.getElementById('claimantSSN').placeholder =phpObj.claimantSSN;
+        document.getElementById('spouse').placeholder =phpObj.spouse;
+        document.getElementById('spouseSSN').placeholder =phpObj.spouseSSN;
+        document.getElementById('currentAPN').placeholder =phpObj.currentAPN;
+        document.getElementById('currentStName').placeholder =phpObj.currentStName;
+        document.getElementById('currentCity').placeholder =phpObj.currentCity;
+        document.getElementById('currentZip').placeholder =phpObj.currentZip;
+        document.getElementById('priorAPN').placeholder =phpObj.priorAPN;
+        document.getElementById('priorStName').placeholder =phpObj.priorStName;
+        document.getElementById('priorCity').placeholder =phpObj.priorCity;
+        document.getElementById('priorZip').placeholder =phpObj.priorZip;
+        document.getElementById('rollTaxYear').placeholder =phpObj.rollTaxYear;
+        document.getElementById('exemptRE').placeholder =phpObj.exemptRE;
+        document.getElementById('suppTaxYear').placeholder =phpObj.suppTaxYear;
+        document.getElementById('exemptRE2').placeholder =phpObj.exemptRE2;
+        document.getElementById('claimAction').placeholder =phpObj.claimAction;
+        document.getElementById('findingReason').placeholder =phpObj.findingReason;
       }
   </script>
 
