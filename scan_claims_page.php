@@ -1,11 +1,12 @@
 <?php
+include('constant.php');
 session_start(); 
 $message=null;
 /* better way to connect without exposing password info? */
-$serverName = "Assessor";
-$uid = "zhdllwyc";
-$pwd = 'A$$essortrain456';
-$databaseName = "homeowner_test";
+$serverName = SERVERNAME;
+$uid = UID;
+$pwd = PWD;
+$databaseName = DATABASENAME;
 
 $connectionInfo = array( "UID"=>$uid,
 	"PWD"=>$pwd,

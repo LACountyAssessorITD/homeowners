@@ -22,11 +22,12 @@
 <hr>
 <h1> Property History </h1>
 <?php
+include('constant.php');
 	$AIN = $_GET['AIN'];
-	            $serverName = "Assessor";
-            $uid = "zhdllwyc";
-            $pwd = 'A$$essortrain456';
-            $databaseName = "homeowner_test";
+	            $serverName = SERVERNAME;
+            $uid = UID;
+            $pwd = PWD;
+            $databaseName = DATABASENAME;
 
             $connectionInfo = array( "UID"=>$uid,
                 "PWD"=>$pwd,

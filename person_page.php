@@ -22,11 +22,12 @@
 <hr>
 <h1> Person History </h1>
 <?php
+include('constant.php');
 	$claimantSSN = $_GET['claimantSSN'];
-	            $serverName = "Assessor";
-            $uid = "zhdllwyc";
-            $pwd = 'A$$essortrain456';
-            $databaseName = "homeowner_test";
+	            $serverName = SERVERNAME;
+            $uid = UID;
+            $pwd = PWD;
+            $databaseName = DATABASENAME;
 
             $connectionInfo = array( "UID"=>$uid,
                 "PWD"=>$pwd,

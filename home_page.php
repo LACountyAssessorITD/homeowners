@@ -20,10 +20,11 @@
   <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
 </ul>
             <?php
-            $serverName = "Assessor";
-            $uid = "zhdllwyc";
-            $pwd = 'A$$essortrain456';
-            $databaseName = "homeowner_test";
+            include('constant.php');
+            $serverName = SERVERNAME;
+            $uid = UID;
+            $pwd = PWD;
+            $databaseName = DATABASENAME;
 
             $connectionInfo = array( "UID"=>$uid,
                 "PWD"=>$pwd,

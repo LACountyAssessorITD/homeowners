@@ -1,4 +1,5 @@
 <?php
+include('constant.php');
 	session_start();
 	$_SESSION["name"] = null;
 ?>
