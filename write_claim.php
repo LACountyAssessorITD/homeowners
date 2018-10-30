@@ -147,7 +147,8 @@
 			"UPDATE dbo.claim_table SET supervisorReview = '$statusDate',
 			supervisorReviewAssignee = '$assignee', 
 			supervisorReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
-		} el"UPDATE dbo.claim_table SET caseClosed = '$statusDate',
+		} else if ($chooseStatus === "Case Closed") {
+			"UPDATE dbo.claim_table SET caseClosed = '$statusDate',
 			caseClosedAssignee = '$assignee', 
 			caseClosedAssignor = '$assignor' WHERE claimID = '$claimID'";
 		}
@@ -193,7 +194,7 @@
 				null, null, null,
 				null, null, null,
 				null, null, null,
-				null, null, null;
+				null, null, null);
 
 		$claimant_query = "INSERT INTO dbo.claimant_table
 				(claimant,claimantSSN,spouse,spouseSSN,
