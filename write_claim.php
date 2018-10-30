@@ -57,6 +57,8 @@
 	$findingReason = null;
 	if (isset($_POST['findingReason'])) {
 		$findingReason = $_POST['findingReason'];
+	} else if ($_POST['findingReason'] === "Other"){
+		$findingReason = $_POST['otherReason'];
 	}
 
 	$spouse = null;
@@ -88,12 +90,10 @@
 	$exemptRE = $_POST['exemptRE'];
 	$suppTaxYear = $_POST['suppTaxYear'];
 	$exemptRE2 = $_POST['exemptRE2'];
-/*	$claimReceived = $_POST['claimReceived'];
-	$supervisorWorkload = $_POST['supervisorWorkload'];
-	$staffReview = $_POST['staffReview'];
-	$staffReviewDate = $_POST['staffReviewDate'];
-	$supervisorReview = $_POST['supervisorReview'];
-	$caseClosed = $_POST['caseClosed'];*/
+	$chooseStatus = $_POST['chooseStatus'];
+	$statusDate = $_POST['statusDate'];
+	$assignee = $_POST['assignee'];
+	$assignor = $_POST['assignor'];
 
 
 	// check if ain exists
@@ -123,11 +123,34 @@
 				priorStName = '$priorStName', priorApt = '$priorApt', priorCity = '$priorCity', 
 				priorState = '$priorState', priorZip = '$priorZip', rollTaxYear = '$rollTaxYear', 
 				exemptRE = '$exemptRE', suppTaxYear = '$suppTaxYear', exemptRE2 = '$exemptRE2', 
-				claimAction = '$claimAction', findingReason = '$findingReason', 
-				claimReceived = '$claimReceived', supervisorWorkload = '$supervisorWorkload', 
-				staffReview = '$staffReview', staffReviewDate = '$staffReviewDate', 
-				supervisorReview = '$supervisorReview', caseClosed = '$caseClosed'
+				claimAction = '$claimAction', findingReason = '$findingReason'
 				WHERE claimID = '$claimID'";
+
+		// update status accordingly
+		if ($chooseStatus === "Claim Received") {
+			"UPDATE dbo.claim_table SET claimReceived = '$statusDate',
+			claimReceivedAssignee = '$assignee',
+			claimReceivedAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if ($chooseStatus === "Supervisor Workload") {
+			"UPDATE dbo.claim_table SET supervisorWorkload = '$statusDate',
+			supervisorWorkloadAssignee = '$assignee', 
+			supervisorWorkloadAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if ($chooseStatus === "Staff Review") {
+			"UPDATE dbo.claim_table SET staffReview = '$statusDate',
+			staffReviewAssignee = '$assignee', 
+			staffReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if ($chooseStatus === "Staff Review Date") {
+			"UPDATE dbo.claim_table SET staffReviewDate = '$statusDate',
+			staffReviewDateAssignee = '$assignee', 
+			staffReviewDateAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if ($chooseStatus === "Supervisor Review") {
+			"UPDATE dbo.claim_table SET supervisorReview = '$statusDate',
+			supervisorReviewAssignee = '$assignee', 
+			supervisorReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} el"UPDATE dbo.claim_table SET caseClosed = '$statusDate',
+			caseClosedAssignee = '$assignee', 
+			caseClosedAssignor = '$assignor' WHERE claimID = '$claimID'";
+		}
 
 		$stmtUpdate = sqlsrv_query( $conn, $sqlUpdate );
 		if($stmtUpdate === false || !$stmtUpdate) {
@@ -166,11 +189,11 @@
 				$_POST['priorCity'],$priorState,$_POST['priorZip'],$_POST['rollTaxYear'],
 				$_POST['exemptRE'],$_POST['suppTaxYear'],$_POST['exemptRE2'],$claimAction,$findingReason,
 				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
-				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
-				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
-				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
-				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
-				$_POST['statusDate'],$_POST['assignee'],$_POST['assignor']);
+				null, null, null,
+				null, null, null,
+				null, null, null,
+				null, null, null,
+				null, null, null;
 
 		$claimant_query = "INSERT INTO dbo.claimant_table
 				(claimant,claimantSSN,spouse,spouseSSN,
