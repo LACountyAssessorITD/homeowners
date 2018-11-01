@@ -610,28 +610,77 @@
         document.getElementById('exemptRE2').placeholder =phpObj.exemptRE2;
         document.getElementById('claimAction').placeholder =phpObj.claimAction;
         document.getElementById('findingReason').placeholder =phpObj.findingReason;
-        document.getElementById('claimReceived').innerHTML = "Date: "+phpObj.claimReceived.date.substring(0,10);
- document.getElementById('claimReceivedDays').innerHTML = "Days: "+days_between(new Date(phpObj.claimReceived.date), new Date());
+
+        var claimReceivedDate ="";
+        var claimReceivedDays ="";
+        if(phpObj.claimReceived!=null){
+          claimReceivedDate = phpObj.claimReceived.date.substring(0,10)
+          claimReceivedDays = days_between(new Date(phpObj.claimReceived.date), new Date());
+        }
+        document.getElementById('claimReceived').innerHTML = "Date: "+claimReceivedDate;
+        document.getElementById('claimReceivedDays').innerHTML = "Days: "+claimReceivedDays;
         document.getElementById('claimReceivedAssignor').innerHTML = "Assignor: "+phpObj.claimReceivedAssignor;
         document.getElementById('claimReceivedAssignee').innerHTML = "Assignee: "+phpObj.claimReceivedAssignee;
-        document.getElementById('supervisorWorkload').innerHTML = "Date: "+phpObj.supervisorWorkload.date.substring(0,10);
- document.getElementById('supervisorWorkloadDays').innerHTML = "Days: "+days_between(new Date(phpObj.supervisorWorkload.date), new Date());
+
+        var supervisorWorkloadDate ="";
+        var supervisorWorkloadDays ="";
+        if(phpObj.supervisorWorkload!=null){
+          supervisorWorkloadDate = phpObj.supervisorWorkload.date.substring(0,10)
+          supervisorWorkloadDays = days_between(new Date(phpObj.supervisorWorkload.date), new Date());
+        }
+        document.getElementById('supervisorWorkload').innerHTML = "Date: "+supervisorWorkloadDate;
+        document.getElementById('supervisorWorkloadDays').innerHTML = "Days: "+supervisorWorkloadDays;
         document.getElementById('supervisorWorkloadAssignor').innerHTML = "Assignor: "+phpObj.supervisorWorkloadAssignor;
         document.getElementById('supervisorWorkloadAssignee').innerHTML = "Assignee: "+phpObj.supervisorWorkloadAssignee;
-                document.getElementById('staffReview').innerHTML = "Date: "+phpObj.staffReview.date.substring(0,10);
- document.getElementById('staffReviewDays').innerHTML = "Days: "+days_between(new Date(phpObj.staffReview.date), new Date());
+
+        var supervisorWorkloadDate ="";
+        var supervisorWorkloadDays ="";
+        if(phpObj.supervisorWorkload!=null){
+          supervisorWorkloadDate = phpObj.supervisorWorkload.date.substring(0,10)
+          supervisorWorkloadDays = days_between(new Date(phpObj.supervisorWorkload.date), new Date());
+        }
+
+        var assignmentDate ="";
+        var assignmentDays ="";
+        if(phpObj.staffReview!=null){
+          assignmentDate = phpObj.staffReview.date.substring(0,10)
+          assignmentDays = days_between(new Date(phpObj.staffReview.date), new Date());
+        }
+        document.getElementById('staffReview').innerHTML = "Date: "+assignmentDate;
+        document.getElementById('staffReviewDays').innerHTML = "Days: "+assignmentDays;
         document.getElementById('staffReviewAssignor').innerHTML = "Assignor: "+phpObj.staffReviewAssignor;
         document.getElementById('staffReviewAssignee').innerHTML = "Assignee: "+phpObj.staffReviewAssignee;
-        document.getElementById('staffReviewDate').innerHTML = "Date: "+phpObj.staffReviewDate.date.substring(0,10);
- document.getElementById('staffReviewDateDays').innerHTML = "Days: "+days_between(new Date(phpObj.staffReviewDate.date), new Date());
+
+        var staffReviewDate ="";
+        var staffReviewDays ="";
+        if(phpObj.staffReviewDate!=null){
+          staffReviewDate = phpObj.staffReviewDate.date.substring(0,10)
+          staffReviewDays = days_between(new Date(phpObj.staffReviewDate.date), new Date());
+        }
+        document.getElementById('staffReviewDate').innerHTML = "Date: "+staffReviewDate;
+        document.getElementById('staffReviewDateDays').innerHTML = "Days: "+staffReviewDays;
         document.getElementById('staffReviewDateAssignor').innerHTML = "Assignor: "+phpObj.staffReviewDateAssignor;
         document.getElementById('staffReviewDateAssignee').innerHTML = "Assignee: "+phpObj.staffReviewDateAssignee;
-document.getElementById('supervisorReview').innerHTML = "Date: "+phpObj.supervisorReview.date.substring(0,10);
- document.getElementById('supervisorReviewDays').innerHTML = "Days: "+days_between(new Date(phpObj.supervisorReview.date), new Date());
+
+        var supervisorReviewDate ="";
+        var supervisorReviewDays ="";
+        if(phpObj.supervisorReview!=null){
+          supervisorReviewDate = phpObj.supervisorReview.date.substring(0,10)
+          supervisorReviewDays = days_between(new Date(phpObj.supervisorReview.date), new Date());
+        }
+        document.getElementById('supervisorReview').innerHTML = "Date: "+supervisorReviewDate;
+        document.getElementById('supervisorReviewDays').innerHTML = "Days: "+supervisorReviewDays;
         document.getElementById('supervisorReviewAssignor').innerHTML = "Assignor: "+phpObj.supervisorReviewAssignor;
         document.getElementById('supervisorReviewAssignee').innerHTML = "Assignee: "+phpObj.supervisorReviewAssignee;
-      document.getElementById('caseClosed').innerHTML = "Date: "+phpObj.caseClosed.date.substring(0,10);
- document.getElementById('caseClosedDays').innerHTML = "Days: "+days_between(new Date(phpObj.caseClosed.date), new Date());
+
+        var caseClosedDate ="";
+        var caseClosedDays ="";
+        if(phpObj.supervisorReview!=null){
+          caseClosedDate = phpObj.caseClosed.date.substring(0,10)
+          caseClosedDays = days_between(new Date(phpObj.caseClosed.date), new Date());
+        }
+        document.getElementById('caseClosed').innerHTML = "Date: "+caseClosedDate;
+        document.getElementById('caseClosedDays').innerHTML = "Days: "+caseClosedDays;
         document.getElementById('caseClosedAssignor').innerHTML = "Assignor: "+phpObj.caseClosedAssignor;
         document.getElementById('caseClosedAssignee').innerHTML = "Assignee: "+phpObj.caseClosedAssignee;
       }
