@@ -436,13 +436,17 @@
           <div class="col form-group required">
             <label for="findingReason">Finding Reason:</label>
             <select class="form-control" id="findingReason" name="findingReason">
-              <option value="NA" disabled selected>Select</option>
+              <option value="N/A">N/A</option>
+              <option value="Already Claimed Exemption">Already Claimed Exemption</option>
               <option value="Missing SSN">Missing SSN</option>
               <option value="Missing Signature">Missing Signature</option>
               <option value="Incomplete Address">Incomplete Address</option>
-              <option value="N/A">N/A</option>
               <option value="Other">Other</option>
             </select>
+          </div>
+          <div class="col form-group required">
+            <label for="otherReason">Other Reason (If applicable):</label>
+            <input class="form-control" id="otherReason" name="otherReason" placeholder="Specify other reason" type="text" disabled="true">
           </div>
         </div>
 
@@ -571,6 +575,15 @@
 
 
   <script>
+    document.getElementById("findingReason").onchange = function() {
+      if ($("#findingReason").val() == "Other") {
+        document.getElementById("otherReason").disabled = false;
+      } else {
+        $("#otherReason").val("");
+        document.getElementById("otherReason").disabled = true;
+      }
+    }
+
     function rePlaceholder(){
       var claimID = <?php echo $_GET['claimID']; ?>;
       var phpObj;
