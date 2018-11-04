@@ -621,8 +621,24 @@
         document.getElementById('exemptRE').placeholder =phpObj.exemptRE;
         document.getElementById('suppTaxYear').placeholder =phpObj.suppTaxYear;
         document.getElementById('exemptRE2').placeholder =phpObj.exemptRE2;
-        document.getElementById('claimAction').placeholder =phpObj.claimAction;
-        document.getElementById('findingReason').placeholder =phpObj.findingReason;
+        document.getElementById('claimAction').value =phpObj.claimAction;
+
+        let reasonFound = false;
+        for (i = 0; i < document.getElementById('findingReason').length; ++i){
+            if (document.getElementById('findingReason').options[i].value === phpObj.findingReason){
+              reasonFound = true;
+              break;
+            }
+        }
+        if (reasonFound && phpObj.findingReason != "Other") {
+          document.getElementById('findingReason').value = phpObj.findingReason;
+        } else {
+          document.getElementById('findingReason').value = "Other";
+          document.getElementById("otherReason").disabled = false;
+          document.getElementById('otherReason').value = phpObj.findingReason;
+        }
+        
+        
 
         var claimReceivedDate ="";
         var claimReceivedDays ="";

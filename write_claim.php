@@ -55,7 +55,7 @@
 	}
 
 	$findingReason = null;
-	if (isset($_POST['findingReason'])) {
+	if (isset($_POST['findingReason']) && $_POST['findingReason'] != "Other") {
 		$findingReason = $_POST['findingReason'];
 	} else if ($_POST['findingReason'] === "Other"){
 		$findingReason = $_POST['otherReason'];
@@ -64,10 +64,12 @@
 	$spouse = null;
 	if (isset($_POST['spouse'])) {
 		$spouse = $_POST['spouse'];
+	} else {
+		$spouse = null;
 	}
 	$spouseSSN = null;
 	if (isset($_POST['spouseSSN'])) {
-		$spouseSSN = $_POST['spouseSSN'];
+		$spouseSSN = 0;
 	}
 
 
