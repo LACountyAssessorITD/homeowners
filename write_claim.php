@@ -129,34 +129,36 @@
 				WHERE claimID = '$claimID'";
 
 		// update status accordingly
-		if ($chooseStatus === "Claim Received") {
-			"UPDATE dbo.claim_table SET claimReceived = '$statusDate',
+		$sqlUpdateDate='';
+		if (strcasecmp($chooseStatus, "Claim Received")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET claimReceived = '$statusDate',
 			claimReceivedAssignee = '$assignee',
 			claimReceivedAssignor = '$assignor' WHERE claimID = '$claimID'";
-		} else if ($chooseStatus === "Supervisor Workload") {
-			"UPDATE dbo.claim_table SET supervisorWorkload = '$statusDate',
+		} else if (strcasecmp($chooseStatus, "Supervisor Workload")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorWorkload = '$statusDate',
 			supervisorWorkloadAssignee = '$assignee', 
 			supervisorWorkloadAssignor = '$assignor' WHERE claimID = '$claimID'";
-		} else if ($chooseStatus === "Staff Review") {
-			"UPDATE dbo.claim_table SET staffReview = '$statusDate',
+		} else if (strcasecmp($chooseStatus, "Staff Review")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReview = '$statusDate',
 			staffReviewAssignee = '$assignee', 
 			staffReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
-		} else if ($chooseStatus === "Staff Review Date") {
-			"UPDATE dbo.claim_table SET staffReviewDate = '$statusDate',
+		} else if (strcasecmp($chooseStatus, "Staff Review Date")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReviewDate = '$statusDate',
 			staffReviewDateAssignee = '$assignee', 
 			staffReviewDateAssignor = '$assignor' WHERE claimID = '$claimID'";
-		} else if ($chooseStatus === "Supervisor Review") {
-			"UPDATE dbo.claim_table SET supervisorReview = '$statusDate',
+		} else if (strcasecmp($chooseStatus, "Supervisor Review")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorReview = '$statusDate',
 			supervisorReviewAssignee = '$assignee', 
 			supervisorReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
-		} else if ($chooseStatus === "Case Closed") {
-			"UPDATE dbo.claim_table SET caseClosed = '$statusDate',
+		} else if (strcasecmp($chooseStatus, "Case Closed")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET caseClosed = '$statusDate',
 			caseClosedAssignee = '$assignee', 
 			caseClosedAssignor = '$assignor' WHERE claimID = '$claimID'";
 		}
 
+		sqlsrv_query( $conn, $sqlUpdateDate );
 		$stmtUpdate = sqlsrv_query( $conn, $sqlUpdate );
-		if($stmtUpdate === false || !$stmtUpdate) {
+		if($stmtUpdate == false || !$stmtUpdate) {
 			echo "update statement error\n";
 			echo print_r( sqlsrv_errors(), true);
 			die( print_r( sqlsrv_errors(), true));
