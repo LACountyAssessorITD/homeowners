@@ -173,26 +173,10 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	<link rel="stylesheet" type="text/css" href="styles/home-style.css">
 	<style>
 	* { box-sizing: border-box; }
-body {
-  font: 16px Arial; 
-}
 .autocomplete {
   /*the container must be positioned relative:*/
   position: relative;
   display: inline-block;
-}
-input {
-  background-color: #f1f1f1;
-  padding: 10px;
-  font-size: 16px;
-}
-input[type=text] {
-  background-color: #f1f1f1;
-  width: 100%;
-}
-input[type=submit] {
-  background-color: DodgerBlue;
-  color: #fff;
 }
 .autocomplete-items {
   position: absolute;

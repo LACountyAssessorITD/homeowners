@@ -27,13 +27,6 @@
   <li><a href="index.php">Logout</a></li>
   <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
 </ul>
-
-
-<hr>
-<h1> Claim History </h1>
-
-
-<hr>
 <div class="container rounded col-12 p-3" id="signin-container">
   <div class="row">
     <h1 class="col" style="padding-bottom: 20px;">Claim</h1>
@@ -45,8 +38,118 @@
         <div class="form-group p-1">
           <!-- personal info row -->
           <div>
-            <h5>Personal Information</h5>
           </div>
+        <h5 style="display: inline-block">Status Dates</h5>
+        <button type="button" id="historyButton" onclick="toggleHistory()" style="display: inline-block">Show History</button>
+  <div id="history" style="display: none;">
+  	<hr class="my-4">
+     <div class="form-row">
+          <div class="col-2">
+          	<p>Claim Receieved:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="claimReceived"></div>
+          </div>
+          <div class="col-2">
+          	<div id="claimReceivedDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="claimReceivedAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="claimReceivedAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Supervisor Workload:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorWorkload"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorWorkloadDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorWorkloadAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorWorkloadAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Staff Assign:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="staffReview"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Staff Review Date:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDate"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDateDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDateAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="staffReviewDateAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Supervisor Review:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorReview"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorReviewDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorReviewAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="supervisorReviewAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="col-2">
+          	<p>Case Closed:  </p>
+          </div>
+          <div class="col-2">
+          	<div id="caseClosed"></div>
+          </div>
+          <div class="col-2">
+          	<div id="caseClosedDays"></div>
+          </div>
+          <div class="col-2">
+          	<div id="caseClosedAssignor"></div>
+          </div>
+          <div class="col-2">
+          	<div id="caseClosedAssignee"></div> 
+          </div>
+      </div>
+      <div class="form-row">
+      </div>
+  </div>
+      <hr class="my-4">
+      <h5>Personal Information</h5>
           <div class="form-row">
             <div class="col-2 form-group required">
               <label for="claimID">ClaimID:</label>
@@ -450,117 +553,9 @@
           </div>
         </div>
 
-        <hr class="my-4">
-        <h5>Status Dates</h5>
-     <div class="form-row">
-          <div class="col-2">
-          	<p>Claim Receieved:  </p>
-          </div>
-          <div class="col-2">
-          	<div id="claimReceived"></div>
-          </div>
-          <div class="col-2">
-          	<div id="claimReceivedDays"></div>
-          </div>
-          <div class="col-2">
-          	<div id="claimReceivedAssignor"></div>
-          </div>
-          <div class="col-2">
-          	<div id="claimReceivedAssignee"></div> 
-          </div>
-      </div>
-      <div class="form-row">
-          <div class="col-2">
-          	<p>Supervisor Workload:  </p>
-          </div>
-          <div class="col-2">
-          	<div id="supervisorWorkload"></div>
-          </div>
-          <div class="col-2">
-          	<div id="supervisorWorkloadDays"></div>
-          </div>
-          <div class="col-2">
-          	<div id="supervisorWorkloadAssignor"></div>
-          </div>
-          <div class="col-2">
-          	<div id="supervisorWorkloadAssignee"></div> 
-          </div>
-      </div>
-      <div class="form-row">
-          <div class="col-2">
-          	<p>Staff Assign:  </p>
-          </div>
-          <div class="col-2">
-          	<div id="staffReview"></div>
-          </div>
-          <div class="col-2">
-          	<div id="staffReviewDays"></div>
-          </div>
-          <div class="col-2">
-          	<div id="staffReviewAssignor"></div>
-          </div>
-          <div class="col-2">
-          	<div id="staffReviewAssignee"></div> 
-          </div>
-      </div>
-      <div class="form-row">
-          <div class="col-2">
-          	<p>Staff Review Date:  </p>
-          </div>
-          <div class="col-2">
-          	<div id="staffReviewDate"></div>
-          </div>
-          <div class="col-2">
-          	<div id="staffReviewDateDays"></div>
-          </div>
-          <div class="col-2">
-          	<div id="staffReviewDateAssignor"></div>
-          </div>
-          <div class="col-2">
-          	<div id="staffReviewDateAssignee"></div> 
-          </div>
-      </div>
-      <div class="form-row">
-          <div class="col-2">
-          	<p>Supervisor Review:  </p>
-          </div>
-          <div class="col-2">
-          	<div id="supervisorReview"></div>
-          </div>
-          <div class="col-2">
-          	<div id="supervisorReviewDays"></div>
-          </div>
-          <div class="col-2">
-          	<div id="supervisorReviewAssignor"></div>
-          </div>
-          <div class="col-2">
-          	<div id="supervisorReviewAssignee"></div> 
-          </div>
-      </div>
-      <div class="form-row">
-          <div class="col-2">
-          	<p>Case Closed:  </p>
-          </div>
-          <div class="col-2">
-          	<div id="caseClosed"></div>
-          </div>
-          <div class="col-2">
-          	<div id="caseClosedDays"></div>
-          </div>
-          <div class="col-2">
-          	<div id="caseClosedAssignor"></div>
-          </div>
-          <div class="col-2">
-          	<div id="caseClosedAssignee"></div> 
-          </div>
-      </div>
-      <div class="form-row">
-      </div>
-
         <!-- buttons -->
         <div class="form-group text-right p-3">
           <button type="submit" class="btn btn-danger">Submit</button>
-          <button type="reset" class="btn btn-secondary">Reset</button>
         </div>
 
       </form> <!-- end form -->
@@ -572,9 +567,22 @@
 
 
 
+<script>
+    function toggleHistory() {
+	    var x = document.getElementById("history");
+	    if (x.style.display === "none") {
+	        x.style.display = "block";
+	        document.getElementById("historyButton").innerText="Hide History";
 
+	    } else {
+	        x.style.display = "none";
+	        document.getElementById("historyButton").innerText="Show History";
+	    }
+	}	
+</script>
 
   <script>
+
     document.getElementById("findingReason").onchange = function() {
       if ($("#findingReason").val() == "Other") {
         document.getElementById("otherReason").disabled = false;
