@@ -466,7 +466,7 @@ session_start();
 						<select class="form-control" id="chooseStatus" name="chooseStatus">
 							<option value="Claim Received">Claim Received</option>
 							<option value="Supervisor Workload">Supervisor Workload</option>
-							<option value="Staff Review">Staff Review</option>
+							<option value="Staff Review">Staff Assign</option>
 							<option value="Staff Review Date">Staff Review Date</option>
 							<option value="Supervisor Review">Supervisor Review</option>
 							<option value="Case Closed">Case Closed</option>

@@ -488,7 +488,7 @@
       </div>
       <div class="form-row">
           <div class="col-2">
-          	<p>Staff Review:  </p>
+          	<p>Staff Assign:  </p>
           </div>
           <div class="col-2">
           	<div id="staffReview"></div>
