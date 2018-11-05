@@ -13,6 +13,7 @@
 <body>
 <ul>
   <li><a href="home_page.php">Home</a></li>
+  <li><a href="productivity_report_page.php">Productivity Report</a></li>
   <li><a href="scan_claims_page.php">Scan Claims</a></li>
   <li><a href="create_claim_page.php">Claim</a></li>
   <li><a href="advanced_search_page.php">Advanced Search</a></li>
