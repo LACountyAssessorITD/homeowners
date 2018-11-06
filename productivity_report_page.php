@@ -20,6 +20,7 @@ if($conn === false) {
 	die(print_r( sqlsrv_errors(), true));
 }
 
+// appraiser query
 $tsql = "SELECT name FROM temp_table";
 
 $phpArray = array();
@@ -29,6 +30,10 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 {
 	array_push($phpArray, $row[0]);
 }
+
+// status
+$statusArray = array("claimReceived", "supervisorWorkload", "staffReview", "staffReviewDate", "supervisorReview", "caseClosed");
+
 $startDate = null;
 $endDate = null;
 if(isset($_POST['submit'])){ //check if form was submitted
@@ -144,6 +149,50 @@ if(isset($_POST['submit'])){ //check if form was submitted
 		<hr>
 		<div class="col-4">
 			<h2>Claims by Status</h2>
+			<?php 
+				if($startDate && $endDate){
+					echo "<table style='width: 100%'>
+							<tr>
+								<th>ClaimStatus</th>
+								<th>Count</th>
+    							<th>Current</th>
+    							<th>Late</th>
+ 							 </tr>
+ 							 <tr>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+    							<td>-</td>
+ 							 </tr>";
+					foreach($statusArray as $status) {
+						$currentsql = "SELECT (?)
+						 FROM dbo.claim_table 
+						 WHERE (claimReceived >= (?) ) AND (caseClosed <= (?) )";
+						$currentparams = array($status, $startDate, $endDate);
+						$currentResult = sqlsrv_query($conn, $currentsql, $currentparams);
+						$currentCount=0;
+						while($row = sqlsrv_fetch_array( $currentResult, SQLSRV_FETCH_NUMERIC))
+						{
+							$currentCount++;
+						}
+
+						$latesql = "SELECT (?)
+						FROM dbo.claim_table 
+						WHERE (claimReceived >= (?) ) AND (caseClosed > (?) )";
+						$lateparams = array($status, $startDate, $endDate);
+						$lateResult = sqlsrv_query($conn, $latesql, $lateparams);
+						$lateCount=0;
+						while( $row = sqlsrv_fetch_array( $lateResult, SQLSRV_FETCH_NUMERIC))
+						{
+							$lateCount++;
+						}
+
+						$totalCount = $currentCount + $lateCount;
+					    echo "<tr>"."<td>".$status."</td>"."<td>".$totalCount."</td>"."<td>".$currentCount."</td>"."</tr>".$lateCount."</td>"."</tr>";
+					}
+					echo "</table>";
+				}
+			?>
 		</div>
 		<div class="col-4">
 			<h2>Claims by Appraiser</h2>
