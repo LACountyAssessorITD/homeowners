@@ -19,7 +19,28 @@ if($conn === false) {
 	echo "Could not connect.\n";
 	die(print_r( sqlsrv_errors(), true));
 }
-sqlsrv_close($conn);  
+
+$tsql = "SELECT name FROM temp_table";
+
+$phpArray = array();
+
+$stmt = sqlsrv_query( $conn, $tsql);
+while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+{
+	array_push($phpArray, $row[0]);
+}
+$startDate = null;
+$endDate = null;
+if(isset($_POST['submit'])){ //check if form was submitted
+	if (isset($_POST['startDate'])) {
+		$startDate = $_POST['startDate'];
+	}
+	if (isset($_POST['endDate'])) {
+		$endDate = $_POST['endDate'];
+	}
+	$message = $startDate.$endDate;
+	//$claimsAppraiser = null;
+} 
 ?>
 <!doctype html>
 <html lang="en">
@@ -82,19 +103,95 @@ sqlsrv_close($conn);
   <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
 </ul>
 <div class="container rounded col-12 p-3" id="signin-container">
-	<?php 
-	if($message){
-		echo '<div class="alert alert-success"><strong>Processed!</strong></div>';
-		//echo $message;
-	}
-	?>
 	<div class="row">
 		<h1 class="col" style="padding-bottom: 20px;">Productivity Report</h1>
 	</div>
 	<div class="row">
-		<div class="col" id="form-col">
+		<div class="col-4"></div>
+		<div class="col-4">
 			<form id="login-form" autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+			<label for="startDate">Start Date:</label>
+			<input class="form-control" id="startDate" name="startDate" placeholder="1/23/2000" type="date">
+			<label for="endDate">End Date:</label>
+			<input class="form-control" id="endDate" name="endDate" placeholder="1/23/2000" type="date">
+			<button type="submit" name="submit" class="btn btn-danger">Get Productivity Report</button>
 			</form>
+		</div>	
+		<div class="col-4">
+		</div>
+	</div>
+	<hr class="my-4">
+	<div class="row">
+		<div class="col-3"></div>
+		<div class="col-3">
+			<?php 
+				if($startDate){
+					echo "<h4>Start</h4><h3>".$startDate."</h3>";
+				}
+			?>
+		</div>
+		<div class="col-3">
+			<?php 
+				if($endDate){
+					echo "<h4>End</h4><h3>".$endDate."</h3>";
+				}
+			?>
+		</div>
+		<div class="col-3"></div>
+	</div>
+	<hr class="my-4">
+	<div class="row">
+		<hr>
+		<div class="col-4">
+			<h2>Claims by Status</h2>
+		</div>
+		<div class="col-4">
+			<h2>Claims by Appraiser</h2>
+			<?php 
+				if($startDate && $endDate){
+					echo "<table style='width: 100%'>
+							<tr>
+								<th>Appraiser</th>
+								<th>UnWorked</th>
+    							<th>Worked</th>
+ 							 </tr>
+ 							 <tr>
+								<td>-</td>
+								<td>-</td>
+    							<td>-</td>
+ 							 </tr>";
+					foreach($phpArray as $item) {
+						$workedsql = "SELECT claimID
+						 FROM dbo.claim_table 
+						 WHERE (staffReviewDate >= (?) ) AND (staffReviewDate <= (?) ) AND lower(staffReviewDateAssignee) = (?)";
+						$workedparams = array($startDate, $endDate, $item);
+						$claim_result_worked = sqlsrv_query($conn, $workedsql, $workedparams);
+						$worked=0;
+						while($row = sqlsrv_fetch_array( $claim_result_worked, SQLSRV_FETCH_NUMERIC))
+						{
+							$worked++;
+						}
+
+						$tsql = "SELECT claimID
+						 FROM dbo.claim_table 
+						 WHERE (staffReview >= (?) ) AND (staffReview <= (?) ) AND staffReviewDateAssignee = (?)";
+						$params = array($startDate, $endDate, $item);
+						$claim_result = sqlsrv_query($conn, $tsql, $params);
+						$unWorked=0;
+						while( $row = sqlsrv_fetch_array( $claim_result, SQLSRV_FETCH_NUMERIC))
+						{
+							$unWorked++;
+						}
+
+						$totalUnworked=$unWorked-$worked;
+					    echo "<tr>"."<td>".$item."</td>"."<td>".$totalUnworked."</td>"."<td>".$worked."</td>"."</tr>";
+					}
+					echo "</table>";
+				}
+			?>
+			</div>
+		<div class="col-4">
+			<h2>Claims by Function</h2>
 		</div>
 	</div>
 </div>
