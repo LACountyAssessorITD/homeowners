@@ -188,7 +188,7 @@ if(isset($_POST['submit'])){ //check if form was submitted
 						}
 
 						$totalCount = $currentCount + $lateCount;
-					    echo "<tr>"."<td>".$status."</td>"."<td>".$totalCount."</td>"."<td>".$currentCount."</td>"."</tr>".$lateCount."</td>"."</tr>";
+					    echo "<tr>"."<td>".$status."</td>"."<td>".$totalCount."</td>"."<td>".$currentCount."</td>"."<td>".$lateCount."</td>"."</tr>";
 					}
 					echo "</table>";
 				}
