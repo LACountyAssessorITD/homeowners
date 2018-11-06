@@ -212,7 +212,7 @@ if(isset($_POST['submit'])){ //check if form was submitted
 					foreach($phpArray as $item) {
 						$workedsql = "SELECT claimID
 						 FROM dbo.claim_table 
-						 WHERE (staffReviewDate >= (?) ) AND (staffReviewDate <= (?) ) AND lower(staffReviewDateAssignee) = (?)";
+						 WHERE (staffReviewDate >= (?) ) AND (staffReviewDate <= (?) ) AND staffReviewDateAssignor = (?)";
 						$workedparams = array($startDate, $endDate, $item);
 						$claim_result_worked = sqlsrv_query($conn, $workedsql, $workedparams);
 						$worked=0;
@@ -223,7 +223,7 @@ if(isset($_POST['submit'])){ //check if form was submitted
 
 						$tsql = "SELECT claimID
 						 FROM dbo.claim_table 
-						 WHERE (staffReview >= (?) ) AND (staffReview <= (?) ) AND staffReviewDateAssignee = (?)";
+						 WHERE (staffReview >= (?) ) AND (staffReview <= (?) ) AND staffReviewAssignee = (?)";
 						$params = array($startDate, $endDate, $item);
 						$claim_result = sqlsrv_query($conn, $tsql, $params);
 						$unWorked=0;
