@@ -204,7 +204,22 @@ if(isset($_POST['submit'])){ //check if form was submitted
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }	
-	</style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
 </head>
 <body>
 <ul>
@@ -233,12 +248,12 @@ if(isset($_POST['submit'])){ //check if form was submitted
 					<br>
 					<span>Assign To:</span>
 					<div class="autocomplete" style="width:300px;">
-				    <input id="myUsers" type="text" name="users" placeholder="-- type in a user to assign to -- ">
+				    <input id="myUsers" type="text" name="users" placeholder="Type in assignee">
 				  </div>
 				</div>
 				<span>Claim Status:</span>
 				<select id="option" name="option">
-				  <option disabled selected value> -- select an option -- </option>
+				  <option disabled selected value>Choose Option</option>
 				  <option value="Claim Received">Claim Received</option>
 				  <option value="Supervisor Workload">Supervisor Workload</option>
 				  <option value="Staff Review">Staff Assign</option>

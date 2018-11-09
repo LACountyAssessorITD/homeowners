@@ -45,8 +45,15 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	}
 	$message = $startDate.$endDate;
 	//$claimsAppraiser = null;
-} 
+}
+else{
+	$d=mktime(0, 0, 0, 1, 1, date("Y"));
+	$startDate = date("Y-m-d", $d);
+	$endDate = date("Y-m-d");
+}
 ?>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -95,6 +102,29 @@ if(isset($_POST['submit'])){ //check if form was submitted
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }	
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+	color: white;
+	border: 1px solid #dddddd;
+	background-color: #486F9E;
+	text-align: center;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
 	</style>
 </head>
 <body>
@@ -107,42 +137,23 @@ if(isset($_POST['submit'])){ //check if form was submitted
   <li><a href="index.php">Logout</a></li>
   <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
 </ul>
-<div class="container rounded col-12 p-3" id="signin-container">
+<div class="container rounded col-12 p-3" style="border: 10px solid lightgray;" id="signin-container">
 	<div class="row">
-		<h1 class="col" style="padding-bottom: 20px;">Productivity Report</h1>
-	</div>
-	<div class="row">
-		<div class="col-4"></div>
+		<h1 class="col-4" style="padding-bottom: 20px;">Productivity Report</h1>
 		<div class="col-4">
-			<form id="login-form" autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
-			<label for="startDate">Start Date:</label>
-			<input class="form-control" id="startDate" name="startDate" placeholder="1/23/2000" type="date">
-			<label for="endDate">End Date:</label>
-			<input class="form-control" id="endDate" name="endDate" placeholder="1/23/2000" type="date">
-			<button type="submit" name="submit" class="btn btn-danger">Get Productivity Report</button>
-			</form>
-		</div>	
-		<div class="col-4">
-		</div>
-	</div>
-	<hr class="my-4">
-	<div class="row">
-		<div class="col-3"></div>
-		<div class="col-3">
 			<?php 
 				if($startDate){
-					echo "<h4>Start</h4><h3>".$startDate."</h3>";
+					echo "<h4>Start Date:</h4><h3>".$startDate."</h3>";
 				}
 			?>
 		</div>
-		<div class="col-3">
+		<div class="col-4">
 			<?php 
 				if($endDate){
-					echo "<h4>End</h4><h3>".$endDate."</h3>";
+					echo "<h4>End Date:</h4><h3>".$endDate."</h3>";
 				}
 			?>
 		</div>
-		<div class="col-3"></div>
 	</div>
 	<hr class="my-4">
 	<div class="row">
@@ -209,6 +220,8 @@ if(isset($_POST['submit'])){ //check if form was submitted
 								<td>-</td>
     							<td>-</td>
  							 </tr>";
+ 					$totalUnworked=0;
+ 					$totalWorked=0;
 					foreach($phpArray as $item) {
 						$workedsql = "SELECT claimID
 						 FROM dbo.claim_table 
@@ -219,6 +232,7 @@ if(isset($_POST['submit'])){ //check if form was submitted
 						while($row = sqlsrv_fetch_array( $claim_result_worked, SQLSRV_FETCH_NUMERIC))
 						{
 							$worked++;
+							$totalWorked++;
 						}
 
 						$tsql = "SELECT claimID
@@ -232,15 +246,25 @@ if(isset($_POST['submit'])){ //check if form was submitted
 							$unWorked++;
 						}
 
-						$totalUnworked=$unWorked-$worked;
-					    echo "<tr>"."<td>".$item."</td>"."<td>".$totalUnworked."</td>"."<td>".$worked."</td>"."</tr>";
+						$sumUnworked=$unWorked-$worked;
+						$totalUnworked=$totalUnworked+$sumUnworked;
+					    echo "<tr>"."<td>".$item."</td>"."<td>".$sumUnworked."</td>"."<td>".$worked."</td>"."</tr>";
 					}
+					echo "<tr>"."<td style='font-weight:bold'>Total Volume</td>"."<td>".$totalUnworked."</td>"."<td>".$totalWorked."</td>"."</tr>";
 					echo "</table>";
 				}
 			?>
 			</div>
 		<div class="col-4">
-			<h2>Claims by Function</h2>
+			<h2>Report Dates</h2>
+			<form id="login-form" autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+			<label for="startDate">Start Date:</label>
+			<input class="form-control" id="startDate" name="startDate" placeholder="1/23/2000" type="date">
+			<label for="endDate">End Date:</label>
+			<input class="form-control" id="endDate" name="endDate" placeholder="1/23/2000" type="date">
+			<br>
+			<button type="submit" name="submit" class="btn btn-danger">Get Productivity Report</button>
+			</form>
 		</div>
 	</div>
 </div>
