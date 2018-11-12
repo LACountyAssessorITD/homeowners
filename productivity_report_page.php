@@ -32,7 +32,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 }
 
 // status
-$statusArray = array("claimReceived", "supervisorWorkload", "staffReview", "staffReviewDate", "supervisorReview", "caseClosed");
+$statusArray = array("Claim Received", "Supervisor Workload", "Staff Review", "Staff Review Date", "Supervisor Review", "Case Closed");
 
 $startDate = null;
 $endDate = null;
@@ -186,10 +186,10 @@ else{
 					$startDate = date("Y-01-01");
 					$endDate = date("Y-02-15");
 					foreach($statusArray as $status) {
-						$currentsql = "SELECT (?)
+						$currentsql = "SELECT *
 						FROM dbo.claim_table 
-						WHERE (claimReceived >= (?) ) AND (claimReceived <= (?) )";
-						$currentparams = array($status, $startDate, $endDate);
+						WHERE (claimReceived >= (?) ) AND (claimReceived <= (?) ) AND (currStatus = (?) )";
+						$currentparams = array($startDate, $endDate, $status);
 						$currentResult = sqlsrv_query($conn, $currentsql, $currentparams);
 						$currentCount=0;
 						while($row = sqlsrv_fetch_array( $currentResult, SQLSRV_FETCH_NUMERIC))
@@ -197,10 +197,10 @@ else{
 							$currentCount++;
 						}
 
-						$latesql = "SELECT (?)
+						$latesql = "SELECT *
 						FROM dbo.claim_table 
-						WHERE (claimReceived > (?) )";
-						$lateparams = array($status, $endDate);
+						WHERE (claimReceived > (?) ) AND (currStatus = (?) )";
+						$lateparams = array($endDate, $status);
 						$lateResult = sqlsrv_query($conn, $latesql, $lateparams);
 						$lateCount=0;
 						while( $row = sqlsrv_fetch_array( $lateResult, SQLSRV_FETCH_NUMERIC))
