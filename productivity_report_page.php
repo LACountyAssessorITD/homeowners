@@ -183,13 +183,13 @@ else{
 					$totalCount = 0;
 					$totalCurrCount = 0;
 					$totalLateCount = 0;
-					$startDate = date("Y-01-01");
-					$endDate = date("Y-02-15");
+					$fileStartDate = date("Y-01-01");
+					$fileEndDate = date("Y-02-15");
 					foreach($statusArray as $status) {
 						$currentsql = "SELECT claimID
 						FROM dbo.claim_table 
 						WHERE (claimReceived >= (?) ) AND (claimReceived <= (?) ) AND (currStatus = (?) )";
-						$currentparams = array($startDate, $endDate, $status);
+						$currentparams = array($fileStartDate, $fileEndDate, $status);
 						$currentResult = sqlsrv_query($conn, $currentsql, $currentparams);
 						$currentCount=0;
 						while($row = sqlsrv_fetch_array( $currentResult, SQLSRV_FETCH_NUMERIC))
@@ -200,7 +200,7 @@ else{
 						$latesql = "SELECT claimID
 						FROM dbo.claim_table 
 						WHERE (claimReceived > (?) ) AND (currStatus = (?) )";
-						$lateparams = array($endDate, $status);
+						$lateparams = array($fileEndDate, $status);
 						$lateResult = sqlsrv_query($conn, $latesql, $lateparams);
 						$lateCount=0;
 						while( $row = sqlsrv_fetch_array( $lateResult, SQLSRV_FETCH_NUMERIC))
