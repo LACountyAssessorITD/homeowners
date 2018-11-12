@@ -158,7 +158,7 @@ else{
 		<hr class="my-4">
 		<div class="row">
 			<hr>
-			<div class="col-4">
+			<div class="col-3">
 				<h2>Report Dates</h2>
 				<form id="login-form" autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
 					<label for="startDate">Start Date:</label>
@@ -169,7 +169,7 @@ else{
 					<button type="submit" name="submit" class="btn btn-danger">Get Productivity Report</button>
 				</form>
 			</div>
-			<div class="col-4">
+			<div class="col">
 				<h2>Claims by Status</h2>
 				<?php 
 				if($startDate && $endDate){
@@ -186,7 +186,7 @@ else{
 					$startDate = date("Y-01-01");
 					$endDate = date("Y-02-15");
 					foreach($statusArray as $status) {
-						$currentsql = "SELECT *
+						$currentsql = "SELECT claimID
 						FROM dbo.claim_table 
 						WHERE (claimReceived >= (?) ) AND (claimReceived <= (?) ) AND (currStatus = (?) )";
 						$currentparams = array($startDate, $endDate, $status);
@@ -197,7 +197,7 @@ else{
 							$currentCount++;
 						}
 
-						$latesql = "SELECT *
+						$latesql = "SELECT claimID
 						FROM dbo.claim_table 
 						WHERE (claimReceived > (?) ) AND (currStatus = (?) )";
 						$lateparams = array($endDate, $status);
@@ -219,7 +219,7 @@ else{
 				}
 				?>
 			</div>
-			<div class="col-4">
+			<div class="col">
 				<h2>Claims by Appraiser</h2>
 				<?php 
 				if($startDate && $endDate){
