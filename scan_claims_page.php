@@ -48,10 +48,10 @@ if(isset($_POST['submit'])){ //check if form was submitted
 
 	if(strcasecmp($option, "Claim Received")==0){
 			$claim_query = "INSERT INTO dbo.claim_table
-			(claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor)
+			(claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus)
 			VALUES(?,?,?,?)";
 			foreach($claimID as $item) {
-				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"]);
+				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
 				/* Execute the query. */
 				if($item!=""){
 					$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
@@ -62,11 +62,11 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	else if(strcasecmp($option, "Supervisor Workload")==0){
 			$date = date("m.d.y");
 			$tsql = "UPDATE dbo.claim_table   
-         	SET supervisorWorkload = (?), supervisorWorkloadAssignee = (?), supervisorWorkloadAssignor = (?) 
+         	SET supervisorWorkload = (?), supervisorWorkloadAssignee = (?), supervisorWorkloadAssignor = (?), currStatus = (?) 
          	WHERE claimID = (?)";  
 
 			foreach($claimID as $item) {
-				$params = array($date, $user, $_SESSION["name"], $item);
+				$params = array($date, $user, $_SESSION["name"], $option, $item);
 				/* Execute the query. */    
 				if($item!=""){              
 					$claim_result = sqlsrv_query($conn, $tsql, $params);
@@ -77,11 +77,11 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	else if(strcasecmp($option, "Staff Review")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
-     	SET staffReview = (?), staffReviewAssignee = (?), staffReviewAssignor = (?)  
+     	SET staffReview = (?), staffReviewAssignee = (?), staffReviewAssignor = (?), currStatus = (?)
      	WHERE claimID = (?)";  
 
 		foreach($claimID as $item) {
-			$params = array($date, $user, $_SESSION["name"], $item);
+			$params = array($date, $user, $_SESSION["name"], $option, $item);
 			/* Execute the query. */                  
 			if($item!=""){              
 				$claim_result = sqlsrv_query($conn, $tsql, $params);
@@ -92,11 +92,11 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	else if(strcasecmp($option, "Staff Review Date")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
-     	SET staffReviewDate = (?), staffReviewDateAssignee = (?), staffReviewDateAssignor = (?)  
+     	SET staffReviewDate = (?), staffReviewDateAssignee = (?), staffReviewDateAssignor = (?), currStatus = (?)
      	WHERE claimID = (?)";  
 
 		foreach($claimID as $item) {
-			$params = array($date, $user, $_SESSION["name"], $item);
+			$params = array($date, $user, $_SESSION["name"], $option, $item);
 			/* Execute the query. */                  
 			if($item!=""){              
 				$claim_result = sqlsrv_query($conn, $tsql, $params);
@@ -107,11 +107,11 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	else if(strcasecmp($option, "Supervisor Review")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
-     	SET supervisorReview = (?), supervisorReviewAssignee = (?), supervisorReviewAssignor = (?)   
+     	SET supervisorReview = (?), supervisorReviewAssignee = (?), supervisorReviewAssignor = (?), currStatus = (?)
      	WHERE claimID = (?)";  
 
 		foreach($claimID as $item) {
-			$params = array($date, $user, $_SESSION["name"], $item);
+			$params = array($date, $user, $_SESSION["name"], $option, $item);
 			/* Execute the query. */                  
 			if($item!=""){              
 				$claim_result = sqlsrv_query($conn, $tsql, $params);
@@ -124,11 +124,11 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	else if(strcasecmp($option, "Closed")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
-     	SET caseClosed = (?), caseClosedAssignee = (?), caseClosedAssignor = (?)   
+     	SET caseClosed = (?), caseClosedAssignee = (?), caseClosedAssignor = (?), currStatus = (?)
      	WHERE claimID = (?)";  
 
 		foreach($claimID as $item) {
-			$params = array($date, $user, $_SESSION["name"], $item);
+			$params = array($date, $user, $_SESSION["name"], $option, $item);
 			/* Execute the query. */                  
 			if($item!=""){
 				//update the claim              

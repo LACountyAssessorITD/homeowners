@@ -71,114 +71,124 @@ else{
 	<link rel="stylesheet" type="text/css" href="styles/home-style.css">
 	<style>
 	* { box-sizing: border-box; }
-.autocomplete {
-  /*the container must be positioned relative:*/
-  position: relative;
-  display: inline-block;
-}
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
-}
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
-}
-.autocomplete-items div:hover {
-  /*when hovering an item:*/
-  background-color: #e9e9e9; 
-}
-.autocomplete-active {
-  /*when navigating through the items using the arrow keys:*/
-  background-color: DodgerBlue !important; 
-  color: #ffffff; 
-}	
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
+	.autocomplete {
+		/*the container must be positioned relative:*/
+		position: relative;
+		display: inline-block;
+	}
+	.autocomplete-items {
+		position: absolute;
+		border: 1px solid #d4d4d4;
+		border-bottom: none;
+		border-top: none;
+		z-index: 99;
+		/*position the autocomplete items to be the same width as the container:*/
+		top: 100%;
+		left: 0;
+		right: 0;
+	}
+	.autocomplete-items div {
+		padding: 10px;
+		cursor: pointer;
+		background-color: #fff; 
+		border-bottom: 1px solid #d4d4d4; 
+	}
+	.autocomplete-items div:hover {
+		/*when hovering an item:*/
+		background-color: #e9e9e9; 
+	}
+	.autocomplete-active {
+		/*when navigating through the items using the arrow keys:*/
+		background-color: DodgerBlue !important; 
+		color: #ffffff; 
+	}	
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
 
-td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
+	td {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
 
-th {
-	color: white;
-	border: 1px solid #dddddd;
-	background-color: #486F9E;
-	text-align: center;
-	padding: 8px;
-}
+	th {
+		color: white;
+		border: 1px solid #dddddd;
+		background-color: #486F9E;
+		text-align: center;
+		padding: 8px;
+	}
 
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-	</style>
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+</style>
 </head>
 <body>
-<ul>
-  <li><a href="home_page.php">Home</a></li>
-  <li><a href="productivity_report_page.php">Productivity Report</a></li>
-  <li><a href="scan_claims_page.php">Scan Claims</a></li>
-  <li><a href="create_claim_page.php">Claim</a></li>
-  <li><a href="advanced_search_page.php">Advanced Search</a></li>
-  <li><a href="index.php">Logout</a></li>
-  <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
-</ul>
-<div class="container rounded col-12 p-3" style="border: 10px solid lightgray;" id="signin-container">
-	<div class="row">
-		<h1 class="col-4" style="padding-bottom: 20px;">Productivity Report</h1>
-		<div class="col-4">
-			<?php 
+	<ul>
+		<li><a href="home_page.php">Home</a></li>
+		<li><a href="productivity_report_page.php">Productivity Report</a></li>
+		<li><a href="scan_claims_page.php">Scan Claims</a></li>
+		<li><a href="create_claim_page.php">Claim</a></li>
+		<li><a href="advanced_search_page.php">Advanced Search</a></li>
+		<li><a href="index.php">Logout</a></li>
+		<li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
+	</ul>
+	<div class="container rounded col-12 p-3" style="border: 10px solid lightgray;" id="signin-container">
+		<div class="row">
+			<h1 class="col-4" style="padding-bottom: 20px;">Productivity Report</h1>
+			<div class="col-4">
+				<?php 
 				if($startDate){
 					echo "<h4>Start Date:</h4><h3>".$startDate."</h3>";
 				}
-			?>
-		</div>
-		<div class="col-4">
-			<?php 
+				?>
+			</div>
+			<div class="col-4">
+				<?php 
 				if($endDate){
 					echo "<h4>End Date:</h4><h3>".$endDate."</h3>";
 				}
-			?>
+				?>
+			</div>
 		</div>
-	</div>
-	<hr class="my-4">
-	<div class="row">
-		<hr>
-		<div class="col-4">
-			<h2>Claims by Status</h2>
-			<?php 
+		<hr class="my-4">
+		<div class="row">
+			<hr>
+			<div class="col-4">
+				<h2>Report Dates</h2>
+				<form id="login-form" autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+					<label for="startDate">Start Date:</label>
+					<input class="form-control" id="startDate" name="startDate" placeholder="1/23/2000" type="date">
+					<label for="endDate">End Date:</label>
+					<input class="form-control" id="endDate" name="endDate" placeholder="1/23/2000" type="date">
+					<br>
+					<button type="submit" name="submit" class="btn btn-danger">Get Productivity Report</button>
+				</form>
+			</div>
+			<div class="col-4">
+				<h2>Claims by Status</h2>
+				<?php 
 				if($startDate && $endDate){
 					echo "<table style='width: 100%'>
-							<tr>
-								<th>ClaimStatus</th>
-								<th>Count</th>
-    							<th>Current</th>
-    							<th>Late</th>
- 							 </tr>
- 							 <tr>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-    							<td>-</td>
- 							 </tr>";
+					<tr>
+					<th>ClaimStatus</th>
+					<th>Count</th>
+					<th>Current</th>
+					<th>Late</th>
+					</tr>";
+					$totalCount = 0;
+					$totalCurrCount = 0;
+					$totalLateCount = 0;
+					$startDate = date("Y-01-01");
+					$endDate = date("Y-02-15");
 					foreach($statusArray as $status) {
 						$currentsql = "SELECT (?)
-						 FROM dbo.claim_table 
-						 WHERE (claimReceived >= (?) ) AND (caseClosed <= (?) )";
+						FROM dbo.claim_table 
+						WHERE (claimReceived >= (?) ) AND (claimReceived <= (?) )";
 						$currentparams = array($status, $startDate, $endDate);
 						$currentResult = sqlsrv_query($conn, $currentsql, $currentparams);
 						$currentCount=0;
@@ -189,8 +199,8 @@ tr:nth-child(even) {
 
 						$latesql = "SELECT (?)
 						FROM dbo.claim_table 
-						WHERE (claimReceived >= (?) ) AND (caseClosed > (?) )";
-						$lateparams = array($status, $startDate, $endDate);
+						WHERE (claimReceived > (?) )";
+						$lateparams = array($status, $endDate);
 						$lateResult = sqlsrv_query($conn, $latesql, $lateparams);
 						$lateCount=0;
 						while( $row = sqlsrv_fetch_array( $lateResult, SQLSRV_FETCH_NUMERIC))
@@ -198,34 +208,33 @@ tr:nth-child(even) {
 							$lateCount++;
 						}
 
-						$totalCount = $currentCount + $lateCount;
-					    echo "<tr>"."<td>".$status."</td>"."<td>".$totalCount."</td>"."<td>".$currentCount."</td>"."<td>".$lateCount."</td>"."</tr>";
+						$count = $currentCount + $lateCount;
+						$totalCount += $count;
+						$totalCurrCount += $currentCount;
+						$totalLateCount += $lateCount;
+						echo "<tr>"."<td>".$status."</td>"."<td>".$count."</td>"."<td>".$currentCount."</td>"."<td>".$lateCount."</td>"."</tr>";
 					}
+					echo "<tr>"."<td style='font-weight:bold'>Total Count</td>"."<td style='font-weight:bold'>".$totalCount."</td>"."<td style='font-weight:bold'>".$totalCurrCount."</td>"."<td style='font-weight:bold'>".$totalLateCount."</td>"."</tr>";
 					echo "</table>";
 				}
-			?>
-		</div>
-		<div class="col-4">
-			<h2>Claims by Appraiser</h2>
-			<?php 
+				?>
+			</div>
+			<div class="col-4">
+				<h2>Claims by Appraiser</h2>
+				<?php 
 				if($startDate && $endDate){
 					echo "<table style='width: 100%'>
-							<tr>
-								<th>Appraiser</th>
-								<th>UnWorked</th>
-    							<th>Worked</th>
- 							 </tr>
- 							 <tr>
-								<td>-</td>
-								<td>-</td>
-    							<td>-</td>
- 							 </tr>";
- 					$totalUnworked=0;
- 					$totalWorked=0;
+					<tr>
+					<th>Appraiser</th>
+					<th>UnWorked</th>
+					<th>Worked</th>
+					</tr>";
+					$totalUnworked=0;
+					$totalWorked=0;
 					foreach($phpArray as $item) {
 						$workedsql = "SELECT claimID
-						 FROM dbo.claim_table 
-						 WHERE (staffReviewDate >= (?) ) AND (staffReviewDate <= (?) ) AND staffReviewDateAssignor = (?)";
+						FROM dbo.claim_table 
+						WHERE (staffReviewDate >= (?) ) AND (staffReviewDate <= (?) ) AND staffReviewDateAssignor = (?)";
 						$workedparams = array($startDate, $endDate, $item);
 						$claim_result_worked = sqlsrv_query($conn, $workedsql, $workedparams);
 						$worked=0;
@@ -236,8 +245,8 @@ tr:nth-child(even) {
 						}
 
 						$tsql = "SELECT claimID
-						 FROM dbo.claim_table 
-						 WHERE (staffReview >= (?) ) AND (staffReview <= (?) ) AND staffReviewAssignee = (?)";
+						FROM dbo.claim_table 
+						WHERE (staffReview >= (?) ) AND (staffReview <= (?) ) AND staffReviewAssignee = (?)";
 						$params = array($startDate, $endDate, $item);
 						$claim_result = sqlsrv_query($conn, $tsql, $params);
 						$unWorked=0;
@@ -248,26 +257,16 @@ tr:nth-child(even) {
 
 						$sumUnworked=$unWorked-$worked;
 						$totalUnworked=$totalUnworked+$sumUnworked;
-					    echo "<tr>"."<td>".$item."</td>"."<td>".$sumUnworked."</td>"."<td>".$worked."</td>"."</tr>";
+						echo "<tr>"."<td>".$item."</td>"."<td>".$sumUnworked."</td>"."<td>".$worked."</td>"."</tr>";
 					}
 					echo "<tr>"."<td style='font-weight:bold'>Total Volume</td>"."<td>".$totalUnworked."</td>"."<td>".$totalWorked."</td>"."</tr>";
 					echo "</table>";
 				}
-			?>
+				?>
 			</div>
-		<div class="col-4">
-			<h2>Report Dates</h2>
-			<form id="login-form" autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
-			<label for="startDate">Start Date:</label>
-			<input class="form-control" id="startDate" name="startDate" placeholder="1/23/2000" type="date">
-			<label for="endDate">End Date:</label>
-			<input class="form-control" id="endDate" name="endDate" placeholder="1/23/2000" type="date">
-			<br>
-			<button type="submit" name="submit" class="btn btn-danger">Get Productivity Report</button>
-			</form>
+
 		</div>
 	</div>
-</div>
 
 </body>
 </html>

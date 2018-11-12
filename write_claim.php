@@ -125,7 +125,7 @@
 				priorStName = '$priorStName', priorApt = '$priorApt', priorCity = '$priorCity', 
 				priorState = '$priorState', priorZip = '$priorZip', rollTaxYear = '$rollTaxYear', 
 				exemptRE = '$exemptRE', suppTaxYear = '$suppTaxYear', exemptRE2 = '$exemptRE2', 
-				claimAction = '$claimAction', findingReason = '$findingReason'
+				claimAction = '$claimAction', findingReason = '$findingReason', currStatus = '$chooseStatus'
 				WHERE claimID = '$claimID'";
 
 		// update status accordingly
