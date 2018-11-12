@@ -122,25 +122,24 @@
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="homeownerSSN" name="homeownerSSN" placeholder="" type="number" min="0" data-bind="value:homeownerSSN">
 						</div>
+						<div class="col form-group">
+							<label for="spouseFirstname">Spouse Name (If applicable):</label>
+							<input class="form-control" id="spouseFirstname" name="spouseFirstname" placeholder="Last, First Middle" type="text">
+						</div>
+						<!--div class="col form-group">
+							<label for="spouseLastname" class="control-label">Spouse Last Name:</label>
+							<input class="form-control" id="spouseLastname" name="spouseLastname" placeholder="" type="text">
+						</div-->
+						<div class="col-2 form-group">
+							<label for="spouseSSN" class="control-label">Spouse SSN:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control" id="spouseSSN" name="spouseSSN" placeholder="" type="number" min="0" data-bind="value:spouseSSN">
+						</div>
 					</div>
 
 					<h6>Spouse/Partner Information (If applicable)</h5>
 					<div class="form-row">
-						<div class="col form-group">
-							<label for="spouseFirstname">Spouse Name:</label>
-							<input class="form-control" id="spouseFirstname" name="spouseFirstname" placeholder="Last, First Middle" type="text">
-						</div>
-<!-- 
-						<div class="col form-group">
-							<label for="spouseLastname" class="control-label">Spouse Last Name:</label>
-							<input class="form-control" id="spouseLastname" name="spouseLastname" placeholder="" type="text">
-						</div>
-						 -->
-						<div class="col-2 form-group">
-							<label for="spouseSSN" class="control-label">SSN:</label>
-							<!-- TODO: onchange valid number check and formatting -->
-							<input class="form-control" id="spouseSSN" name="spouseSSN" placeholder="" type="number" min="0" data-bind="value:spouseSSN">
-						</div>
+
 					</div>
 
 					<!--  -->
@@ -169,7 +168,7 @@
 					</div>
 
 					<div class="form-row">
-						<div class="col-8 form-group required">
+						<div class="col-4 form-group required">
 							<label for="propertyAddress">Street Address:</label>
 							<input class="form-control" id="propertyAddress" name="propertyAddress" placeholder="" type="text">
 						</div>
@@ -177,9 +176,6 @@
 							<label for="propertyApartment">Apartment:</label>
 							<input class="form-control" id="propertyApartment" name="propertyApartment" type="text">
 						</div>
-					</div>
-
-					<div class="form-row">
 						<div class="col form-group required">
 							<label for="propertyCity">City:</label>
 							<input class="form-control" id="propertyCity" name="propertyCity" type="text">
@@ -193,8 +189,11 @@
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="propertyZIP" name="propertyZIP" type="number" min="0" max="99999" data-bind="value:propertyZIP">
 						</div>
-
 					</div>
+
+					<!--div class="form-row">
+
+					</div-->
 
 					<!--  -->
 

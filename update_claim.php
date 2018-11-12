@@ -24,7 +24,7 @@
 		$sql= $sql." claimant = '$homeownerName'";
 		$populated = True;
 	}
-	$homeownerSSN = intval($_GET['claimantSSN']);
+	$homeownerSSN = $_GET['claimantSSN'];
 	if(!empty($homeownerSSN)){
 		if($populated)
 			$sql=$sql.", ";
@@ -38,7 +38,7 @@
 		$sql= $sql." spouse = '$spouseName'";
 		$populated = True;
 	}
-	$spouseSSN = intval($_GET['spouseSSN']);
+	$spouseSSN = $_GET['spouseSSN'];
 	if(!empty($spouseSSN)){
 		if($populated)
 			$sql=$sql." AND ";
@@ -222,48 +222,49 @@
 	// 	$sql= $sql." findingReason = '$findingReason'";
 	// 	$populated = True;
 	// }
-	$claimReceived = intval($_GET['claimReceived']);
-	if(!empty($claimReceived)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." claimReceived = '$claimReceived'";
-		$populated = True;
-	}
-	$supervisorWorkload = intval($_GET['supervisorWorkload']);
-	if(!empty($supervisorWorkload)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." supervisorWorkload = '$supervisorWorkload'";
-		$populated = True;
-	}
-	$staffReview = intval($_GET['staffReview']);
-	if(!empty($staffReview)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." staffReview = '$staffReview'";
-		$populated = True;
-	}
-	$staffReviewDate = intval($_GET['staffReviewDate']);
-	if(!empty($staffReviewDate)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." staffReviewDate = '$staffReviewDate'";
-		$populated = True;
-	}
-	$supervisorReview = intval($_GET['supervisorReview']);
-	if(!empty($supervisorReview)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." supervisorReview = '$supervisorReview'";
-		$populated = True;
-	}
-	$caseClosed = intval($_GET['caseClosed']);
-	if(!empty($caseClosed)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." caseClosed = '$caseClosed'";
-		$populated = True;
-	}
+		//this is due to the new "show history" div on claim_page
+			// $claimReceived = intval($_GET['claimReceived']);
+			// if(!empty($claimReceived)){
+			// 	if($populated)
+			// 		$sql=$sql." AND ";
+			// 	$sql= $sql." claimReceived = '$claimReceived'";
+			// 	$populated = True;
+			// }
+			// $supervisorWorkload = intval($_GET['supervisorWorkload']);
+			// if(!empty($supervisorWorkload)){
+			// 	if($populated)
+			// 		$sql=$sql." AND ";
+			// 	$sql= $sql." supervisorWorkload = '$supervisorWorkload'";
+			// 	$populated = True;
+			// }
+			// $staffReview = intval($_GET['staffReview']);
+			// if(!empty($staffReview)){
+			// 	if($populated)
+			// 		$sql=$sql." AND ";
+			// 	$sql= $sql." staffReview = '$staffReview'";
+			// 	$populated = True;
+			// }
+			// $staffReviewDate = intval($_GET['staffReviewDate']);
+			// if(!empty($staffReviewDate)){
+			// 	if($populated)
+			// 		$sql=$sql." AND ";
+			// 	$sql= $sql." staffReviewDate = '$staffReviewDate'";
+			// 	$populated = True;
+			// }
+			// $supervisorReview = intval($_GET['supervisorReview']);
+			// if(!empty($supervisorReview)){
+			// 	if($populated)
+			// 		$sql=$sql." AND ";
+			// 	$sql= $sql." supervisorReview = '$supervisorReview'";
+			// 	$populated = True;
+			// }
+			// $caseClosed = intval($_GET['caseClosed']);
+			// if(!empty($caseClosed)){
+			// 	if($populated)
+			// 		$sql=$sql." AND ";
+			// 	$sql= $sql." caseClosed = '$caseClosed'";
+			// 	$populated = True;
+			// }
 	//^
 
 
