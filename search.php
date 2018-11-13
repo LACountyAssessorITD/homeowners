@@ -24,7 +24,7 @@
 		$sql= $sql." claimant = '$homeownerName'";
 		$populated = True;
 	}
-	$homeownerSSN = intval($_GET['homeownerSSN']);
+	$homeownerSSN = $_GET['homeownerSSN'];
 	if(!empty($homeownerSSN)){
 		if($populated)
 			$sql=$sql." AND ";
@@ -38,7 +38,7 @@
 		$sql= $sql." spouse = '$spouseName'";
 		$populated = True;
 	}
-	$spouseSSN = intval($_GET['spouseSSN']);
+	$spouseSSN = $_GET['spouseSSN'];
 	if(!empty($spouseSSN)){
 		if($populated)
 			$sql=$sql." AND ";
