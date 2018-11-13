@@ -49,7 +49,7 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	if(strcasecmp($option, "Claim Received")==0){
 			$claim_query = "INSERT INTO dbo.claim_table
 			(claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus)
-			VALUES(?,?,?,?)";
+			VALUES(?,?,?,?,?)";
 			foreach($claimID as $item) {
 				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
 				/* Execute the query. */
@@ -174,12 +174,6 @@ if(isset($_POST['submit'])){ //check if form was submitted
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 	<style>
-	* { box-sizing: border-box; }
-.autocomplete {
-  /*the container must be positioned relative:*/
-  position: relative;
-  display: inline-block;
-}
 .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;
@@ -206,21 +200,6 @@ if(isset($_POST['submit'])){ //check if form was submitted
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }	
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
     .navbar-dark .navbar-nav .nav-link {
         color: rgba(255,255,255,.9);
     }   
@@ -265,55 +244,55 @@ tr:nth-child(even) {
 		//echo $message;
 	}
 	?>
-	<form autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
-	<div class="row"><hr></div>
-	<div class="row">
-		<div class="col-2"></div>
-	    <div class="col-4">
-	      <h5>Scan Claims</h5>
-	    </div>
-	    <div class="col-6">
-	  		<div id="add" class="btn btn-success">Add Input</div>
-			<button type="submit" name="submit" class="btn btn-danger">Process</button>
-			<div id="reset" class="btn btn-secondary">Reset</div>
-	    </div>
-	    <div class="col-2"></div>
+<form autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+  <div class="form-row" style="">
+  	<div class="form-group col-md-7" style="margin-top: 20px; padding-left: 24px; padding-right: 24px;
+															padding-top: 24px; padding-bottom: 14px;">
+  	 	<h1 style="width: 100%;">Scan Claims</h1>
     </div>
-    <div class="row"><hr></div>
-	<div class="row">
-		<div class="col-2"></div>
-	    <div class="col-4">
-	      <label for="users">Assign To:</label>
-				<div class="autocomplete" style="width:300px;">
-			    	<input id="myUsers" type="text" name="users" placeholder="Type in assignee">
-				</div>
-	    </div>
-	    <div class="col-6">
-				<label for="option">Claim Status:</label>
-				<select id="option" name="option">
-				  <option disabled selected value>Choose Option</option>
-				  <option value="Claim Received">Claim Received</option>
-				  <option value="Supervisor Workload">Supervisor Workload</option>
-				  <option value="Staff Review">Staff Assign</option>
-				  <option value="Staff Review Date">Staff Review Date</option>
-				  <option value="Supervisor Review">Supervisor Review</option>
-				  <option value="Hold">Hold</option>
-				  <option value="Closed">Closed</option>
-				  <option value="Preprint Sent">Preprint Sent</option>
-				</select>
-	    </div>
-	  </div>
-	  <div class="row">
-	  	<div class="col-4"></div>
-	    <div class="col-4">
-	      	<h5>Claim ID:</h5>
-			<div id="items">
-				<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" style="display: block;"/>
-			</div>
-	    </div>
-	    <div class="col-4"></div>
-	  </div>
-	</form>
+    <div class="form-group col-md-5" style="margin-top: 20px; padding-left: 24px; padding-right: 24px;
+															padding-top: 24px; padding-bottom: 24px;">
+  	 	<div id="add" class="btn btn-success">Add Input</div>
+		<button type="submit" name="submit" class="btn btn-danger">Process</button>
+		<div id="reset" class="btn btn-secondary">Reset</div>
+    </div>
+    <div class="form-group col-md-6" style="margin-top: 20px; padding-left: 24px; padding-right: 24px;
+															padding-top: 24px; padding-bottom: 24px;">
+	    <label for="users">Assign To:</label>
+		<div class="autocomplete">
+	    	<input class="form-control" id="myUsers" type="text" name="users" placeholder="Type in assignee">
+		</div>
+    </div>
+    <div class="form-group col-md-6" style="margin-top: 20px; padding-left: 24px; padding-right: 24px;
+															padding-top: 24px; padding-bottom: 24px;">
+		<label for="option">Claim Status:</label>
+		<select id="option" name="option" class="form-control">
+		  <option disabled selected value>Choose Option</option>
+		  <option value="Claim Received">Claim Received</option>
+		  <option value="Supervisor Workload">Supervisor Workload</option>
+		  <option value="Staff Review">Staff Assign</option>
+		  <option value="Staff Review Date">Staff Review Date</option>
+		  <option value="Supervisor Review">Supervisor Review</option>
+		  <option value="Hold">Hold</option>
+		  <option value="Closed">Closed</option>
+		  <option value="Preprint Sent">Preprint Sent</option>
+		</select>
+    </div>
+  </div>
+  <hr class="my-2">
+  <div class="form-row">
+  	<div class="form-group col-md-4">
+    </div>
+    <div class="form-group col-md-4">
+   	    <h2>Claim ID:</h2>
+		<div id="items" style="">
+			<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" style="display: block; width:100%; margin-top: 5px; border-radius:2px;"/>
+		</div>
+    </div>
+    <div class="form-group col-md-4">
+    </div>
+  </div>
+</form>
 </div> <!-- end container -->
 <!-- Custom JS -->
 <script type="text/javascript">
@@ -327,7 +306,7 @@ $("#reset").click(function () {
 $("#add").click(function () {
 	console.log("clicked");
 //Append a new row of code to the "#items" div
-  $("#items").append('<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" style="display: block;"/>');
+  $("#items").append('<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" style="display: block; width:100%; margin-top: 5px; border-radius:2px;"/>');
   $(".inputs").keyup(function () {
     if (this.value.length == this.maxLength) {
     	$(this).next('.inputs').focus();
