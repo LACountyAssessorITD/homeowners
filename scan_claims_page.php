@@ -164,13 +164,15 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-	<!-- Custom CSS -->
-	<link rel="stylesheet" type="text/css" href="styles/home-style.css">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 	<style>
 	* { box-sizing: border-box; }
 .autocomplete {
@@ -219,39 +221,75 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+    .navbar-dark .navbar-nav .nav-link {
+        color: rgba(255,255,255,.9);
+    }   
 </style>
 </head>
 <body>
-<ul>
-  <li><a href="home_page.php">Home</a></li>
-  <li><a href="productivity_report_page.php">Productivity Report</a></li>
-  <li><a href="scan_claims_page.php">Scan Claims</a></li>
-  <li><a href="create_claim_page.php">Claim</a></li>
-  <li><a href="advanced_search_page.php">Advanced Search</a></li>
-  <li><a href="index.php">Logout</a></li>
-  <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
-</ul>
-<div class="container rounded col-12 p-3" id="signin-container">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="home_page.php">HOX Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="productivity_report_page.php">Productivity Report</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="scan_claims_page.php">Scan Claims</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="create_claim_page.php">Claim</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="advanced_search_page.php">Advanced Search</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Logout</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="claim_page.php" method="get">
+            <input class="form-control mr-sm-2" type="text" name="claimID" placeholder="Search by Claim ID..." aria-label="Search" >
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
 	<?php 
 	if($message){
 		echo '<div class="alert alert-success"><strong>Processed!</strong></div>';
 		//echo $message;
 	}
 	?>
+	<form autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+	<div class="row"><hr></div>
 	<div class="row">
-		<h1 class="col" style="padding-bottom: 20px;">Scan Claims</h1>
-	</div>
+		<div class="col-2"></div>
+	    <div class="col-4">
+	      <h5>Scan Claims</h5>
+	    </div>
+	    <div class="col-6">
+	  		<div id="add" class="btn btn-success">Add Input</div>
+			<button type="submit" name="submit" class="btn btn-danger">Process</button>
+			<div id="reset" class="btn btn-secondary">Reset</div>
+	    </div>
+	    <div class="col-2"></div>
+    </div>
+    <div class="row"><hr></div>
 	<div class="row">
-		<div class="col" id="form-col">
-			<form id="login-form" autocomplete="off" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
-				<div class="col-2 form-group required">
-					<br>
-					<span>Assign To:</span>
-					<div class="autocomplete" style="width:300px;">
-				    <input id="myUsers" type="text" name="users" placeholder="Type in assignee">
-				  </div>
+		<div class="col-2"></div>
+	    <div class="col-4">
+	      <label for="users">Assign To:</label>
+				<div class="autocomplete" style="width:300px;">
+			    	<input id="myUsers" type="text" name="users" placeholder="Type in assignee">
 				</div>
-				<span>Claim Status:</span>
+	    </div>
+	    <div class="col-6">
+				<label for="option">Claim Status:</label>
 				<select id="option" name="option">
 				  <option disabled selected value>Choose Option</option>
 				  <option value="Claim Received">Claim Received</option>
@@ -263,26 +301,19 @@ tr:nth-child(even) {
 				  <option value="Closed">Closed</option>
 				  <option value="Preprint Sent">Preprint Sent</option>
 				</select>
-				<br>
-				<hr>
-				<br>
-				<div>
-					<div id="add" class="btn btn-success">Add Input</div>
-					<button type="submit" name="submit" class="btn btn-danger">Process</button>
-					<div id="reset" class="btn btn-secondary">Reset</div>
-				</div>
-				<hr>
-				<h1>Claim ID:</h1>
-				<div class="form-group p-1">
-					<div class="form-row">
-						<div class="col-4 form-group required" id="items">
-							<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" style="display: block;"/>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div> <!-- end row -->
+	    </div>
+	  </div>
+	  <div class="row">
+	  	<div class="col-4"></div>
+	    <div class="col-4">
+	      	<h5>Claim ID:</h5>
+			<div id="items">
+				<input class="inputs" name="claimID[]" type="text" maxlength="7" class="inputs" style="display: block;"/>
+			</div>
+	    </div>
+	    <div class="col-4"></div>
+	  </div>
+	</form>
 </div> <!-- end container -->
 <!-- Custom JS -->
 <script type="text/javascript">

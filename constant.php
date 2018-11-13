@@ -9,4 +9,17 @@
 	const PWD = 'A$$essortrain456';
 	const DATABASENAME = 'homeowner_test';
 	const HOX_DATABASE = 'HOX_USC';
+	
+	// const $encryptionMethod = "AES-256-CBC";
+	// const $iv = "1234567812345678";			//use a better one
+	// const $secretHash = "25c6c7ff35b9979b151f2136cd13b0ff";	//use a better one
+
+	// $textToEncrypt = "yeehaw";
+
+	// //To encrypt
+	// $encryptedMessage = openssl_encrypt ($textToEncrypt, $encryptionMethod, $secretHash, true, $iv);
+
+	// //To Decrypt
+	// $decryptedMessage = openssl_decrypt($encryptedMessage, $encryptionMethod, $secretHash, true, $iv);
+	
 ?>

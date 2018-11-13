@@ -11,14 +11,66 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-	<!-- Custom CSS -->
-	<link rel="stylesheet" type="text/css" href="styles/home-style.css">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-	<!-- Custom JS -->
-	<!--script type="text/javascript" src="scripts/script.js"></script-->
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+    	<style>
+	* { box-sizing: border-box; }
+	.autocomplete {
+		/*the container must be positioned relative:*/
+		position: relative;
+		display: inline-block;
+	}
+	.autocomplete-items {
+		position: absolute;
+		border: 1px solid #d4d4d4;
+		border-bottom: none;
+		border-top: none;
+		z-index: 99;
+		/*position the autocomplete items to be the same width as the container:*/
+		top: 100%;
+		left: 0;
+		right: 0;
+	}
+	.autocomplete-items div {
+		padding: 10px;
+		cursor: pointer;
+		background-color: #fff; 
+		border-bottom: 1px solid #d4d4d4; 
+	}
+	.autocomplete-items div:hover {
+		/*when hovering an item:*/
+		background-color: #e9e9e9; 
+	}
+	.autocomplete-active {
+		/*when navigating through the items using the arrow keys:*/
+		background-color: DodgerBlue !important; 
+		color: #ffffff; 
+	} 
+	.navbar-dark .navbar-nav .nav-link {
+		color: rgba(255,255,255,.9);
+	}
+	.row-bottom-margin {
+		margin-bottom: -20px;
+	}
+	.col-right-padding {
+    	padding-right: 0px;
+	}
+	.info-status-grid {
+		background-color: #D6EAF8; 
+		padding-left: 24px; 
+		padding-right: 24px;
+	}
+	.situs-row-bottom-margin {
+		margin-bottom: -15px;
+	}
+</style>
     <script>
       $(function () {
         $("#advanced-search").on('submit', function (e) {
@@ -88,18 +140,37 @@
 
 
 </head>
-
-
 <body>
-<ul>
-  <li><a href="home_page.php">Home</a></li>
-  <li><a href="productivity_report_page.php">Productivity Report</a></li>
-  <li><a href="scan_claims_page.php">Scan Claims</a></li>
-  <li><a href="create_claim_page.php">Claim</a></li>
-  <li><a href="advanced_search_page.php">Advanced Search</a></li>
-  <li><a href="index.php">Logout</a></li>
-  <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
-</ul>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+	<a class="navbar-brand" href="home_page.php">HOX Home</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="productivity_report_page.php">Productivity Report</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="scan_claims_page.php">Scan Claims</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="create_claim_page.php">Claim</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="advanced_search_page.php">Advanced Search</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="index.php">Logout</a>
+			</li>
+		</ul>
+		<form class="form-inline my-2 my-lg-0" action="claim_page.php" method="get">
+			<input class="form-control mr-sm-2" type="text" name="claimID" placeholder="Search by Claim ID..." aria-label="Search" >
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+		</form>
+	</div>
+</nav>
 	<div class="container rounded col-12" id="signin-container">
 		<div class="row">
 			<div class="col" id="form-col">

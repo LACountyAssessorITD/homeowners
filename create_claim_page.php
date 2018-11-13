@@ -136,9 +136,9 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 </nav>
 
 <div class="container rounded col-12 p-3" id="signin-container">
-	<div class="row">
+<!-- 	<div class="row">
 		<h2 class="col">Claim</h2>
-	</div>
+	</div> -->
 	<div class="alert alert-success alert-dismissible collapse" role="alert" id="successAlert">
 		<div id="submitSuccess"> Submission Success
 		</div>
