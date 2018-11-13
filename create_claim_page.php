@@ -1,35 +1,35 @@
-<!-- <?php
-// session_start();
-// include('constant.php');
-// $message=null;
-/* better way to connect without exposing password info? */
-// $serverName = SERVERNAME;
-// $uid = UID;
-// $pwd = PWD;
-// $databaseName = DATABASENAME;
+<?php
+session_start();
+include('constant.php');
+$message=null;
+ better way to connect without exposing password info? 
+$serverName = SERVERNAME;
+$uid = UID;
+$pwd = PWD;
+$databaseName = DATABASENAME;
 
-// $connectionInfo = array( "UID"=>$uid,
-//   "PWD"=>$pwd,
-//   "Database"=>$databaseName);
+$connectionInfo = array( "UID"=>$uid,
+  "PWD"=>$pwd,
+  "Database"=>$databaseName);
 
 /* Connect using SQL Server Authentication. */
-// $conn = sqlsrv_connect( $serverName, $connectionInfo);
+$conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-// if($conn === false) {
-//   echo "Could not connect.\n";
-//   die(print_r( sqlsrv_errors(), true));
-// }
+if($conn === false) {
+  echo "Could not connect.\n";
+  die(print_r( sqlsrv_errors(), true));
+}
 
-// $tsql = "SELECT name FROM temp_table";
+$tsql = "SELECT name FROM temp_table";
 
-// $phpArray = array();
+$phpArray = array();
 
-// $stmt = sqlsrv_query( $conn, $tsql);
-// while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-// {
-//   array_push($phpArray, $row[0]);
-// }
-?> -->
+$stmt = sqlsrv_query( $conn, $tsql);
+while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+{
+  array_push($phpArray, $row[0]);
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -137,7 +137,7 @@
 
 <div class="container rounded col-12 p-3" id="signin-container">
 	<div class="row">
-		<h1 class="col">Claim</h1>
+		<h2 class="col">Claim</h2>
 	</div>
 	<div class="alert alert-success alert-dismissible collapse" role="alert" id="successAlert">
 		<div id="submitSuccess"> Submission Success
@@ -157,15 +157,6 @@
 					
 					<div class="form-col col-sm-6" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
 															padding-top: 10px; padding-bottom: 5px;">
-
-						<!-- <div class="col form-group required">
-							<div class="form-group row">
-								<label for="claimID" class="col-sm-3 col-form-label col-form-label-sm">ClaimID:</label>
-								<div class="col-sm-9">
-									<input class="form-control form-control-sm" id="claimID" name="claimID" placeholder="1234567" type="text">
-								</div>
-							</div>
-						</div> -->
 						<div>
 							<h5>Personal Information</h5>
 						</div>
@@ -267,33 +258,29 @@
 				<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
 														padding-top: 10px; padding-bottom: 15px;">
 					<div>
-						<h5>Exemption Information</h5>
+						<h5>Claim/Property Information</h5>
 					</div>
 					<div class="form-row situs-row-bottom-margin">
-						<div class="col form-group required">
-							<label for="rollTaxYear" class="col-form-label col-form-label-sm">Roll Tax Year:</label>
-							<input class="form-control form-control-sm" id="rollTaxYear" name="rollTaxYear" placeholder="218000" type="number" min="0" data-bind="value:rollTaxYear">
-						</div>
-						<div class="col form-group required">
-							<label for="exemptRE" class="col-form-label col-form-label-sm">ExemptRE:</label>
-							<!-- TODO: onchange valid number check and formatting -->
-							<input class="form-control form-control-sm" id="exemptRE" name="exemptRE" placeholder="7000" type="number" min="0" data-bind="value:exemptRE">
+						<div class="col-6 form-group required">
+							<label for="claimID" class="col-form-label col-form-label-sm">ClaimID:</label>
+							<input class="form-control form-control-sm" id="claimID" name="claimID" placeholder="1234567" type="text">
 						</div>
 					</div>
 					<div class="form-row situs-row-bottom-margin">
-						<div class="col form-group required">
-							<label for="suppTaxYear" class="col-form-label col-form-label-sm">Supp Tax Year:</label>
-							<!-- TODO: onchange valid number check and formatting -->
-							<input class="form-control form-control-sm" id="suppTaxYear" name="suppTaxYear" placeholder="218000" type="number" min="0" data-bind="value:suppTaxYear">
-						</div>
-						<div class="col form-group required">
-							<label for="exemptRE2" class="col-form-label col-form-label-sm">ExemptRE2:</label>
-							<!-- TODO: onchange valid number check and formatting -->
-							<input class="form-control form-control-sm" id="exemptRE2" name="exemptRE2" placeholder="7000" type="number" min="0" data-bind="value:exemptRE2">
+						<div class="col-12 form-group required">
+							<label for="currentAPN" class="col-form-label col-form-label-sm">Current AIN:</label>
+							<div class="form-row situs-row-bottom-margin">
+								<div class="col-7">
+									<input class="form-control form-control-sm" id="currentAPN" name="currentAPN" placeholder="1234567890" type="number" min="0" data-bind="value:currentAPN">
+								</div>
+								<div class="col">
+									<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2 btn-sm">Search for a match</button>
+								</div>
+							</div>	
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
 														padding-top: 10px; padding-bottom: 15px;">
 					<div>
@@ -329,7 +316,7 @@
 					<div>
 						<h5>Reasons for Decision</h5>
 					</div>
-					<div class="form-row">
+					<div class="form-row situs-row-bottom-margin">
 						<div class="col form-group required">
 							<label for="claimAction" class="col-form-label col-form-label-sm">Claim Action:</label>
 							<select class="form-control form-control-sm" id="claimAction" name="claimAction">
@@ -350,6 +337,8 @@
 								<option value="Other">Other</option>
 							</select>
 						</div>
+					</div>
+					<div class="form-row situs-row-bottom-margin">
 						<div class="col form-group required">
 							<label for="otherReason" class="col-form-label col-form-label-sm">Other Reason (If applicable):</label>
 							<input class="form-control form-control-sm" id="otherReason" name="otherReason" placeholder="Specify other reason" type="text" disabled="true">
@@ -360,28 +349,22 @@
 			<hr class="my-2">
 
 			<!-- AIN lookup -->
-			<div class="form-group row p-1">
+			<!-- <div class="form-group row p-1">
 				<label for="AINSearchInput" class="col-auto col-form-label">
 					<h4 id="searchText">Enter AIN here to search for a match:</h4>
 				</label>
 				<div class="col-9 col-sm-9 col-md-4">
-					<input class="form-control" id="AINSearchInput" name="AINSearchInput" placeholder="1234567890" type="number" min="0" data-bind="value:AINSearchInput">
-					<!--div class="input-group">
-						<div class="input-group-prepend">
-							<div class="input-group-text"><i class="fas fa-search"></i></div>
-						</div>
-						<input class="form-control" id="AINSearchInput" name="AINSearchInput" placeholder="1234567890" type="number" min="0" data-bind="value:AINSearchInput">
-					</div-->
 				</div>
 				<div class="col-auto">
 					<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2">Search</button>
 				</div>
 			</div>
+
 			<div class="alert alert-warning alert-dismissible collapse" role="alert" id="searchAlert">
 				<div id="alertMsg">
 				</div>
 				<button type="button" class="close" data-hide="alert">&times;</button>
-			</div>
+			</div> -->
 
 			<!-- situs info row -->
 			<div class="form-row">
@@ -465,10 +448,6 @@
 						
 					</div>
 					<div class="form-row situs-row-bottom-margin">
-						<!-- <div class="col form-group required">
-							<label for="currentAPN">Current APN:</label>
-							<input class="form-control form-control-sm" id="currentAPN" name="currentAPN" placeholder="1234567890" type="number" min="0" data-bind="value:currentAPN">
-						</div> -->
 						<div class="col-4 form-group required">
 							<label for="currentZip" class="col-form-label col-form-label-sm">Current ZIP:</label>
 							<input class="form-control form-control-sm" id="currentZip" name="currentZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:currentZip">
@@ -716,7 +695,7 @@
 	document.getElementById("AINSearchBtn").onclick = function() {
 		var failMsg = "No match was found in database."
 		var successMsg = "Match found. Homeowner name on file: ";
-		var ainValue = document.getElementById("AINSearchInput").value;
+		var ainValue = document.getElementById("currentAPN").value;
 
 		var request = new XMLHttpRequest();
 		request.overrideMimeType("application/json");
@@ -914,9 +893,9 @@ document.addEventListener("click", function (e) {
 	closeAllLists(e.target);
 });
 }
-// var users = <?php echo json_encode($phpArray); ?>;
-// autocomplete(document.getElementById("assignee"), users);
-// autocomplete(document.getElementById("assignor"), users);
+var users = <?php echo json_encode($phpArray); ?>;
+autocomplete(document.getElementById("assignee"), users);
+autocomplete(document.getElementById("assignor"), users);
 </script>
 </body>
 </html>
