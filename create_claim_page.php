@@ -97,6 +97,9 @@
 		padding-left: 24px; 
 		padding-right: 24px;
 	}
+	.situs-row-bottom-margin {
+		margin-bottom: -15px;
+	}
 </style>
 </head>
 <body>
@@ -209,14 +212,14 @@
 					<div class="form-col col-sm-6" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
 															padding-top: 10px; padding-bottom: 5px;">
 						<div>
-							<h5>Status Dates</h5>
+							<h5>Claim Status</h5>
 						</div>
 						
 						<div class="form-row row-bottom-margin">
 							<div class="col form-group required" >
 								<div class="form-group row">
 									<label for="chooseStatus" class="col-sm-5 col-form-label col-form-label-sm" style="padding-right: 0px;">Choose Status:</label>
-									<div class="col-sm-7" style="padding-left: 0px;">
+									<div class="col-sm-7">
 										<select class="form-control form-control-sm" id="chooseStatus" name="chooseStatus">
 											<option value="Claim Received">Claim Received</option>
 											<option value="Supervisor Workload">Supervisor Workload</option>
@@ -286,28 +289,29 @@
 
 				<!-- situs info row -->
 				<div class="form-row">
-					<div class="form-col col p-2">
+					<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 10px; padding-bottom: 15px;">
 						<div>
 							<h5>Situs Information</h5>
 						</div>
-						<div class="form-row">
-							<div class="col-9 form-group required">
-								<label for="currentStName">Street Number and Name:</label>
-								<input class="form-control" id="currentStName" name="currentStName" placeholder="123 Any Street" type="text">
+						<div class="form-row situs-row-bottom-margin">
+							<div class="col-8 form-group required">
+								<label for="currentStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
+								<input class="form-control form-control-sm" id="currentStName" name="currentStName" placeholder="123 Any Street" type="text">
 							</div>
-							<div class="col-3 form-group required">
-								<label for="currentApt">Apt/Ste/Flr #:</label>
-								<input class="form-control" id="currentApt" name="currentApt" placeholder="APT 101" type="text">
+							<div class="col-4 form-group required" >
+								<label for="currentApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
+								<input class="form-control form-control-sm" id="currentApt" name="currentApt" placeholder="APT 101" type="text">
 							</div>
 						</div>
-						<div class="form-row">
+						<div class="form-row situs-row-bottom-margin">
 							<div class="col-6 form-group required">
-								<label for="currentCity">Current City:</label>
-								<input class="form-control" id="currentCity" name="currentCity" placeholder="Los Angeles" type="text">
+								<label for="currentCity" class="col-form-label col-form-label-sm">Current City:</label>
+								<input class="form-control form-control-sm" id="currentCity" name="currentCity" placeholder="Los Angeles" type="text">
 							</div>
-							<div class="col-3 form-group required">
-								<label for="currentState">Current State:</label>
-								<select class="form-control" id="currentState" name="currentState">
+							<div class="col-6 form-group required">
+								<label for="currentState" class="col-form-label col-form-label-sm">Current State:</label>
+								<select class="form-control form-control-sm" id="currentState" name="currentState">
 									<option value="NA" disabled selected>Select</option>
 									<option value="AL">Alabama</option>
 									<option value="AK">Alaska</option>
@@ -362,52 +366,52 @@
 									<option value="WY">Wyoming</option>
 								</select>
 							</div>
-							<div class="col-3 form-group required">
-								<label for="currentZip">Current ZIP:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="currentZip" name="currentZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:currentZip">
-							</div>
+							
 						</div>
-						<div class="form-row">
-							<div class="col form-group required">
+						<div class="form-row situs-row-bottom-margin">
+							<!-- <div class="col form-group required">
 								<label for="currentAPN">Current APN:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="currentAPN" name="currentAPN" placeholder="1234567890" type="number" min="0" data-bind="value:currentAPN">
+								<input class="form-control form-control-sm" id="currentAPN" name="currentAPN" placeholder="1234567890" type="number" min="0" data-bind="value:currentAPN">
+							</div> -->
+							<div class="col-4 form-group required">
+								<label for="currentZip" class="col-form-label col-form-label-sm">Current ZIP:</label>
+								<input class="form-control form-control-sm" id="currentZip" name="currentZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:currentZip">
 							</div>
-							<div class="col form-group required">
-								<label for="dateAcquired">Date Acquired:</label>
-								<input class="form-control" id="dateAcquired" name="dateAcquired" placeholder="1/23/2000" type="date">
+							<div class="col-4 form-group required">
+								<label for="dateAcquired" class="col-form-label col-form-label-sm">Date Acquired:</label>
+								<input class="form-control form-control-sm" id="dateAcquired" name="dateAcquired" placeholder="1/23/2000" type="date">
 							</div>
-							<div class="col form-group required">
-								<label for="dateOccupied">Date Occupied:</label>
-								<input class="form-control" id="dateOccupied" name="dateOccupied" placeholder="1/23/2000" type="date">
+							<div class="col-4 form-group required">
+								<label for="dateOccupied" class="col-form-label col-form-label-sm">Date Occupied:</label>
+								<input class="form-control form-control-sm" id="dateOccupied" name="dateOccupied" placeholder="1/23/2000" type="date">
 							</div>
 						</div>
 					</div> <!-- end situs info col -->
 
 					<!-- begin mailing address col -->
-					<div class="form-col col p-2">
+					<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 10px; padding-bottom: 15px;">
 						<div>
 							<h5>Mailing Address</h5>
 						</div>
-						<div class="form-row">
-							<div class="col-9 form-group required">
-								<label for="mailingStName">Street Number and Name:</label>
-								<input class="form-control" id="mailingStName" name="mailingStName" placeholder="123 Any Street" type="text" disabled="true">
+						<div class="form-row situs-row-bottom-margin">
+							<div class="col-8 form-group required">
+								<label for="mailingStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
+								<input class="form-control form-control-sm" id="mailingStName" name="mailingStName" placeholder="123 Any Street" type="text" disabled="true">
 							</div>
-							<div class="col-3 form-group required">
-								<label for="mailingApt">Apt/Ste/Flr #:</label>
-								<input class="form-control" id="mailingApt" name="mailingApt" placeholder="APT 101" type="text" disabled="true">
+							<div class="col-4 form-group required">
+								<label for="mailingApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
+								<input class="form-control form-control-sm" id="mailingApt" name="mailingApt" placeholder="APT 101" type="text" disabled="true">
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="col-6 form-group required">
-								<label for="mailingCity">City or Town:</label>
-								<input class="form-control" id="mailingCity" name="mailingCity" placeholder="Los Angeles" type="text" disabled="true">
+							<div class="col-5 form-group required">
+								<label for="mailingCity" class="col-form-label col-form-label-sm">City or Town:</label>
+								<input class="form-control form-control-sm" id="mailingCity" name="mailingCity" placeholder="Los Angeles" type="text" disabled="true">
 							</div>
-							<div class="col-3 form-group required">
-								<label for="mailingState">State:</label>
-								<select class="form-control" id="mailingState" name="mailingState" disabled="true">
+							<div class="col-4 form-group required">
+								<label for="mailingState" class="col-form-label col-form-label-sm">State:</label>
+								<select class="form-control form-control-sm" id="mailingState" name="mailingState" disabled="true">
 									<option value="NA" disabled selected>Select</option>
 									<option value="AL">Alabama</option>
 									<option value="AK">Alaska</option>
@@ -463,55 +467,53 @@
 								</select>
 							</div>
 							<div class="col-3 form-group required">
-								<label for="mailingZip">ZIP Code:</label>
+								<label for="mailingZip" class="col-form-label col-form-label-sm">ZIP Code:</label>
 								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="mailingZip" name="mailingZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:mailingZip" disabled="true">
+								<input class="form-control form-control-sm" id="mailingZip" name="mailingZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:mailingZip" disabled="true">
 							</div>
 						</div>
 						<div class="col form-check required">
 							<input class="form-check-input" type="checkbox" value="" id="enableMailing" name="enableMailing">
-							<label  class="form-check-label" for="enableMailing">Check if mailing address is different from situs address to enable input</label>
+							<label  class="form-check-label" for="enableMailing">Check if mailing address is different from situs to enable input</label>
 						</div>
 					</div> <!-- end mailing col -->
-				</div> <!-- end situs row -->
-				<hr class="my-4">
 
-				<!-- begin prior info row -->
-				<div class="form-row">
-					<div class="form-col col p-2"> <!-- begin prior info col -->
+					<!-- begin prior col -->
+					<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 10px; padding-bottom: 15px;">
 						<div>
 							<h5>Prior Address (If applicable)</h5>
 						</div>
-						<div class="form-row">
+						<div class="form-row situs-row-bottom-margin">
 							<div class="col form-group required">
-								<label for="priorAPN">Prior APN:</label>
+								<label for="priorAPN" class="col-form-label col-form-label-sm">Prior APN:</label>
 								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="priorAPN" name="priorAPN" placeholder="1234567890" type="number" min="0" data-bind="value:priorAPN">
+								<input class="form-control form-control-sm" id="priorAPN" name="priorAPN" placeholder="1234567890" type="number" min="0" data-bind="value:priorAPN">
 							</div>
 							<div class="col form-group required">
-								<label for="dateMovedOut">Date Moved Out:</label>
-								<input class="form-control" id="dateMovedOut" name="dateMovedOut" placeholder="1/23/2000" type="date">
+								<label for="dateMovedOut" class="col-form-label col-form-label-sm">Date Moved Out:</label>
+								<input class="form-control form-control-sm" id="dateMovedOut" name="dateMovedOut" placeholder="1/23/2000" type="date">
 							</div>
 						</div>
 
-						<div class="form-row">
+						<div class="form-row situs-row-bottom-margin">
 							<div class="col-9 form-group required">
-								<label for="priorStName">Street Number and Name:</label>
-								<input class="form-control" id="priorStName" name="priorStName" placeholder="123 Any Street" type="text">
+								<label for="priorStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
+								<input class="form-control form-control-sm" id="priorStName" name="priorStName" placeholder="123 Any Street" type="text">
 							</div>
 							<div class="col-3 form-group required">
-								<label for="priorApt">Apt/Ste/Flr #:</label>
-								<input class="form-control" id="priorApt" name="priorApt" placeholder="APT 101" type="text">
+								<label for="priorApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
+								<input class="form-control form-control-sm" id="priorApt" name="priorApt" placeholder="APT 101" type="text">
 							</div>
 						</div>
-						<div class="form-row">
+						<div class="form-row situs-row-bottom-margin">
 							<div class="col-6 form-group required">
-								<label for="priorCity">Prior City:</label>
-								<input class="form-control" id="priorCity" name="priorCity" placeholder="Los Angeles" type="text">
+								<label for="priorCity" class="col-form-label col-form-label-sm">Prior City:</label>
+								<input class="form-control form-control-sm" id="priorCity" name="priorCity" placeholder="Los Angeles" type="text">
 							</div>
 							<div class="col-3 form-group required">
-								<label for="priorState">Prior State:</label>
-								<select class="form-control" id="priorState" name="priorState">
+								<label for="priorState" class="col-form-label col-form-label-sm">Prior State:</label>
+								<select class="form-control form-control-sm" id="priorState" name="priorState">
 									<option value="N/A" disabled selected>Select</option>
 									<option value="AL">Alabama</option>
 									<option value="AK">Alaska</option>
@@ -567,12 +569,18 @@
 								</select>
 							</div>
 							<div class="col-3 form-group required">
-								<label for="priorZip">Prior ZIP:</label>
+								<label for="priorZip" class="col-form-label col-form-label-sm">Prior ZIP:</label>
 								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="priorZip" name="priorZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:priorZip">
+								<input class="form-control form-control-sm" id="priorZip" name="priorZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:priorZip">
 							</div>
 						</div>
-					</div> <!-- end prior info col -->
+					</div> <!-- end prior row -->
+				</div> <!-- end situs row -->
+				<hr class="my-2">
+
+				<!-- begin prior info row -->
+				<div class="form-row">
+					 <!-- end prior info col -->
 
 					<div class="form-col col p-2"> <!-- begin exempt info col -->
 						<div>
@@ -582,24 +590,24 @@
 							<div class="col form-group required">
 								<label for="rollTaxYear">Roll Tax Year:</label>
 								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="rollTaxYear" name="rollTaxYear" placeholder="218000" type="number" min="0" data-bind="value:rollTaxYear">
+								<input class="form-control form-control-sm" id="rollTaxYear" name="rollTaxYear" placeholder="218000" type="number" min="0" data-bind="value:rollTaxYear">
 							</div>
 							<div class="col form-group required">
 								<label for="exemptRE">ExemptRE:</label>
 								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="exemptRE" name="exemptRE" placeholder="7000" type="number" min="0" data-bind="value:exemptRE">
+								<input class="form-control form-control-sm" id="exemptRE" name="exemptRE" placeholder="7000" type="number" min="0" data-bind="value:exemptRE">
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="col form-group required">
 								<label for="suppTaxYear">Supp Tax Year:</label>
 								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="suppTaxYear" name="suppTaxYear" placeholder="218000" type="number" min="0" data-bind="value:suppTaxYear">
+								<input class="form-control form-control-sm" id="suppTaxYear" name="suppTaxYear" placeholder="218000" type="number" min="0" data-bind="value:suppTaxYear">
 							</div>
 							<div class="col form-group required">
 								<label for="exemptRE2">ExemptRE2:</label>
 								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control" id="exemptRE2" name="exemptRE2" placeholder="7000" type="number" min="0" data-bind="value:exemptRE2">
+								<input class="form-control form-control-sm" id="exemptRE2" name="exemptRE2" placeholder="7000" type="number" min="0" data-bind="value:exemptRE2">
 							</div>
 						</div>
 					</div> <!-- end exempt info col -->
@@ -612,7 +620,7 @@
 				<div class="form-row">
 					<div class="col form-group required">
 						<label for="claimAction">Claim Action:</label>
-						<select class="form-control" id="claimAction" name="claimAction">
+						<select class="form-control form-control-sm" id="claimAction" name="claimAction">
 							<option value="NA" disabled selected>Select</option>
 							<option value="Met">Met</option>
 							<option value="Partially Met">Partially Met</option>
@@ -621,7 +629,7 @@
 					</div>
 					<div class="col form-group required">
 						<label for="findingReason">Finding Reason:</label>
-						<select class="form-control" id="findingReason" name="findingReason">
+						<select class="form-control form-control-sm" id="findingReason" name="findingReason">
 							<option value="N/A">N/A</option>
 							<option value="Already Claimed Exemption">Already Claimed Exemption</option>
 							<option value="Missing SSN">Missing SSN</option>
@@ -632,35 +640,7 @@
 					</div>
 					<div class="col form-group required">
 						<label for="otherReason">Other Reason (If applicable):</label>
-						<input class="form-control" id="otherReason" name="otherReason" placeholder="Specify other reason" type="text" disabled="true">
-					</div>
-				</div>
-
-				<hr class="my-4">
-				<h5>Status Dates</h5>
-				<div class="form-row">
-					<div class="col form-group required">
-						<label for="chooseStatus">Choose Status:</label>
-						<select class="form-control" id="chooseStatus" name="chooseStatus">
-							<option value="Claim Received">Claim Received</option>
-							<option value="Supervisor Workload">Supervisor Workload</option>
-							<option value="Staff Review">Staff Assign</option>
-							<option value="Staff Review Date">Staff Review Date</option>
-							<option value="Supervisor Review">Supervisor Review</option>
-							<option value="Case Closed">Case Closed</option>
-						</select>
-					</div>
-					<div class="col form-group required">
-						<label for="statusDate">Date:</label>
-						<input class="form-control" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date">
-					</div>
-					<div class="col form-group required">
-						<label for="assignee">Assignee:</label>
-						<input class="form-control" id="assignee" name="assignee" placeholder="Last, First" type="text">
-					</div>
-					<div class="col form-group required">
-						<label for="assignor">Assignor:</label>
-						<input class="form-control" id="assignor" name="assignor" placeholder="Last, First" type="text" value="<?php echo $_SESSION["name"]; ?>" >
+						<input class="form-control form-control-sm" id="otherReason" name="otherReason" placeholder="Specify other reason" type="text" disabled="true">
 					</div>
 				</div>
 
