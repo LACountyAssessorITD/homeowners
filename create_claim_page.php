@@ -2,7 +2,7 @@
 session_start();
 include('constant.php');
 $message=null;
- better way to connect without exposing password info? 
+
 $serverName = SERVERNAME;
 $uid = UID;
 $pwd = PWD;
@@ -349,7 +349,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 			<hr class="my-2">
 
 			<!-- AIN lookup -->
-			<!-- <div class="form-group row p-1">
+<!-- 			<div class="form-group row p-1">
 				<label for="AINSearchInput" class="col-auto col-form-label">
 					<h4 id="searchText">Enter AIN here to search for a match:</h4>
 				</label>
@@ -359,12 +359,12 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2">Search</button>
 				</div>
 			</div>
-
+ -->
 			<div class="alert alert-warning alert-dismissible collapse" role="alert" id="searchAlert">
 				<div id="alertMsg">
 				</div>
 				<button type="button" class="close" data-hide="alert">&times;</button>
-			</div> -->
+			</div>
 
 			<!-- situs info row -->
 			<div class="form-row">
@@ -572,21 +572,21 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					</div>
 
 					<div class="form-row situs-row-bottom-margin">
-						<div class="col-9 form-group required">
+						<div class="col-8 form-group required">
 							<label for="priorStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
 							<input class="form-control form-control-sm" id="priorStName" name="priorStName" placeholder="123 Any Street" type="text">
 						</div>
-						<div class="col-3 form-group required">
+						<div class="col-4 form-group required">
 							<label for="priorApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
 							<input class="form-control form-control-sm" id="priorApt" name="priorApt" placeholder="APT 101" type="text">
 						</div>
 					</div>
 					<div class="form-row situs-row-bottom-margin">
-						<div class="col-6 form-group required">
+						<div class="col-5 form-group required">
 							<label for="priorCity" class="col-form-label col-form-label-sm">Prior City:</label>
 							<input class="form-control form-control-sm" id="priorCity" name="priorCity" placeholder="Los Angeles" type="text">
 						</div>
-						<div class="col-3 form-group required">
+						<div class="col-4 form-group required">
 							<label for="priorState" class="col-form-label col-form-label-sm">Prior State:</label>
 							<select class="form-control form-control-sm" id="priorState" name="priorState">
 								<option value="N/A" disabled selected>Select</option>
