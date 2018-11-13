@@ -10,9 +10,9 @@
 	const DATABASENAME = 'homeowner_test';
 	const HOX_DATABASE = 'HOX_USC';
 	
-	// const $encryptionMethod = "AES-256-CBC";
-	// const $iv = "1234567812345678";			//use a better one
-	// const $secretHash = "25c6c7ff35b9979b151f2136cd13b0ff";	//use a better one
+	const ENCRPYTIONMETHOD = 'AES-256-CBC';	
+	const IV = '1234567812345678';						//TEMP: use a better one
+	const HASH = '25c6c7ff35b9979b151f2136cd13b0ff';	//TEMP: use a better one
 
 	// $textToEncrypt = "yeehaw";
 
@@ -21,5 +21,7 @@
 
 	// //To Decrypt
 	// $decryptedMessage = openssl_decrypt($encryptedMessage, $encryptionMethod, $secretHash, true, $iv);
+
+	// $decryptedMessage = openssl_decrypt($encryptedMessage, ENCRPYTIONMETHOD, HASH, true, IV);
 	
 ?>

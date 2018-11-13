@@ -20,7 +20,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-    	<style>
+	<style>
 	* { box-sizing: border-box; }
 	.autocomplete {
 		/*the container must be positioned relative:*/
@@ -176,10 +176,15 @@
 			<div class="col" id="form-col">
 				<form id="advanced-search" action="script">	<!--action="home.php" method="post">-->
 					<br>
-					<h1>Advanced Search</h1>
-					<div class="form-row">
+					<!--h1>Advanced Search</h1-->
+
+						<div class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 10px; padding-bottom: 0px;">
+							<h3>Advanced Search</h3>
+						</div>
+					<div class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px; padding-top: 0px; padding-bottom: 5px;">
 						<div class="col form-group required">
-							<label for="homeownerFirstname">Homeowner Name:</label>
+							<label for="homeownerFirstname" class="col-form-label col-form-label-sm">Homeowner Name:</label>
 							<input class="form-control" id="homeownerFirstname" name="homeownerFirstname" placeholder="Last, First Middle" type="text">
 						</div>
 <!-- 
@@ -189,12 +194,12 @@
 						</div>
 						 -->
 						<div class="col-2 form-group required">
-							<label for="homeownerSSN" class="control-label">SSN:</label>
+							<label for="homeownerSSN" class="col-form-label col-form-label-sm">SSN:</label>
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="homeownerSSN" name="homeownerSSN" placeholder="" type="number" min="0" data-bind="value:homeownerSSN">
 						</div>
-						<div class="col form-group">
-							<label for="spouseFirstname">Spouse Name (If applicable):</label>
+						<div class="col form-group" >
+							<label for="spouseFirstname" class="col-form-label col-form-label-sm">Spouse Name (If applicable):</label>
 							<input class="form-control" id="spouseFirstname" name="spouseFirstname" placeholder="Last, First Middle" type="text">
 						</div>
 						<!--div class="col form-group">
@@ -202,61 +207,63 @@
 							<input class="form-control" id="spouseLastname" name="spouseLastname" placeholder="" type="text">
 						</div-->
 						<div class="col-2 form-group">
-							<label for="spouseSSN" class="control-label">Spouse SSN:</label>
+							<label for="spouseSSN" class="col-form-label col-form-label-sm">Spouse SSN:</label>
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="spouseSSN" name="spouseSSN" placeholder="" type="number" min="0" data-bind="value:spouseSSN">
 						</div>
 					</div>
 
-					<h6>Spouse/Partner Information (If applicable)</h5>
+					<!--h6>Spouse/Partner Information (If applicable)</h5-->
 					<div class="form-row">
 
 					</div>
 
 					<!--  -->
 
-					<hr class="my-4">
-
-					<h5>Property Information</h5>
-					<div class="form-row">
+					<div class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 10px; padding-bottom: 0px;">
+					</div>
+					<div class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 0px; padding-bottom: 5px;">
 						<div class="col form-group required">
-							<label for="propertyAIN">Current AIN:</label>
+							<label for="propertyAIN" class="col-form-label col-form-label-sm">Current AIN:</label>
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="propertyAIN" name="propertyAIN" placeholder="" type="number" min="0" max="9999999999" data-bind="value:propertyAIN">
 						</div>
 						<div class="col form-group required">
-							<label for="propertyVacated">Date Vacated:</label>
+							<label for="propertyVacated" class="col-form-label col-form-label-sm">Date Vacated:</label>
 							<input class="form-control" id="propertyVacated" name="propertyVacated" placeholder="" type="date">
 						</div>
 						<div class="col form-group required">
-							<label for="propertyAcquired">Date Acquired:</label>
+							<label for="propertyAcquired" class="col-form-label col-form-label-sm">Date Acquired:</label>
 							<input class="form-control" id="propertyAcquired" name="propertyAcquired" placeholder="" type="date">
 						</div>
 						<div class="col form-group required">
-							<label for="propertyOccupied">Date Occupied:</label>
+							<label for="propertyOccupied" class="col-form-label col-form-label-sm">Date Occupied:</label>
 							<input class="form-control" id="propertyOccupied" name="propertyOccupied" placeholder="" type="date">
 						</div>
 					</div>
 
-					<div class="form-row">
+					<div class="form-row" class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 0px; padding-bottom: 5px;">
 						<div class="col-4 form-group required">
-							<label for="propertyAddress">Street Address:</label>
+							<label for="propertyAddress" class="col-form-label col-form-label-sm">Street Address:</label>
 							<input class="form-control" id="propertyAddress" name="propertyAddress" placeholder="" type="text">
 						</div>
 						<div class="col form-group">
-							<label for="propertyApartment">Apartment:</label>
+							<label for="propertyApartment" class="col-form-label col-form-label-sm">Apartment:</label>
 							<input class="form-control" id="propertyApartment" name="propertyApartment" type="text">
 						</div>
 						<div class="col form-group required">
-							<label for="propertyCity">City:</label>
+							<label for="propertyCity" class="col-form-label col-form-label-sm">City:</label>
 							<input class="form-control" id="propertyCity" name="propertyCity" type="text">
 						</div>
 						<div class="col form-group required">
-							<label for="propertyState">State:</label>
+							<label for="propertyState" class="col-form-label col-form-label-sm">State:</label>
 							<input class="form-control" id="propertyState" name="propertyState" type="text">
 						</div>
 						<div class="col-2 form-group required">
-							<label for="propertyZIP">ZIP:</label>
+							<label for="propertyZIP" class="col-form-label col-form-label-sm">ZIP:</label>
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="propertyZIP" name="propertyZIP" type="number" min="0" max="99999" data-bind="value:propertyZIP">
 						</div>
@@ -268,17 +275,19 @@
 
 					<!--  -->
 
-  					<hr class="my-4">
-  					<h5>Claim Information</h5>
+  					<div class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 10px; padding-bottom: 0px;">
+  					</div>
 
-					<div class="form-row">
+					<div class="form-row" class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 0px; padding-bottom: 5px;">
 						<div class="col form-group required">
-							<label for="claimNumber">Claim Number:</label>
+							<label for="claimNumber" class="col-form-label col-form-label-sm">Claim Number:</label>
 							<!-- TODO: onchange valid number check and formatting -->
 							<input class="form-control" id="claimNumber" name="claimNumber" placeholder="" type="number" min="0" max="9999999999" data-bind="claimNumber">
 						</div>
 						<div class="col form-group required">
-							<label for="taxYear">Tax Year:</label>
+							<label for="taxYear" class="col-form-label col-form-label-sm">Tax Year:</label>
 							<input class="form-control" id="taxYear" name="taxYear" placeholder="" type="date">
 						</div>
 					</div>

@@ -26,7 +26,8 @@
 <?php
 include('constant.php');
 	$claimantSSN = $_GET['claimantSSN'];
-	            $serverName = SERVERNAME;
+  // $claimantSSN  = openssl_encrypt ($homeownerSSN, ENCRPYTIONMETHOD, HASH, true, IV);
+	         $serverName = SERVERNAME;
             $uid = UID;
             $pwd = PWD;
             $databaseName = DATABASENAME;

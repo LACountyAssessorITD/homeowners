@@ -31,9 +31,9 @@ include('constant.php');
               {
                   $myObj->claimID =$row[0];
                   $myObj->claimant = $row[1];
-                  $myObj->claimantSSN = $row[2];
+                  $myObj->claimantSSN = "*********";
                   $myObj->spouse = $row[3];
-                  $myObj->spouseSSN = $row[4];
+                  $myObj->spouseSSN = "*********";
                   $myObj->currentAPN = $row[5];
 //echo "dateAcquired: ".$row[8];
 // echo "dateOccupied: ".$row[9];

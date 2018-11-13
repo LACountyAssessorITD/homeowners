@@ -25,62 +25,65 @@
 		$populated = True;
 	}
 	$homeownerSSN = $_GET['claimantSSN'];
+	
 	if(!empty($homeownerSSN)){
 		if($populated)
 			$sql=$sql.", ";
+		//Encrpyt
+		$homeownerSSN = openssl_encrypt ($homeownerSSN, ENCRPYTIONMETHOD, HASH, true, IV);
 		$sql= $sql." claimantSSN = '$homeownerSSN'";
 		$populated = True;
 	}
-	$spouseName = /*$_GET['spouseLastname']." ".*/$_GET['spouse'];
-	if(!empty($spouseName)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." spouse = '$spouseName'";
-		$populated = True;
-	}
-	$spouseSSN = $_GET['spouseSSN'];
-	if(!empty($spouseSSN)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." spouseSSN = '$spouseSSN'";
-		$populated = True;
-	}
-	$propertyAcquired = $_GET['dateAcquired'];
-	if(!empty($propertyAcquired)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." dateAcquired = '$propertyAcquired'";
-		$populated = True;
-	}
-	$propertyOccupied = $_GET['dateOccupied'];
-	if(!empty($propertyOccupied)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." dateOccupied = '$propertyOccupied'";
-		$populated = True;
-	}
+// $spouseName = /*$_GET['spouseLastname']." ".*/$_GET['spouse'];
+// if(!empty($spouseName)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." spouse = '$spouseName'";
+// 	$populated = True;
+// }
+// $spouseSSN = $_GET['spouseSSN'];
+// if(!empty($spouseSSN)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." spouseSSN = '$spouseSSN'";
+// 	$populated = True;
+// }
+// $propertyAcquired = $_GET['dateAcquired'];
+// if(!empty($propertyAcquired)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." dateAcquired = '$propertyAcquired'";
+// 	$populated = True;
+// }
+// $propertyOccupied = $_GET['dateOccupied'];
+// if(!empty($propertyOccupied)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." dateOccupied = '$propertyOccupied'";
+// 	$populated = True;
+// }
 
-	$propertyAddress = $_GET['currentStName'];
-	if(!empty($propertyAddress)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." currentStName = '$propertyAddress'";
-		$populated = True;
-	}
-	$propertyApartment = $_GET['currentApt'];
-	if(!empty($propertyApartment)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." currentApt = '$propertyApartment'";
-		$populated = True;
-	}
-	$propertyCity = $_GET['currentCity'];
-	if(!empty($propertyCity)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." currentCity = '$propertyCity'";
-		$populated = True;
-	}
+// $propertyAddress = $_GET['currentStName'];
+// if(!empty($propertyAddress)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." currentStName = '$propertyAddress'";
+// 	$populated = True;
+// }
+// $propertyApartment = $_GET['currentApt'];
+// if(!empty($propertyApartment)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." currentApt = '$propertyApartment'";
+// 	$populated = True;
+// }
+// $propertyCity = $_GET['currentCity'];
+// if(!empty($propertyCity)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." currentCity = '$propertyCity'";
+// 	$populated = True;
+// }
 	// $propertyState = $_GET['currentState'];
 	// if(!empty($propertyState)){
 	// 	if($populated)
@@ -131,41 +134,41 @@
 	// 	$sql= $sql." mailingZip = '$mailingZip'";
 	// 	$populated = True;
 	// }
-	$priorAPN = intval($_GET['priorAPN']);
-	if(!empty($priorAPN)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." priorAPN = '$priorAPN'";
-		$populated = True;
-	}
-	$dateMovedOut = intval($_GET['dateMovedOut']);
-	if(!empty($dateMovedOut)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." dateMovedOut = '$dateMovedOut'";
-		$populated = True;
-	}
-	$priorStName = $_GET['priorStName'];
-	if(!empty($priorStName)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." priorStName = '$priorStName'";
-		$populated = True;
-	}
-	$priorApt = $_GET['priorApt'];
-	if(!empty($priorApt)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." priorApt = '$priorApt'";
-		$populated = True;
-	}
-	$priorCity = $_GET['priorCity'];
-	if(!empty($priorCity)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." priorCity = '$priorCity'";
-		$populated = True;
-	}
+// $priorAPN = intval($_GET['priorAPN']);
+// if(!empty($priorAPN)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." priorAPN = '$priorAPN'";
+// 	$populated = True;
+// }
+// $dateMovedOut = intval($_GET['dateMovedOut']);
+// if(!empty($dateMovedOut)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." dateMovedOut = '$dateMovedOut'";
+// 	$populated = True;
+// }
+// $priorStName = $_GET['priorStName'];
+// if(!empty($priorStName)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." priorStName = '$priorStName'";
+// 	$populated = True;
+// }
+// $priorApt = $_GET['priorApt'];
+// if(!empty($priorApt)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." priorApt = '$priorApt'";
+// 	$populated = True;
+// }
+// $priorCity = $_GET['priorCity'];
+// if(!empty($priorCity)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." priorCity = '$priorCity'";
+// 	$populated = True;
+// }
 	// $priorState = $_GET['priorState'];
 	// if(!empty($priorState)){
 	// 	if($populated)
@@ -173,41 +176,41 @@
 	// 	$sql= $sql." priorState = '$priorState'";
 	// 	$populated = True;
 	// }
-	$priorZip = intval($_GET['priorZip']);
-	if(!empty($priorZip)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." priorZip = '$priorZip'";
-		$populated = True;
-	}
-	$rollTaxYear = intval($_GET['rollTaxYear']);
-	if(!empty($rollTaxYear)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." rollTaxYear = '$rollTaxYear'";
-		$populated = True;
-	}
-	$exemptRE = intval($_GET['exemptRE']);
-	if(!empty($exemptRE)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." exemptRE = '$exemptRE'";
-		$populated = True;
-	}
-	$suppTaxYear = intval($_GET['suppTaxYear']);
-	if(!empty($suppTaxYear)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." suppTaxYear = '$suppTaxYear'";
-		$populated = True;
-	}
-	$exemptRE2 = intval($_GET['exemptRE2']);
-	if(!empty($exemptRE2)){
-		if($populated)
-			$sql=$sql." AND ";
-		$sql= $sql." exemptRE2 = '$exemptRE2'";
-		$populated = True;
-	}
+// $priorZip = intval($_GET['priorZip']);
+// if(!empty($priorZip)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." priorZip = '$priorZip'";
+// 	$populated = True;
+// }
+// $rollTaxYear = intval($_GET['rollTaxYear']);
+// if(!empty($rollTaxYear)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." rollTaxYear = '$rollTaxYear'";
+// 	$populated = True;
+// }
+// $exemptRE = intval($_GET['exemptRE']);
+// if(!empty($exemptRE)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." exemptRE = '$exemptRE'";
+// 	$populated = True;
+// }
+// $suppTaxYear = intval($_GET['suppTaxYear']);
+// if(!empty($suppTaxYear)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." suppTaxYear = '$suppTaxYear'";
+// 	$populated = True;
+// }
+// $exemptRE2 = intval($_GET['exemptRE2']);
+// if(!empty($exemptRE2)){
+// 	if($populated)
+// 		$sql=$sql." AND ";
+// 	$sql= $sql." exemptRE2 = '$exemptRE2'";
+// 	$populated = True;
+// }
 	// $claimAction = $_GET['claimAction'];
 	// if(!empty($claimAction)){
 	// 	if($populated)
