@@ -1,35 +1,35 @@
-<?php
-session_start();
-include('constant.php');
-$message=null;
+<!-- <?php
+// session_start();
+// include('constant.php');
+// $message=null;
 /* better way to connect without exposing password info? */
-$serverName = SERVERNAME;
-$uid = UID;
-$pwd = PWD;
-$databaseName = DATABASENAME;
+// $serverName = SERVERNAME;
+// $uid = UID;
+// $pwd = PWD;
+// $databaseName = DATABASENAME;
 
-$connectionInfo = array( "UID"=>$uid,
-  "PWD"=>$pwd,
-  "Database"=>$databaseName);
+// $connectionInfo = array( "UID"=>$uid,
+//   "PWD"=>$pwd,
+//   "Database"=>$databaseName);
 
 /* Connect using SQL Server Authentication. */
-$conn = sqlsrv_connect( $serverName, $connectionInfo);
+// $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-if($conn === false) {
-  echo "Could not connect.\n";
-  die(print_r( sqlsrv_errors(), true));
-}
+// if($conn === false) {
+//   echo "Could not connect.\n";
+//   die(print_r( sqlsrv_errors(), true));
+// }
 
-$tsql = "SELECT name FROM temp_table";
+// $tsql = "SELECT name FROM temp_table";
 
-$phpArray = array();
+// $phpArray = array();
 
-$stmt = sqlsrv_query( $conn, $tsql);
-while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-{
-  array_push($phpArray, $row[0]);
-}
-?>
+// $stmt = sqlsrv_query( $conn, $tsql);
+// while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+// {
+//   array_push($phpArray, $row[0]);
+// }
+?> -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -48,58 +48,88 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 	<!-- Custom CSS -->
-	<link rel="stylesheet" type="text/css" href="styles/home-style.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" type="text/css" href="styles/home-style.css">
-  <style>
-  * { box-sizing: border-box; }
-.autocomplete {
-  /*the container must be positioned relative:*/
-  position: relative;
-  display: inline-block;
-}
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
-}
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
-}
-.autocomplete-items div:hover {
-  /*when hovering an item:*/
-  background-color: #e9e9e9; 
-}
-.autocomplete-active {
-  /*when navigating through the items using the arrow keys:*/
-  background-color: DodgerBlue !important; 
-  color: #ffffff; 
-} 
+	<!-- <link rel="stylesheet" type="text/css" href="styles/home-style.css"> -->
+	<style>
+	* { box-sizing: border-box; }
+	.autocomplete {
+		/*the container must be positioned relative:*/
+		position: relative;
+		display: inline-block;
+	}
+	.autocomplete-items {
+		position: absolute;
+		border: 1px solid #d4d4d4;
+		border-bottom: none;
+		border-top: none;
+		z-index: 99;
+		/*position the autocomplete items to be the same width as the container:*/
+		top: 100%;
+		left: 0;
+		right: 0;
+	}
+	.autocomplete-items div {
+		padding: 10px;
+		cursor: pointer;
+		background-color: #fff; 
+		border-bottom: 1px solid #d4d4d4; 
+	}
+	.autocomplete-items div:hover {
+		/*when hovering an item:*/
+		background-color: #e9e9e9; 
+	}
+	.autocomplete-active {
+		/*when navigating through the items using the arrow keys:*/
+		background-color: DodgerBlue !important; 
+		color: #ffffff; 
+	} 
+	.navbar-dark .navbar-nav .nav-link {
+		color: rgba(255,255,255,.9);
+	}
+	.row-bottom-margin {
+		margin-bottom: -20px;
+	}
+	.col-right-padding {
+    	padding-right: 0px;
+	}
 </style>
 </head>
 <body>
-<ul>
-  <li><a href="home_page.php">Home</a></li>
-  <li><a href="productivity_report_page.php">Productivity Report</a></li>
-  <li><a href="scan_claims_page.php">Scan Claims</a></li>
-  <li><a href="create_claim_page.php">Claim</a></li>
-  <li><a href="advanced_search_page.php">Advanced Search</a></li>
-  <li><a href="index.php">Logout</a></li>
-  <li style="float:right" ><form action="claim_page.php" method="get"><input type="text" name="claimID" placeholder="Search by Claim ID..."><input type="submit"></form></li>
-</ul>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+	<a class="navbar-brand" href="home_page.php">HOX Home</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="productivity_report_page.php">Productivity Report</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="scan_claims_page.php">Scan Claims</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="create_claim_page.php">Claim</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="advanced_search_page.php">Advanced Search</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="index.php">Logout</a>
+			</li>
+		</ul>
+		<form class="form-inline my-2 my-lg-0" action="claim_page.php" method="get">
+			<input class="form-control mr-sm-2" type="text" name="claimID" placeholder="Search by Claim ID..." aria-label="Search" >
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+		</form>
+	</div>
+</nav>
+
 <div class="container rounded col-12 p-3" id="signin-container">
 	<div class="row">
-		<h1 class="col" style="padding-bottom: 20px;">Claim</h1>
+		<h1 class="col">Claim</h1>
 	</div>
 	<div class="alert alert-success alert-dismissible collapse" role="alert" id="successAlert">
 		<div id="submitSuccess"> Submission Success
@@ -114,61 +144,118 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	<div class="row">
 		<div class="col" id="form-col">
 			<form id="claim-form" method="post" action="">
-				<div class="form-group p-1">
+				<div class="form-row">
 					<!-- personal info row -->
-					<div>
-						<h5>Personal Information</h5>
-					</div>
-					<div class="form-row">
-						<div class="col-2 form-group required">
-							<label for="claimID">ClaimID:</label>
-							<input class="form-control" id="claimID" name="claimID" placeholder="1234567" type="text">
-						</div>
-						<div class="col-2 form-group required">
-							<label for="claimant">Claimant:</label>
-							<input class="form-control" id="claimant" name="claimant" placeholder="Last, First Middle" type="text">
-						</div>
-						<div class="col-2 form-group required">
-							<label for="claimantSSN" class="control-label">SSN:</label>
-							<!-- TODO: onchange valid number check and formatting -->
-							<input class="form-control" id="claimantSSN" name="claimantSSN" placeholder="123456789" type="number" min="0" data-bind="value:claimantSSN">
-						</div>
-						<div class="col-4 form-group required">
-							<label for="spouse">Spouse (If applicable):</label>
-							<input class="form-control" id="spouse" name="spouse" placeholder="Last, First Middle" type="text">
-						</div>
-						<div class="col-2 form-group required">
-							<label for="spouseSSN" class="control-label">Spouse SSN:</label>
-							<!-- TODO: onchange valid number check and formatting -->
-							<input class="form-control" id="spouseSSN" name="spouseSSN" placeholder="123456789" type="number" min="0" data-bind="value:spouseSSN">
-						</div>
-					</div>
-				</div>
-				<hr class="my-4">
+					
+					<div class="form-col col-sm-6 p-2" style="background-color: #D6EAF8;">
 
-				<!-- AIN lookup -->
-				<div class="form-group row p-1">
-					<label for="AINSearchInput" class="col-auto col-form-label">
-						<h4 id="searchText">Enter AIN here to search for a match:</h4>
-					</label>
-					<div class="col-9 col-sm-9 col-md-4">
-						<input class="form-control" id="AINSearchInput" name="AINSearchInput" placeholder="1234567890" type="number" min="0" data-bind="value:AINSearchInput">
-						<!--div class="input-group">
-							<div class="input-group-prepend">
-								<div class="input-group-text"><i class="fas fa-search"></i></div>
+						<!-- <div class="col form-group required">
+							<div class="form-group row">
+								<label for="claimID" class="col-sm-3 col-form-label col-form-label-sm">ClaimID:</label>
+								<div class="col-sm-9">
+									<input class="form-control form-control-sm" id="claimID" name="claimID" placeholder="1234567" type="text">
+								</div>
 							</div>
-							<input class="form-control" id="AINSearchInput" name="AINSearchInput" placeholder="1234567890" type="number" min="0" data-bind="value:AINSearchInput">
-						</div-->
-					</div>
-					<div class="col-auto">
-						<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2">Search</button>
+						</div> -->
+						<div>
+							<h5>Personal Information</h5>
+						</div>
+						<div class="form-row row-bottom-margin">
+							<div class="col form-group required" >
+								<div class="form-group row">
+									<label for="claimant" class="col-sm-3 col-form-label col-form-label-sm">Claimant:</label>
+									<div class="col-sm-9">
+										<input class="form-control form-control-sm" id="claimant" name="claimant" placeholder="Last, First Middle" type="text">
+									</div>
+								</div>
+							</div>
+							<div class="col form-group required">
+								<div class="form-group row">
+									<label for="claimantSSN" class="col-sm-4 col-form-label col-form-label-sm" style="padding-right: 0px;">Claimant SSN:</label>
+									<div class="col-sm-8">
+										<input class="form-control form-control-sm" id="claimantSSN" name="claimantSSN" placeholder="123456789" type="number" min="0" data-bind="value:claimantSSN">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row row-bottom-margin">
+							<div class="col form-group required">
+								<div class="form-group row">
+									<label for="spouse" class="col-sm-3 col-form-label col-form-label-sm">Spouse:</label>
+									<div class="col-sm-9">
+										<input class="form-control form-control-sm" id="spouse" name="spouse" placeholder="If applicable" type="text">
+									</div>
+								</div>
+							</div>
+							<div class="col form-group required">
+								<div class="form-group row">
+									<label for="spouseSSN" class="col-sm-4 col-form-label col-form-label-sm" style="padding-right: 0px;">Spouse SSN:</label>
+									<div class="col-sm-8">
+										<input class="form-control form-control-sm" id="spouseSSN" name="spouseSSN" placeholder="123456789" type="number" min="0" data-bind="value:spouseSSN">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> <!-- end personal info col -->
+
+					<div class="form-col">
+						<div>
+							<h5>Status Dates</h5>
+						</div>
+						
+						<div class="form-row">
+							<div class="col form-group required">
+								<label for="chooseStatus">Choose Status:</label>
+								<select class="form-control" id="chooseStatus" name="chooseStatus">
+									<option value="Claim Received">Claim Received</option>
+									<option value="Supervisor Workload">Supervisor Workload</option>
+									<option value="Staff Review">Staff Assign</option>
+									<option value="Staff Review Date">Staff Review Date</option>
+									<option value="Supervisor Review">Supervisor Review</option>
+									<option value="Case Closed">Case Closed</option>
+								</select>
+							</div>
+							<div class="col form-group required">
+								<label for="statusDate">Date:</label>
+								<input class="form-control" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date">
+							</div>
+							<div class="col form-group required">
+								<label for="assignee">Assignee:</label>
+								<input class="form-control" id="assignee" name="assignee" placeholder="Last, First" type="text">
+							</div>
+							<div class="col form-group required">
+								<label for="assignor">Assignor:</label>
+								<input class="form-control" id="assignor" name="assignor" placeholder="Last, First" type="text" value="<?php echo $_SESSION["name"]; ?>" >
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="alert alert-warning alert-dismissible collapse" role="alert" id="searchAlert">
-					<div id="alertMsg">
-					</div>
-					<button type="button" class="close" data-hide="alert">&times;</button>
+			<hr class="my-2">
+
+			<!-- AIN lookup -->
+			<div class="form-group row p-1">
+				<label for="AINSearchInput" class="col-auto col-form-label">
+					<h4 id="searchText">Enter AIN here to search for a match:</h4>
+				</label>
+				<div class="col-9 col-sm-9 col-md-4">
+					<input class="form-control" id="AINSearchInput" name="AINSearchInput" placeholder="1234567890" type="number" min="0" data-bind="value:AINSearchInput">
+					<!--div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fas fa-search"></i></div>
+						</div>
+						<input class="form-control" id="AINSearchInput" name="AINSearchInput" placeholder="1234567890" type="number" min="0" data-bind="value:AINSearchInput">
+					</div-->
 				</div>
+				<div class="col-auto">
+					<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2">Search</button>
+				</div>
+			</div>
+			<div class="alert alert-warning alert-dismissible collapse" role="alert" id="searchAlert">
+				<div id="alertMsg">
+				</div>
+				<button type="button" class="close" data-hide="alert">&times;</button>
+			</div>
 
 				<!-- situs info row -->
 				<div class="form-row">
@@ -546,7 +633,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					</div>
 					<div class="col form-group required">
 						<label for="assignor">Assignor:</label>
-						<input class="form-control" id="assignor" name="assignor" placeholder="Last, First" type="text">
+						<input class="form-control" id="assignor" name="assignor" placeholder="Last, First" type="text" value="<?php echo $_SESSION["name"]; ?>" >
 					</div>
 				</div>
 
@@ -557,7 +644,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 				</div>
 
 			</form> <!-- end form -->
-		</div>
+		</div> <!-- end col -->
 	</div> <!-- end row -->
 </div> <!-- end container -->
 
@@ -691,53 +778,53 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 
 		// forgetting to return false will cause page to refresh 
 		// and lose control on all prev objects...
-    	return false;
+		return false;
 	});
-  function autocomplete(inp, arr) {
+	function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
   /*execute a function when someone writes in the text field:*/
   inp.addEventListener("input", function(e) {
-      var a, b, i, val = this.value;
-      /*close any already open lists of autocompleted values*/
-      closeAllLists();
-      if (!val) { return false;}
-      currentFocus = -1;
-      /*create a DIV element that will contain the items (values):*/
-      a = document.createElement("DIV");
-      a.setAttribute("id", this.id + "autocomplete-list");
-      a.setAttribute("class", "autocomplete-items");
-      /*append the DIV element as a child of the autocomplete container:*/
-      this.parentNode.appendChild(a);
-      /*for each item in the array...*/
-      for (i = 0; i < arr.length; i++) {
-        /*check if the item starts with the same letters as the text field value:*/
-        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-          /*create a DIV element for each matching element:*/
-          b = document.createElement("DIV");
-          /*make the matching letters bold:*/
-          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-          b.innerHTML += arr[i].substr(val.length);
-          /*insert a input field that will hold the current array item's value:*/
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-          /*execute a function when someone clicks on the item value (DIV element):*/
-              b.addEventListener("click", function(e) {
-              /*insert the value for the autocomplete text field:*/
-              inp.value = this.getElementsByTagName("input")[0].value;
+  	var a, b, i, val = this.value;
+  	/*close any already open lists of autocompleted values*/
+  	closeAllLists();
+  	if (!val) { return false;}
+  	currentFocus = -1;
+  	/*create a DIV element that will contain the items (values):*/
+  	a = document.createElement("DIV");
+  	a.setAttribute("id", this.id + "autocomplete-list");
+  	a.setAttribute("class", "autocomplete-items");
+  	/*append the DIV element as a child of the autocomplete container:*/
+  	this.parentNode.appendChild(a);
+  	/*for each item in the array...*/
+  	for (i = 0; i < arr.length; i++) {
+  		/*check if the item starts with the same letters as the text field value:*/
+  		if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+  			/*create a DIV element for each matching element:*/
+  			b = document.createElement("DIV");
+  			/*make the matching letters bold:*/
+  			b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+  			b.innerHTML += arr[i].substr(val.length);
+  			/*insert a input field that will hold the current array item's value:*/
+  			b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+  			/*execute a function when someone clicks on the item value (DIV element):*/
+  			b.addEventListener("click", function(e) {
+  				/*insert the value for the autocomplete text field:*/
+  				inp.value = this.getElementsByTagName("input")[0].value;
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
           });
-          a.appendChild(b);
-        }
-      }
+  			a.appendChild(b);
+  		}
+  	}
   });
   /*execute a function presses a key on the keyboard:*/
   inp.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "autocomplete-list");
-      if (x) x = x.getElementsByTagName("div");
-      if (e.keyCode == 40) {
+  	var x = document.getElementById(this.id + "autocomplete-list");
+  	if (x) x = x.getElementsByTagName("div");
+  	if (e.keyCode == 40) {
         /*If the arrow DOWN key is pressed,
         increase the currentFocus variable:*/
         currentFocus++;
@@ -749,49 +836,49 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
         currentFocus--;
         /*and and make the current item more visible:*/
         addActive(x);
-      } else if (e.keyCode == 13) {
-        /*If the ENTER key is pressed, prevent the form from being submitted,*/
-        e.preventDefault();
-        if (currentFocus > -1) {
-          /*and simulate a click on the "active" item:*/
-          if (x) x[currentFocus].click();
-        }
-      }
-  });
+    } else if (e.keyCode == 13) {
+    	/*If the ENTER key is pressed, prevent the form from being submitted,*/
+    	e.preventDefault();
+    	if (currentFocus > -1) {
+    		/*and simulate a click on the "active" item:*/
+    		if (x) x[currentFocus].click();
+    	}
+    }
+});
   function addActive(x) {
-    /*a function to classify an item as "active":*/
-    if (!x) return false;
-    /*start by removing the "active" class on all items:*/
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = (x.length - 1);
-    /*add class "autocomplete-active":*/
-    x[currentFocus].classList.add("autocomplete-active");
+  	/*a function to classify an item as "active":*/
+  	if (!x) return false;
+  	/*start by removing the "active" class on all items:*/
+  	removeActive(x);
+  	if (currentFocus >= x.length) currentFocus = 0;
+  	if (currentFocus < 0) currentFocus = (x.length - 1);
+  	/*add class "autocomplete-active":*/
+  	x[currentFocus].classList.add("autocomplete-active");
   }
   function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
-    for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("autocomplete-active");
-    }
+  	/*a function to remove the "active" class from all autocomplete items:*/
+  	for (var i = 0; i < x.length; i++) {
+  		x[i].classList.remove("autocomplete-active");
+  	}
   }
   function closeAllLists(elmnt) {
     /*close all autocomplete lists in the document,
     except the one passed as an argument:*/
     var x = document.getElementsByClassName("autocomplete-items");
     for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
-      x[i].parentNode.removeChild(x[i]);
+    	if (elmnt != x[i] && elmnt != inp) {
+    		x[i].parentNode.removeChild(x[i]);
+    	}
     }
-  }
 }
 /*execute a function when someone clicks in the document:*/
 document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
+	closeAllLists(e.target);
 });
 }
-var users = <?php echo json_encode($phpArray); ?>;
-autocomplete(document.getElementById("assignee"), users);
-autocomplete(document.getElementById("assignor"), users);
+// var users = <?php echo json_encode($phpArray); ?>;
+// autocomplete(document.getElementById("assignee"), users);
+// autocomplete(document.getElementById("assignor"), users);
 </script>
 </body>
 </html>
