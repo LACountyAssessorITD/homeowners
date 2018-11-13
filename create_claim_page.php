@@ -263,6 +263,102 @@
 				</div>
 			<hr class="my-2">
 
+			<div class="form-row">
+				<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+														padding-top: 10px; padding-bottom: 15px;">
+					<div>
+						<h5>Exemption Information</h5>
+					</div>
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col form-group required">
+							<label for="rollTaxYear" class="col-form-label col-form-label-sm">Roll Tax Year:</label>
+							<input class="form-control form-control-sm" id="rollTaxYear" name="rollTaxYear" placeholder="218000" type="number" min="0" data-bind="value:rollTaxYear">
+						</div>
+						<div class="col form-group required">
+							<label for="exemptRE" class="col-form-label col-form-label-sm">ExemptRE:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control form-control-sm" id="exemptRE" name="exemptRE" placeholder="7000" type="number" min="0" data-bind="value:exemptRE">
+						</div>
+					</div>
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col form-group required">
+							<label for="suppTaxYear" class="col-form-label col-form-label-sm">Supp Tax Year:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control form-control-sm" id="suppTaxYear" name="suppTaxYear" placeholder="218000" type="number" min="0" data-bind="value:suppTaxYear">
+						</div>
+						<div class="col form-group required">
+							<label for="exemptRE2" class="col-form-label col-form-label-sm">ExemptRE2:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control form-control-sm" id="exemptRE2" name="exemptRE2" placeholder="7000" type="number" min="0" data-bind="value:exemptRE2">
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+														padding-top: 10px; padding-bottom: 15px;">
+					<div>
+						<h5>Exemption Information</h5>
+					</div>
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col form-group required">
+							<label for="rollTaxYear" class="col-form-label col-form-label-sm">Roll Tax Year:</label>
+							<input class="form-control form-control-sm" id="rollTaxYear" name="rollTaxYear" placeholder="218000" type="number" min="0" data-bind="value:rollTaxYear">
+						</div>
+						<div class="col form-group required">
+							<label for="exemptRE" class="col-form-label col-form-label-sm">ExemptRE:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control form-control-sm" id="exemptRE" name="exemptRE" placeholder="7000" type="number" min="0" data-bind="value:exemptRE">
+						</div>
+					</div>
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col form-group required">
+							<label for="suppTaxYear" class="col-form-label col-form-label-sm">Supp Tax Year:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control form-control-sm" id="suppTaxYear" name="suppTaxYear" placeholder="218000" type="number" min="0" data-bind="value:suppTaxYear">
+						</div>
+						<div class="col form-group required">
+							<label for="exemptRE2" class="col-form-label col-form-label-sm">ExemptRE2:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control form-control-sm" id="exemptRE2" name="exemptRE2" placeholder="7000" type="number" min="0" data-bind="value:exemptRE2">
+						</div>
+					</div>
+				</div>
+
+				<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+														padding-top: 10px; padding-bottom: 15px;">
+					<div>
+						<h5>Reasons for Decision</h5>
+					</div>
+					<div class="form-row">
+						<div class="col form-group required">
+							<label for="claimAction" class="col-form-label col-form-label-sm">Claim Action:</label>
+							<select class="form-control form-control-sm" id="claimAction" name="claimAction">
+								<option value="NA" disabled selected>Select</option>
+								<option value="Met">Met</option>
+								<option value="Partially Met">Partially Met</option>
+								<option value="Denied">Denied</option>
+							</select>
+						</div>
+						<div class="col form-group required">
+							<label for="findingReason" class="col-form-label col-form-label-sm">Finding Reason:</label>
+							<select class="form-control form-control-sm" id="findingReason" name="findingReason">
+								<option value="N/A">N/A</option>
+								<option value="Already Claimed Exemption">Already Claimed Exemption</option>
+								<option value="Missing SSN">Missing SSN</option>
+								<option value="Missing Signature">Missing Signature</option>
+								<option value="Incomplete Address">Incomplete Address</option>
+								<option value="Other">Other</option>
+							</select>
+						</div>
+						<div class="col form-group required">
+							<label for="otherReason" class="col-form-label col-form-label-sm">Other Reason (If applicable):</label>
+							<input class="form-control form-control-sm" id="otherReason" name="otherReason" placeholder="Specify other reason" type="text" disabled="true">
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr class="my-2">
+
 			<!-- AIN lookup -->
 			<div class="form-group row p-1">
 				<label for="AINSearchInput" class="col-auto col-form-label">
@@ -287,368 +383,303 @@
 				<button type="button" class="close" data-hide="alert">&times;</button>
 			</div>
 
-				<!-- situs info row -->
-				<div class="form-row">
-					<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
-															padding-top: 10px; padding-bottom: 15px;">
-						<div>
-							<h5>Situs Information</h5>
-						</div>
-						<div class="form-row situs-row-bottom-margin">
-							<div class="col-8 form-group required">
-								<label for="currentStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
-								<input class="form-control form-control-sm" id="currentStName" name="currentStName" placeholder="123 Any Street" type="text">
-							</div>
-							<div class="col-4 form-group required" >
-								<label for="currentApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
-								<input class="form-control form-control-sm" id="currentApt" name="currentApt" placeholder="APT 101" type="text">
-							</div>
-						</div>
-						<div class="form-row situs-row-bottom-margin">
-							<div class="col-6 form-group required">
-								<label for="currentCity" class="col-form-label col-form-label-sm">Current City:</label>
-								<input class="form-control form-control-sm" id="currentCity" name="currentCity" placeholder="Los Angeles" type="text">
-							</div>
-							<div class="col-6 form-group required">
-								<label for="currentState" class="col-form-label col-form-label-sm">Current State:</label>
-								<select class="form-control form-control-sm" id="currentState" name="currentState">
-									<option value="NA" disabled selected>Select</option>
-									<option value="AL">Alabama</option>
-									<option value="AK">Alaska</option>
-									<option value="AZ">Arizona</option>
-									<option value="AR">Arkansas</option>
-									<option value="CA">California</option>
-									<option value="CO">Colorado</option>
-									<option value="CT">Connecticut</option>
-									<option value="DE">Delaware</option>
-									<option value="DC">District Of Columbia</option>
-									<option value="FL">Florida</option>
-									<option value="GA">Georgia</option>
-									<option value="HI">Hawaii</option>
-									<option value="ID">Idaho</option>
-									<option value="IL">Illinois</option>
-									<option value="IN">Indiana</option>
-									<option value="IA">Iowa</option>
-									<option value="KS">Kansas</option>
-									<option value="KY">Kentucky</option>
-									<option value="LA">Louisiana</option>
-									<option value="ME">Maine</option>
-									<option value="MD">Maryland</option>
-									<option value="MA">Massachusetts</option>
-									<option value="MI">Michigan</option>
-									<option value="MN">Minnesota</option>
-									<option value="MS">Mississippi</option>
-									<option value="MO">Missouri</option>
-									<option value="MT">Montana</option>
-									<option value="NE">Nebraska</option>
-									<option value="NV">Nevada</option>
-									<option value="NH">New Hampshire</option>
-									<option value="NJ">New Jersey</option>
-									<option value="NM">New Mexico</option>
-									<option value="NY">New York</option>
-									<option value="NC">North Carolina</option>
-									<option value="ND">North Dakota</option>
-									<option value="OH">Ohio</option>
-									<option value="OK">Oklahoma</option>
-									<option value="OR">Oregon</option>
-									<option value="PA">Pennsylvania</option>
-									<option value="RI">Rhode Island</option>
-									<option value="SC">South Carolina</option>
-									<option value="SD">South Dakota</option>
-									<option value="TN">Tennessee</option>
-									<option value="TX">Texas</option>
-									<option value="UT">Utah</option>
-									<option value="VT">Vermont</option>
-									<option value="VA">Virginia</option>
-									<option value="WA">Washington</option>
-									<option value="WV">West Virginia</option>
-									<option value="WI">Wisconsin</option>
-									<option value="WY">Wyoming</option>
-								</select>
-							</div>
-							
-						</div>
-						<div class="form-row situs-row-bottom-margin">
-							<!-- <div class="col form-group required">
-								<label for="currentAPN">Current APN:</label>
-								<input class="form-control form-control-sm" id="currentAPN" name="currentAPN" placeholder="1234567890" type="number" min="0" data-bind="value:currentAPN">
-							</div> -->
-							<div class="col-4 form-group required">
-								<label for="currentZip" class="col-form-label col-form-label-sm">Current ZIP:</label>
-								<input class="form-control form-control-sm" id="currentZip" name="currentZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:currentZip">
-							</div>
-							<div class="col-4 form-group required">
-								<label for="dateAcquired" class="col-form-label col-form-label-sm">Date Acquired:</label>
-								<input class="form-control form-control-sm" id="dateAcquired" name="dateAcquired" placeholder="1/23/2000" type="date">
-							</div>
-							<div class="col-4 form-group required">
-								<label for="dateOccupied" class="col-form-label col-form-label-sm">Date Occupied:</label>
-								<input class="form-control form-control-sm" id="dateOccupied" name="dateOccupied" placeholder="1/23/2000" type="date">
-							</div>
-						</div>
-					</div> <!-- end situs info col -->
-
-					<!-- begin mailing address col -->
-					<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
-															padding-top: 10px; padding-bottom: 15px;">
-						<div>
-							<h5>Mailing Address</h5>
-						</div>
-						<div class="form-row situs-row-bottom-margin">
-							<div class="col-8 form-group required">
-								<label for="mailingStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
-								<input class="form-control form-control-sm" id="mailingStName" name="mailingStName" placeholder="123 Any Street" type="text" disabled="true">
-							</div>
-							<div class="col-4 form-group required">
-								<label for="mailingApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
-								<input class="form-control form-control-sm" id="mailingApt" name="mailingApt" placeholder="APT 101" type="text" disabled="true">
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-5 form-group required">
-								<label for="mailingCity" class="col-form-label col-form-label-sm">City or Town:</label>
-								<input class="form-control form-control-sm" id="mailingCity" name="mailingCity" placeholder="Los Angeles" type="text" disabled="true">
-							</div>
-							<div class="col-4 form-group required">
-								<label for="mailingState" class="col-form-label col-form-label-sm">State:</label>
-								<select class="form-control form-control-sm" id="mailingState" name="mailingState" disabled="true">
-									<option value="NA" disabled selected>Select</option>
-									<option value="AL">Alabama</option>
-									<option value="AK">Alaska</option>
-									<option value="AZ">Arizona</option>
-									<option value="AR">Arkansas</option>
-									<option value="CA">California</option>
-									<option value="CO">Colorado</option>
-									<option value="CT">Connecticut</option>
-									<option value="DE">Delaware</option>
-									<option value="DC">District Of Columbia</option>
-									<option value="FL">Florida</option>
-									<option value="GA">Georgia</option>
-									<option value="HI">Hawaii</option>
-									<option value="ID">Idaho</option>
-									<option value="IL">Illinois</option>
-									<option value="IN">Indiana</option>
-									<option value="IA">Iowa</option>
-									<option value="KS">Kansas</option>
-									<option value="KY">Kentucky</option>
-									<option value="LA">Louisiana</option>
-									<option value="ME">Maine</option>
-									<option value="MD">Maryland</option>
-									<option value="MA">Massachusetts</option>
-									<option value="MI">Michigan</option>
-									<option value="MN">Minnesota</option>
-									<option value="MS">Mississippi</option>
-									<option value="MO">Missouri</option>
-									<option value="MT">Montana</option>
-									<option value="NE">Nebraska</option>
-									<option value="NV">Nevada</option>
-									<option value="NH">New Hampshire</option>
-									<option value="NJ">New Jersey</option>
-									<option value="NM">New Mexico</option>
-									<option value="NY">New York</option>
-									<option value="NC">North Carolina</option>
-									<option value="ND">North Dakota</option>
-									<option value="OH">Ohio</option>
-									<option value="OK">Oklahoma</option>
-									<option value="OR">Oregon</option>
-									<option value="PA">Pennsylvania</option>
-									<option value="RI">Rhode Island</option>
-									<option value="SC">South Carolina</option>
-									<option value="SD">South Dakota</option>
-									<option value="TN">Tennessee</option>
-									<option value="TX">Texas</option>
-									<option value="UT">Utah</option>
-									<option value="VT">Vermont</option>
-									<option value="VA">Virginia</option>
-									<option value="WA">Washington</option>
-									<option value="WV">West Virginia</option>
-									<option value="WI">Wisconsin</option>
-									<option value="WY">Wyoming</option>
-								</select>
-							</div>
-							<div class="col-3 form-group required">
-								<label for="mailingZip" class="col-form-label col-form-label-sm">ZIP Code:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control form-control-sm" id="mailingZip" name="mailingZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:mailingZip" disabled="true">
-							</div>
-						</div>
-						<div class="col form-check required">
-							<input class="form-check-input" type="checkbox" value="" id="enableMailing" name="enableMailing">
-							<label  class="form-check-label" for="enableMailing">Check if mailing address is different from situs to enable input</label>
-						</div>
-					</div> <!-- end mailing col -->
-
-					<!-- begin prior col -->
-					<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
-															padding-top: 10px; padding-bottom: 15px;">
-						<div>
-							<h5>Prior Address (If applicable)</h5>
-						</div>
-						<div class="form-row situs-row-bottom-margin">
-							<div class="col form-group required">
-								<label for="priorAPN" class="col-form-label col-form-label-sm">Prior APN:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control form-control-sm" id="priorAPN" name="priorAPN" placeholder="1234567890" type="number" min="0" data-bind="value:priorAPN">
-							</div>
-							<div class="col form-group required">
-								<label for="dateMovedOut" class="col-form-label col-form-label-sm">Date Moved Out:</label>
-								<input class="form-control form-control-sm" id="dateMovedOut" name="dateMovedOut" placeholder="1/23/2000" type="date">
-							</div>
-						</div>
-
-						<div class="form-row situs-row-bottom-margin">
-							<div class="col-9 form-group required">
-								<label for="priorStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
-								<input class="form-control form-control-sm" id="priorStName" name="priorStName" placeholder="123 Any Street" type="text">
-							</div>
-							<div class="col-3 form-group required">
-								<label for="priorApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
-								<input class="form-control form-control-sm" id="priorApt" name="priorApt" placeholder="APT 101" type="text">
-							</div>
-						</div>
-						<div class="form-row situs-row-bottom-margin">
-							<div class="col-6 form-group required">
-								<label for="priorCity" class="col-form-label col-form-label-sm">Prior City:</label>
-								<input class="form-control form-control-sm" id="priorCity" name="priorCity" placeholder="Los Angeles" type="text">
-							</div>
-							<div class="col-3 form-group required">
-								<label for="priorState" class="col-form-label col-form-label-sm">Prior State:</label>
-								<select class="form-control form-control-sm" id="priorState" name="priorState">
-									<option value="N/A" disabled selected>Select</option>
-									<option value="AL">Alabama</option>
-									<option value="AK">Alaska</option>
-									<option value="AZ">Arizona</option>
-									<option value="AR">Arkansas</option>
-									<option value="CA">California</option>
-									<option value="CO">Colorado</option>
-									<option value="CT">Connecticut</option>
-									<option value="DE">Delaware</option>
-									<option value="DC">District Of Columbia</option>
-									<option value="FL">Florida</option>
-									<option value="GA">Georgia</option>
-									<option value="HI">Hawaii</option>
-									<option value="ID">Idaho</option>
-									<option value="IL">Illinois</option>
-									<option value="IN">Indiana</option>
-									<option value="IA">Iowa</option>
-									<option value="KS">Kansas</option>
-									<option value="KY">Kentucky</option>
-									<option value="LA">Louisiana</option>
-									<option value="ME">Maine</option>
-									<option value="MD">Maryland</option>
-									<option value="MA">Massachusetts</option>
-									<option value="MI">Michigan</option>
-									<option value="MN">Minnesota</option>
-									<option value="MS">Mississippi</option>
-									<option value="MO">Missouri</option>
-									<option value="MT">Montana</option>
-									<option value="NE">Nebraska</option>
-									<option value="NV">Nevada</option>
-									<option value="NH">New Hampshire</option>
-									<option value="NJ">New Jersey</option>
-									<option value="NM">New Mexico</option>
-									<option value="NY">New York</option>
-									<option value="NC">North Carolina</option>
-									<option value="ND">North Dakota</option>
-									<option value="OH">Ohio</option>
-									<option value="OK">Oklahoma</option>
-									<option value="OR">Oregon</option>
-									<option value="PA">Pennsylvania</option>
-									<option value="RI">Rhode Island</option>
-									<option value="SC">South Carolina</option>
-									<option value="SD">South Dakota</option>
-									<option value="TN">Tennessee</option>
-									<option value="TX">Texas</option>
-									<option value="UT">Utah</option>
-									<option value="VT">Vermont</option>
-									<option value="VA">Virginia</option>
-									<option value="WA">Washington</option>
-									<option value="WV">West Virginia</option>
-									<option value="WI">Wisconsin</option>
-									<option value="WY">Wyoming</option>
-								</select>
-							</div>
-							<div class="col-3 form-group required">
-								<label for="priorZip" class="col-form-label col-form-label-sm">Prior ZIP:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control form-control-sm" id="priorZip" name="priorZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:priorZip">
-							</div>
-						</div>
-					</div> <!-- end prior row -->
-				</div> <!-- end situs row -->
-				<hr class="my-2">
-
-				<!-- begin prior info row -->
-				<div class="form-row">
-					 <!-- end prior info col -->
-
-					<div class="form-col col p-2"> <!-- begin exempt info col -->
-						<div>
-							<h5>Exemption Information</h5>
-						</div>
-						<div class="form-row">
-							<div class="col form-group required">
-								<label for="rollTaxYear">Roll Tax Year:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control form-control-sm" id="rollTaxYear" name="rollTaxYear" placeholder="218000" type="number" min="0" data-bind="value:rollTaxYear">
-							</div>
-							<div class="col form-group required">
-								<label for="exemptRE">ExemptRE:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control form-control-sm" id="exemptRE" name="exemptRE" placeholder="7000" type="number" min="0" data-bind="value:exemptRE">
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col form-group required">
-								<label for="suppTaxYear">Supp Tax Year:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control form-control-sm" id="suppTaxYear" name="suppTaxYear" placeholder="218000" type="number" min="0" data-bind="value:suppTaxYear">
-							</div>
-							<div class="col form-group required">
-								<label for="exemptRE2">ExemptRE2:</label>
-								<!-- TODO: onchange valid number check and formatting -->
-								<input class="form-control form-control-sm" id="exemptRE2" name="exemptRE2" placeholder="7000" type="number" min="0" data-bind="value:exemptRE2">
-							</div>
-						</div>
-					</div> <!-- end exempt info col -->
-				</div> <!-- end prior info row -->
-				<hr class="my-4">
-
-				<div>
-					<h5>Reasons for Decision</h5>
-				</div>
-				<div class="form-row">
-					<div class="col form-group required">
-						<label for="claimAction">Claim Action:</label>
-						<select class="form-control form-control-sm" id="claimAction" name="claimAction">
-							<option value="NA" disabled selected>Select</option>
-							<option value="Met">Met</option>
-							<option value="Partially Met">Partially Met</option>
-							<option value="Denied">Denied</option>
-						</select>
+			<!-- situs info row -->
+			<div class="form-row">
+				<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+														padding-top: 10px; padding-bottom: 15px;">
+					<div>
+						<h5>Situs Information</h5>
 					</div>
-					<div class="col form-group required">
-						<label for="findingReason">Finding Reason:</label>
-						<select class="form-control form-control-sm" id="findingReason" name="findingReason">
-							<option value="N/A">N/A</option>
-							<option value="Already Claimed Exemption">Already Claimed Exemption</option>
-							<option value="Missing SSN">Missing SSN</option>
-							<option value="Missing Signature">Missing Signature</option>
-							<option value="Incomplete Address">Incomplete Address</option>
-							<option value="Other">Other</option>
-						</select>
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col-8 form-group required">
+							<label for="currentStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
+							<input class="form-control form-control-sm" id="currentStName" name="currentStName" placeholder="123 Any Street" type="text">
+						</div>
+						<div class="col-4 form-group required" >
+							<label for="currentApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
+							<input class="form-control form-control-sm" id="currentApt" name="currentApt" placeholder="APT 101" type="text">
+						</div>
 					</div>
-					<div class="col form-group required">
-						<label for="otherReason">Other Reason (If applicable):</label>
-						<input class="form-control form-control-sm" id="otherReason" name="otherReason" placeholder="Specify other reason" type="text" disabled="true">
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col-6 form-group required">
+							<label for="currentCity" class="col-form-label col-form-label-sm">Current City:</label>
+							<input class="form-control form-control-sm" id="currentCity" name="currentCity" placeholder="Los Angeles" type="text">
+						</div>
+						<div class="col-6 form-group required">
+							<label for="currentState" class="col-form-label col-form-label-sm">Current State:</label>
+							<select class="form-control form-control-sm" id="currentState" name="currentState">
+								<option value="NA" disabled selected>Select</option>
+								<option value="AL">Alabama</option>
+								<option value="AK">Alaska</option>
+								<option value="AZ">Arizona</option>
+								<option value="AR">Arkansas</option>
+								<option value="CA">California</option>
+								<option value="CO">Colorado</option>
+								<option value="CT">Connecticut</option>
+								<option value="DE">Delaware</option>
+								<option value="DC">District Of Columbia</option>
+								<option value="FL">Florida</option>
+								<option value="GA">Georgia</option>
+								<option value="HI">Hawaii</option>
+								<option value="ID">Idaho</option>
+								<option value="IL">Illinois</option>
+								<option value="IN">Indiana</option>
+								<option value="IA">Iowa</option>
+								<option value="KS">Kansas</option>
+								<option value="KY">Kentucky</option>
+								<option value="LA">Louisiana</option>
+								<option value="ME">Maine</option>
+								<option value="MD">Maryland</option>
+								<option value="MA">Massachusetts</option>
+								<option value="MI">Michigan</option>
+								<option value="MN">Minnesota</option>
+								<option value="MS">Mississippi</option>
+								<option value="MO">Missouri</option>
+								<option value="MT">Montana</option>
+								<option value="NE">Nebraska</option>
+								<option value="NV">Nevada</option>
+								<option value="NH">New Hampshire</option>
+								<option value="NJ">New Jersey</option>
+								<option value="NM">New Mexico</option>
+								<option value="NY">New York</option>
+								<option value="NC">North Carolina</option>
+								<option value="ND">North Dakota</option>
+								<option value="OH">Ohio</option>
+								<option value="OK">Oklahoma</option>
+								<option value="OR">Oregon</option>
+								<option value="PA">Pennsylvania</option>
+								<option value="RI">Rhode Island</option>
+								<option value="SC">South Carolina</option>
+								<option value="SD">South Dakota</option>
+								<option value="TN">Tennessee</option>
+								<option value="TX">Texas</option>
+								<option value="UT">Utah</option>
+								<option value="VT">Vermont</option>
+								<option value="VA">Virginia</option>
+								<option value="WA">Washington</option>
+								<option value="WV">West Virginia</option>
+								<option value="WI">Wisconsin</option>
+								<option value="WY">Wyoming</option>
+							</select>
+						</div>
+						
 					</div>
-				</div>
+					<div class="form-row situs-row-bottom-margin">
+						<!-- <div class="col form-group required">
+							<label for="currentAPN">Current APN:</label>
+							<input class="form-control form-control-sm" id="currentAPN" name="currentAPN" placeholder="1234567890" type="number" min="0" data-bind="value:currentAPN">
+						</div> -->
+						<div class="col-4 form-group required">
+							<label for="currentZip" class="col-form-label col-form-label-sm">Current ZIP:</label>
+							<input class="form-control form-control-sm" id="currentZip" name="currentZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:currentZip">
+						</div>
+						<div class="col-4 form-group required">
+							<label for="dateAcquired" class="col-form-label col-form-label-sm">Date Acquired:</label>
+							<input class="form-control form-control-sm" id="dateAcquired" name="dateAcquired" placeholder="1/23/2000" type="date">
+						</div>
+						<div class="col-4 form-group required">
+							<label for="dateOccupied" class="col-form-label col-form-label-sm">Date Occupied:</label>
+							<input class="form-control form-control-sm" id="dateOccupied" name="dateOccupied" placeholder="1/23/2000" type="date">
+						</div>
+					</div>
+				</div> <!-- end situs info col -->
 
-				<!-- buttons -->
-				<div class="form-group text-right p-3">
-					<button type="submit" name="save" class="btn btn-danger">Submit</button>
-					<button type="reset" class="btn btn-secondary">Reset</button>
-				</div>
+				<!-- begin mailing address col -->
+				<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+														padding-top: 10px; padding-bottom: 15px;">
+					<div>
+						<h5>Mailing Address</h5>
+					</div>
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col-8 form-group required">
+							<label for="mailingStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
+							<input class="form-control form-control-sm" id="mailingStName" name="mailingStName" placeholder="123 Any Street" type="text" disabled="true">
+						</div>
+						<div class="col-4 form-group required">
+							<label for="mailingApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
+							<input class="form-control form-control-sm" id="mailingApt" name="mailingApt" placeholder="APT 101" type="text" disabled="true">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-5 form-group required">
+							<label for="mailingCity" class="col-form-label col-form-label-sm">City or Town:</label>
+							<input class="form-control form-control-sm" id="mailingCity" name="mailingCity" placeholder="Los Angeles" type="text" disabled="true">
+						</div>
+						<div class="col-4 form-group required">
+							<label for="mailingState" class="col-form-label col-form-label-sm">State:</label>
+							<select class="form-control form-control-sm" id="mailingState" name="mailingState" disabled="true">
+								<option value="NA" disabled selected>Select</option>
+								<option value="AL">Alabama</option>
+								<option value="AK">Alaska</option>
+								<option value="AZ">Arizona</option>
+								<option value="AR">Arkansas</option>
+								<option value="CA">California</option>
+								<option value="CO">Colorado</option>
+								<option value="CT">Connecticut</option>
+								<option value="DE">Delaware</option>
+								<option value="DC">District Of Columbia</option>
+								<option value="FL">Florida</option>
+								<option value="GA">Georgia</option>
+								<option value="HI">Hawaii</option>
+								<option value="ID">Idaho</option>
+								<option value="IL">Illinois</option>
+								<option value="IN">Indiana</option>
+								<option value="IA">Iowa</option>
+								<option value="KS">Kansas</option>
+								<option value="KY">Kentucky</option>
+								<option value="LA">Louisiana</option>
+								<option value="ME">Maine</option>
+								<option value="MD">Maryland</option>
+								<option value="MA">Massachusetts</option>
+								<option value="MI">Michigan</option>
+								<option value="MN">Minnesota</option>
+								<option value="MS">Mississippi</option>
+								<option value="MO">Missouri</option>
+								<option value="MT">Montana</option>
+								<option value="NE">Nebraska</option>
+								<option value="NV">Nevada</option>
+								<option value="NH">New Hampshire</option>
+								<option value="NJ">New Jersey</option>
+								<option value="NM">New Mexico</option>
+								<option value="NY">New York</option>
+								<option value="NC">North Carolina</option>
+								<option value="ND">North Dakota</option>
+								<option value="OH">Ohio</option>
+								<option value="OK">Oklahoma</option>
+								<option value="OR">Oregon</option>
+								<option value="PA">Pennsylvania</option>
+								<option value="RI">Rhode Island</option>
+								<option value="SC">South Carolina</option>
+								<option value="SD">South Dakota</option>
+								<option value="TN">Tennessee</option>
+								<option value="TX">Texas</option>
+								<option value="UT">Utah</option>
+								<option value="VT">Vermont</option>
+								<option value="VA">Virginia</option>
+								<option value="WA">Washington</option>
+								<option value="WV">West Virginia</option>
+								<option value="WI">Wisconsin</option>
+								<option value="WY">Wyoming</option>
+							</select>
+						</div>
+						<div class="col-3 form-group required">
+							<label for="mailingZip" class="col-form-label col-form-label-sm">ZIP Code:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control form-control-sm" id="mailingZip" name="mailingZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:mailingZip" disabled="true">
+						</div>
+					</div>
+					<div class="col form-check required">
+						<input class="form-check-input" type="checkbox" value="" id="enableMailing" name="enableMailing">
+						<label  class="form-check-label" for="enableMailing">Check if mailing address is different from situs to enable input</label>
+					</div>
+				</div> <!-- end mailing col -->
+
+				<!-- begin prior col -->
+				<div class="form-col col-sm-4" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+														padding-top: 10px; padding-bottom: 15px;">
+					<div>
+						<h5>Prior Address (If applicable)</h5>
+					</div>
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col form-group required">
+							<label for="priorAPN" class="col-form-label col-form-label-sm">Prior APN:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control form-control-sm" id="priorAPN" name="priorAPN" placeholder="1234567890" type="number" min="0" data-bind="value:priorAPN">
+						</div>
+						<div class="col form-group required">
+							<label for="dateMovedOut" class="col-form-label col-form-label-sm">Date Moved Out:</label>
+							<input class="form-control form-control-sm" id="dateMovedOut" name="dateMovedOut" placeholder="1/23/2000" type="date">
+						</div>
+					</div>
+
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col-9 form-group required">
+							<label for="priorStName" class="col-form-label col-form-label-sm">Street Number and Name:</label>
+							<input class="form-control form-control-sm" id="priorStName" name="priorStName" placeholder="123 Any Street" type="text">
+						</div>
+						<div class="col-3 form-group required">
+							<label for="priorApt" class="col-form-label col-form-label-sm">Apt/Ste/Flr #:</label>
+							<input class="form-control form-control-sm" id="priorApt" name="priorApt" placeholder="APT 101" type="text">
+						</div>
+					</div>
+					<div class="form-row situs-row-bottom-margin">
+						<div class="col-6 form-group required">
+							<label for="priorCity" class="col-form-label col-form-label-sm">Prior City:</label>
+							<input class="form-control form-control-sm" id="priorCity" name="priorCity" placeholder="Los Angeles" type="text">
+						</div>
+						<div class="col-3 form-group required">
+							<label for="priorState" class="col-form-label col-form-label-sm">Prior State:</label>
+							<select class="form-control form-control-sm" id="priorState" name="priorState">
+								<option value="N/A" disabled selected>Select</option>
+								<option value="AL">Alabama</option>
+								<option value="AK">Alaska</option>
+								<option value="AZ">Arizona</option>
+								<option value="AR">Arkansas</option>
+								<option value="CA">California</option>
+								<option value="CO">Colorado</option>
+								<option value="CT">Connecticut</option>
+								<option value="DE">Delaware</option>
+								<option value="DC">District Of Columbia</option>
+								<option value="FL">Florida</option>
+								<option value="GA">Georgia</option>
+								<option value="HI">Hawaii</option>
+								<option value="ID">Idaho</option>
+								<option value="IL">Illinois</option>
+								<option value="IN">Indiana</option>
+								<option value="IA">Iowa</option>
+								<option value="KS">Kansas</option>
+								<option value="KY">Kentucky</option>
+								<option value="LA">Louisiana</option>
+								<option value="ME">Maine</option>
+								<option value="MD">Maryland</option>
+								<option value="MA">Massachusetts</option>
+								<option value="MI">Michigan</option>
+								<option value="MN">Minnesota</option>
+								<option value="MS">Mississippi</option>
+								<option value="MO">Missouri</option>
+								<option value="MT">Montana</option>
+								<option value="NE">Nebraska</option>
+								<option value="NV">Nevada</option>
+								<option value="NH">New Hampshire</option>
+								<option value="NJ">New Jersey</option>
+								<option value="NM">New Mexico</option>
+								<option value="NY">New York</option>
+								<option value="NC">North Carolina</option>
+								<option value="ND">North Dakota</option>
+								<option value="OH">Ohio</option>
+								<option value="OK">Oklahoma</option>
+								<option value="OR">Oregon</option>
+								<option value="PA">Pennsylvania</option>
+								<option value="RI">Rhode Island</option>
+								<option value="SC">South Carolina</option>
+								<option value="SD">South Dakota</option>
+								<option value="TN">Tennessee</option>
+								<option value="TX">Texas</option>
+								<option value="UT">Utah</option>
+								<option value="VT">Vermont</option>
+								<option value="VA">Virginia</option>
+								<option value="WA">Washington</option>
+								<option value="WV">West Virginia</option>
+								<option value="WI">Wisconsin</option>
+								<option value="WY">Wyoming</option>
+							</select>
+						</div>
+						<div class="col-3 form-group required">
+							<label for="priorZip" class="col-form-label col-form-label-sm">Prior ZIP:</label>
+							<!-- TODO: onchange valid number check and formatting -->
+							<input class="form-control form-control-sm" id="priorZip" name="priorZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:priorZip">
+						</div>
+					</div>
+				</div> <!-- end prior row -->
+			</div> <!-- end situs row -->
+			<hr class="my-2">
+
+			
+			<!-- buttons -->
+			<div class="form-group text-right p-3">
+				<button type="submit" name="save" class="btn btn-danger">Submit</button>
+				<button type="reset" class="btn btn-secondary">Reset</button>
+			</div>
 
 			</form> <!-- end form -->
 		</div> <!-- end col -->
