@@ -448,17 +448,21 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 						
 					</div>
 					<div class="form-row situs-row-bottom-margin">
-						<div class="col-4 form-group required">
+						<div class="col-3 form-group required">
 							<label for="currentZip" class="col-form-label col-form-label-sm">Current ZIP:</label>
 							<input class="form-control form-control-sm" id="currentZip" name="currentZip" placeholder="90012" type="number" min="0" max="99999" data-bind="value:currentZip">
 						</div>
-						<div class="col-4 form-group required">
-							<label for="dateAcquired" class="col-form-label col-form-label-sm">Date Acquired:</label>
-							<input class="form-control form-control-sm" id="dateAcquired" name="dateAcquired" placeholder="1/23/2000" type="date">
-						</div>
-						<div class="col-4 form-group required">
-							<label for="dateOccupied" class="col-form-label col-form-label-sm">Date Occupied:</label>
-							<input class="form-control form-control-sm" id="dateOccupied" name="dateOccupied" placeholder="1/23/2000" type="date">
+						<div class="col-9 form-group required">
+							<div class="form-row situs-row-bottom-margin">
+								<div class="col-6">
+									<label for="dateAcquired" class="col-form-label col-form-label-sm">Date Acquired:</label>
+									<input class="form-control form-control-sm" id="dateAcquired" name="dateAcquired" placeholder="1/23/2000" type="date">
+								</div>
+								<div class="col-6">
+									<label for="dateOccupied" class="col-form-label col-form-label-sm">Date Occupied:</label>
+									<input class="form-control form-control-sm" id="dateOccupied" name="dateOccupied" placeholder="1/23/2000" type="date">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div> <!-- end situs info col -->
