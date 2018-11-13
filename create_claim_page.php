@@ -92,6 +92,11 @@
 	.col-right-padding {
     	padding-right: 0px;
 	}
+	.info-status-grid {
+		background-color: #D6EAF8; 
+		padding-left: 24px; 
+		padding-right: 24px;
+	}
 </style>
 </head>
 <body>
@@ -147,7 +152,8 @@
 				<div class="form-row">
 					<!-- personal info row -->
 					
-					<div class="form-col col-sm-6 p-2" style="background-color: #D6EAF8;">
+					<div class="form-col col-sm-6" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 10px; padding-bottom: 5px;">
 
 						<!-- <div class="col form-group required">
 							<div class="form-group row">
@@ -171,7 +177,8 @@
 							</div>
 							<div class="col form-group required">
 								<div class="form-group row">
-									<label for="claimantSSN" class="col-sm-4 col-form-label col-form-label-sm" style="padding-right: 0px;">Claimant SSN:</label>
+									<label for="claimantSSN" class="col-sm-4 col-form-label col-form-label-sm" 
+									style="padding-right: 0;">Claimant SSN:</label>
 									<div class="col-sm-8">
 										<input class="form-control form-control-sm" id="claimantSSN" name="claimantSSN" placeholder="123456789" type="number" min="0" data-bind="value:claimantSSN">
 									</div>
@@ -199,34 +206,54 @@
 						</div>
 					</div> <!-- end personal info col -->
 
-					<div class="form-col">
+					<div class="form-col col-sm-6" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
+															padding-top: 10px; padding-bottom: 5px;">
 						<div>
 							<h5>Status Dates</h5>
 						</div>
 						
-						<div class="form-row">
-							<div class="col form-group required">
-								<label for="chooseStatus">Choose Status:</label>
-								<select class="form-control" id="chooseStatus" name="chooseStatus">
-									<option value="Claim Received">Claim Received</option>
-									<option value="Supervisor Workload">Supervisor Workload</option>
-									<option value="Staff Review">Staff Assign</option>
-									<option value="Staff Review Date">Staff Review Date</option>
-									<option value="Supervisor Review">Supervisor Review</option>
-									<option value="Case Closed">Case Closed</option>
-								</select>
+						<div class="form-row row-bottom-margin">
+							<div class="col form-group required" >
+								<div class="form-group row">
+									<label for="chooseStatus" class="col-sm-5 col-form-label col-form-label-sm" style="padding-right: 0px;">Choose Status:</label>
+									<div class="col-sm-7" style="padding-left: 0px;">
+										<select class="form-control form-control-sm" id="chooseStatus" name="chooseStatus">
+											<option value="Claim Received">Claim Received</option>
+											<option value="Supervisor Workload">Supervisor Workload</option>
+											<option value="Staff Review">Staff Assign</option>
+											<option value="Staff Review Date">Staff Review Date</option>
+											<option value="Supervisor Review">Supervisor Review</option>
+											<option value="Case Closed">Case Closed</option>
+										</select>
+									</div>
+								</div>
 							</div>
 							<div class="col form-group required">
-								<label for="statusDate">Date:</label>
-								<input class="form-control" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date">
+								<div class="form-group row">
+									<label for="statusDate" class="col-sm-3 col-form-label col-form-label-sm" value="<?php echo date("Y-m-d"); ?>">Date:</label>
+									<div class="col-sm-9">
+										<input class="form-control form-control-sm" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row row-bottom-margin">
+							<div class="col form-group required">
+								<div class="form-group row">
+									<label for="assignee" class="col-sm-3 col-form-label col-form-label-sm">Assignee:</label>
+									<div class="col-sm-9">
+										<input class="form-control form-control-sm" id="assignee" name="assignee" placeholder="Last, First" type="text">
+									</div>
+								</div>
 							</div>
 							<div class="col form-group required">
-								<label for="assignee">Assignee:</label>
-								<input class="form-control" id="assignee" name="assignee" placeholder="Last, First" type="text">
-							</div>
-							<div class="col form-group required">
-								<label for="assignor">Assignor:</label>
-								<input class="form-control" id="assignor" name="assignor" placeholder="Last, First" type="text" value="<?php echo $_SESSION["name"]; ?>" >
+								<div class="form-group row">
+									<label for="assignor" class="col-sm-3 col-form-label col-form-label-sm">Assignor:</label>
+									<div class="col-sm-9">
+										<input class="form-control form-control-sm" id="assignor" name="assignor" placeholder="Last, First" type="text" value="<?php echo $_SESSION["name"]; ?>" >
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
