@@ -115,6 +115,9 @@
 
 	// update if record exists
 	if ($rowMatch != null) {
+		//Encrypt SSN
+		$claimantSSN = openssl_encrypt ($claimantSSN, ENCRPYTIONMETHOD, HASH, false, IV);
+		$spouseSSN = openssl_encrypt ($spouseSSN, ENCRPYTIONMETHOD, HASH, false, IV);
 		$sqlUpdate = "UPDATE dbo.claim_table SET claimant = '$claimant',
 				claimantSSN = '$claimantSSN', spouse = '$spouse', spouseSSN = '$spouseSSN', 
 				currentAPN = '$currentAPN', dateAcquired = '$dateAcquired', dateOccupied = '$dateOccupied',
@@ -172,6 +175,9 @@
 	}
 	// create entry if record is new
 	else {
+		//Encrypt SSN
+		$claimantSSN = openssl_encrypt ($claimantSSN, ENCRPYTIONMETHOD, HASH, false, IV);
+		$spouseSSN = openssl_encrypt ($spouseSSN, ENCRPYTIONMETHOD, HASH, false, IV);
 		/* query building */
 		$claim_query = "INSERT INTO dbo.claim_table
 				(claimID, claimant,claimantSSN,spouse,spouseSSN,currentAPN,dateAcquired,dateOccupied,

@@ -29,7 +29,7 @@
 		if($populated)
 			$sql=$sql." AND ";
 		//Encypt
-		$homeownerSSN = openssl_encrypt ($homeownerSSN, ENCRPYTIONMETHOD, HASH, true, IV);
+		$homeownerSSN = openssl_encrypt ($homeownerSSN, ENCRPYTIONMETHOD, HASH, false, IV);
 		$sql= $sql." claimantSSN = '$homeownerSSN'";
 		$populated = True;
 	}
@@ -44,6 +44,7 @@
 	if(!empty($spouseSSN)){
 		if($populated)
 			$sql=$sql." AND ";
+		$spouseSSN = openssl_encrypt ($spouseSSN, ENCRPYTIONMETHOD, HASH, false, IV);
 		$sql= $sql." spouseSSN = '$spouseSSN'";
 		$populated = True;
 	}
@@ -157,9 +158,11 @@
 	if(is_null($sql_2) || $exists_AIN){
 		while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 		{
+			$decrypt = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, false, IV);
+
 			// $decryptedMessage = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, true, IV);
 			//replace openssldecrpyt with just $row[2] if buggy
-			echo "<a href='claim_page.php?claimID=".$row[0]."' class='col-sm-4'>Claim ID#=".$row[0]."</a><a href='person_page.php?claimantSSN=".openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, true, IV)."' class='col-sm-4'>SSN=".$row[2]."</a><a href='property_page.php?AIN=".$row[3]."' class='col-sm-4'>PropertyID=".$row[3]."</a><br>" ;
+			echo "<a href='claim_page.php?claimID=".$row[0]."' class='col-sm-4'>Claim ID#=".$row[0]."</a><a href='person_page.php?claimantSSN=".$decrypt."' class='col-sm-4'>SSN=".$decrypt."</a><a href='property_page.php?AIN=".$row[3]."' class='col-sm-4'>PropertyID=".$row[3]."</a><br>" ;
 		}
 	}	
 	/* Free statement and connection resources. */

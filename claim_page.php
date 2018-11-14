@@ -183,6 +183,13 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 			<th>Assignee</div></td>
 			</tr>
 			<tr>
+			<td>Preprint Sent</td>
+			<td><div id="preprintSent"></div></td>
+			<td><div id="preprintSentDays"></div></td>
+			<td><div id="preprintSentAssignor"></div></td>
+			<td><div id="preprintSentAssignee"></div></td>
+			</tr>
+			<tr>
 			<td>Claim Receieved</td>
 			<td><div id="claimReceived"></div></td>
 			<td><div id="claimReceivedDays"></div></td>
@@ -223,6 +230,13 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 			<td><div id="caseClosedDays"></div></td>
 			<td><div id="caseClosedAssignor"></div></td>
 			<td><div id="caseClosedAssignee"></div></td>
+			</tr>
+			<tr>
+			<td>Hold</td>
+			<td><div id="hold"></div></td>
+			<td><div id="holdDays"></div></td>
+			<td><div id="holdAssignor"></div></td>
+			<td><div id="holdAssignee"></div></td>
 			</tr>
 		</table>
       </div>
@@ -921,6 +935,28 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
         document.getElementById('caseClosedDays').innerHTML = caseClosedDays+" days";
         document.getElementById('caseClosedAssignor').innerHTML = phpObj.caseClosedAssignor;
         document.getElementById('caseClosedAssignee').innerHTML = phpObj.caseClosedAssignee;
+
+        var preprintSentDate ="";
+        var preprintSentDays ="";
+        if(phpObj.preprintSent!=null){
+          caseClosedDate = phpObj.preprintSent.date.substring(0,10)
+          caseClosedDays = days_between(new Date(phpObj.preprintSent.date), new Date());
+        }
+        document.getElementById('preprintSent').innerHTML = preprintSentDate;
+        document.getElementById('preprintSentDays').innerHTML = preprintSentDays+" days";
+        document.getElementById('preprintSentAssignor').innerHTML = phpObj.preprintSentAssignor;
+        document.getElementById('preprintSentAssignee').innerHTML = phpObj.preprintSentAssignee;
+
+        var holdDate ="";
+        var holdDays ="";
+        if(phpObj.hold!=null){
+          holdDate = phpObj.hold.date.substring(0,10)
+          holdDays = days_between(new Date(phpObj.hold.date), new Date());
+        }
+        document.getElementById('hold').innerHTML = holdDate;
+        document.getElementById('holdDays').innerHTML = holdDays+" days";
+        document.getElementById('holdAssignor').innerHTML = phpObj.holdAssignor;
+        document.getElementById('holdAssignee').innerHTML = phpObj.holdAssignee;
       }
 
       function days_between(date1, date2) {

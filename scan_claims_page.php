@@ -120,7 +120,35 @@ if(isset($_POST['submit'])){ //check if form was submitted
 		$message = "processed";
 	}
 	else if(strcasecmp($option, "Hold")==0){
+    $date = date("m.d.y");
+    $tsql = "UPDATE dbo.claim_table   
+      SET hold = (?), holdAssignee = (?), holdAssignor = (?), currStatus = (?)
+      WHERE claimID = (?)";  
+
+    foreach($claimID as $item) {
+      $params = array($date, $user, $_SESSION["name"], $option, $item);
+      /* Execute the query. */                  
+      if($item!=""){              
+        $claim_result = sqlsrv_query($conn, $tsql, $params);
+      }
+    }
+    $message = "processed";
 	}
+  else if(strcasecmp($option, "Preprint Sent")==0){
+    $date = date("m.d.y");
+    $tsql = "UPDATE dbo.claim_table   
+      SET preprintSent = (?), preprintSentAssignee = (?), preprintSentAssignor = (?), currStatus = (?)
+      WHERE claimID = (?)";  
+
+    foreach($claimID as $item) {
+      $params = array($date, $user, $_SESSION["name"], $option, $item);
+      /* Execute the query. */                  
+      if($item!=""){              
+        $claim_result = sqlsrv_query($conn, $tsql, $params);
+      }
+    }
+    $message = "processed";
+  }
 	else if(strcasecmp($option, "Closed")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
@@ -268,14 +296,14 @@ if(isset($_POST['submit'])){ //check if form was submitted
 		<label for="option">Claim Status:</label>
 		<select id="option" name="option" class="form-control">
 		  <option disabled selected value>Choose Option</option>
+      <option value="Preprint Sent">Preprint Sent</option>
 		  <option value="Claim Received">Claim Received</option>
 		  <option value="Supervisor Workload">Supervisor Workload</option>
 		  <option value="Staff Review">Staff Assign</option>
 		  <option value="Staff Review Date">Staff Review Date</option>
 		  <option value="Supervisor Review">Supervisor Review</option>
-		  <option value="Hold">Hold</option>
 		  <option value="Closed">Closed</option>
-		  <option value="Preprint Sent">Preprint Sent</option>
+      <option value="Hold">Hold</option>
 		</select>
     </div>
   </div>

@@ -18,7 +18,7 @@ include('constant.php');
               staffReview, staffReviewAssignor, staffReviewAssignee, 
               staffReviewDate, staffReviewDateAssignor, staffReviewDateAssignee, 
               supervisorReview, supervisorReviewAssignor, supervisorReviewAssignee,
-              caseClosed, caseClosedAssignor, caseClosedAssignee
+              caseClosed, caseClosedAssignor, caseClosedAssignee, currStatus, preprintSent, preprintSentAssignor, preprintSentAssignee, hold, holdAssignor, holdAssignee
               FROM claim_table WHERE claimID=".$claimID;
 
             /* Execute the query. */
@@ -31,9 +31,9 @@ include('constant.php');
               {
                   $myObj->claimID =$row[0];
                   $myObj->claimant = $row[1];
-                  $myObj->claimantSSN = "*********";
+                  $myObj->claimantSSN = $row[2];
                   $myObj->spouse = $row[3];
-                  $myObj->spouseSSN = "*********";
+                  $myObj->spouseSSN = $row[4];
                   $myObj->currentAPN = $row[5];
 //echo "dateAcquired: ".$row[8];
 // echo "dateOccupied: ".$row[9];
@@ -69,6 +69,13 @@ include('constant.php');
                   $myObj->caseClosed = $row[37];
                   $myObj->caseClosedAssignor = $row[38];
                   $myObj->caseClosedAssignee = $row[39];
+                  $myObj->currStatus = $row[40];
+                  $myObj->preprintSent = $row[41];
+                  $myObj->preprintSentAssignor = $row[42];
+                  $myObj->preprintSentAssignee = $row[43];
+                  $myObj->hold = $row[44];
+                  $myObj->holdAssignor = $row[45];
+                  $myObj->holdAssignee = $row[46];
                   $myJSON = json_encode($myObj);
                   echo $myJSON;
                   //echo "var phpObj = ".$myJSON.";";

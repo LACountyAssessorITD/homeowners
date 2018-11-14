@@ -29,8 +29,8 @@
 	if(!empty($homeownerSSN)){
 		if($populated)
 			$sql=$sql.", ";
-		//Encrpyt
-		$homeownerSSN = openssl_encrypt ($homeownerSSN, ENCRPYTIONMETHOD, HASH, true, IV);
+		//Encrypt
+		$homeownerSSN = openssl_encrypt ($homeownerSSN, ENCRPYTIONMETHOD, HASH, false, IV);
 		$sql= $sql." claimantSSN = '$homeownerSSN'";
 		$populated = True;
 	}
@@ -45,6 +45,8 @@
 // if(!empty($spouseSSN)){
 // 	if($populated)
 // 		$sql=$sql." AND ";
+		// Encrypt
+		// $spouseSSN = openssl_encrypt ($spouseSSN, ENCRPYTIONMETHOD, HASH, true, IV);
 // 	$sql= $sql." spouseSSN = '$spouseSSN'";
 // 	$populated = True;
 // }
