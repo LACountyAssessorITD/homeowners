@@ -249,7 +249,7 @@ else{
 				?>
 			</div>
 			<div class="col">
-				<h2>Claims by Appraiser</h2>
+				<h2>Claims by Staff</h2>
 				<?php 
 				if($startDate && $endDate){
 					echo "<table style='width: 100%'>

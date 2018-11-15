@@ -939,8 +939,8 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
         var preprintSentDate ="";
         var preprintSentDays ="";
         if(phpObj.preprintSent!=null){
-          caseClosedDate = phpObj.preprintSent.date.substring(0,10)
-          caseClosedDays = days_between(new Date(phpObj.preprintSent.date), new Date());
+          preprintSentDate = phpObj.preprintSent.date.substring(0,10)
+          preprintSentDays = days_between(new Date(phpObj.preprintSent.date), new Date());
         }
         document.getElementById('preprintSent').innerHTML = preprintSentDate;
         document.getElementById('preprintSentDays').innerHTML = preprintSentDays+" days";

@@ -47,16 +47,30 @@ if(isset($_POST['submit'])){ //check if form was submitted
 	}
 
 	if(strcasecmp($option, "Claim Received")==0){
-			$claim_query = "INSERT INTO dbo.claim_table
-			(claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus)
-			VALUES(?,?,?,?,?)";
+    $claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
+begin
+   update dbo.claim_table SET claimReceived = (?), claimReceivedAssignee = (?), claimReceivedAssignor = (?), currStatus = (?) 
+    WHERE claimID = (?)
+end 
+else
+begin 
+   INSERT INTO dbo.claim_table (claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus) VALUES(?,?,?,?,?)
+end";
+			// $claim_query = "INSERT INTO dbo.claim_table
+			// (claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus)
+			// VALUES(?,?,?,?,?)";
 			foreach($claimID as $item) {
-				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
+				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
 				/* Execute the query. */
 				if($item!=""){
 					$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
 				}              
 			}
+      if(!$claim_result){
+              echo "Claim Receieved Error";
+        echo print_r( sqlsrv_errors(), true);
+        die( print_r( sqlsrv_errors(), true));
+      }
 		$message = "processed";
 	}
 	else if(strcasecmp($option, "Supervisor Workload")==0){
@@ -135,18 +149,30 @@ if(isset($_POST['submit'])){ //check if form was submitted
     $message = "processed";
 	}
   else if(strcasecmp($option, "Preprint Sent")==0){
-    $date = date("m.d.y");
-    $tsql = "UPDATE dbo.claim_table   
-      SET preprintSent = (?), preprintSentAssignee = (?), preprintSentAssignor = (?), currStatus = (?)
-      WHERE claimID = (?)";  
-
-    foreach($claimID as $item) {
-      $params = array($date, $user, $_SESSION["name"], $option, $item);
-      /* Execute the query. */                  
-      if($item!=""){              
-        $claim_result = sqlsrv_query($conn, $tsql, $params);
+        $claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
+begin
+   update dbo.claim_table SET preprintSent = (?), preprintSentAssignee = (?), preprintSentAssignor = (?), currStatus = (?) 
+    WHERE claimID = (?)
+end 
+else
+begin 
+   INSERT INTO dbo.claim_table (claimID, preprintSent, preprintSentAssignee, preprintSentAssignor, currStatus) VALUES(?,?,?,?,?)
+end";
+      // $claim_query = "INSERT INTO dbo.claim_table
+      // (claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus)
+      // VALUES(?,?,?,?,?)";
+      foreach($claimID as $item) {
+        $claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
+        /* Execute the query. */
+        if($item!=""){
+          $claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+        }              
       }
-    }
+      if(!$claim_result){
+              echo "Claim Receieved Error";
+        echo print_r( sqlsrv_errors(), true);
+        die( print_r( sqlsrv_errors(), true));
+      }
     $message = "processed";
   }
 	else if(strcasecmp($option, "Closed")==0){
