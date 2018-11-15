@@ -769,38 +769,78 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 
 	// post form with ajax, think this will help staying on same page
 	$("#claim-form").on("submit", function() {
-		var cform = document.getElementById("claim-form");
-		var fd = new FormData(cform);
-		
-		$.ajax({
-			url: "write_claim.php",
-			data: fd,
-			cache: false,
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			success: function (response) {
-				window.location = "#";
-				if (response == "create_success") {
-					// show create success msg
-					$('#failAlert').hide();
-					$('#submitSuccess').html("<strong>Claim successfully created.</strong>");
-					$('#successAlert').show();
-				}
-				else if (response == "update_success") {
-					// show success msg
-					$('#failAlert').hide();
-					$('#submitSuccess').html("<strong>Update Success</strong>");
-					$('#successAlert').show();
-				}
-				else {
-					// show error msg
-					$('#successAlert').hide();
-					$('#submitFail').html("Submission failed. <strong>Error: "+response+"</strong>");
-					$('#failAlert').show();
-				}
+		let msg = <?php 
+			$cSSN = $_POST['claimant'];
+			$sqlCheck = "SELECT claimID FROM dbo.claim_table 
+							WHERE (claimant = (?) )";
+			$checkparams = array($cSSN);
+			if($conn === false) {
+				echo print_r( sqlsrv_errors(), true);
 			}
-		});
+			$checkResult = sqlsrv_query($conn, $sqlCheck, $checkparams);
+
+			if($checkResult === false || !$checkResult) {
+				echo print_r( sqlsrv_errors(), true);
+			}
+			$rCount=0;
+			while($row = sqlsrv_fetch_array( $checkResult, SQLSRV_FETCH_NUMERIC))
+			{
+				$rCount++;
+			}
+
+		?>;
+		$('#submitFail').html(msg);
+		$('#failAlert').show();
+
+		let confirmSubmit = true;
+		if (<?php echo $rCount > 0; ?>) {
+			if (confirm("Click 'OK' to continue submitting the claim or click 'cancel' to put it on hold.")) {
+		        // ok
+		        confirmSubmit = true;
+		    } else {
+		        // cancel
+		        confirmSubmit = false;
+		    }
+		}
+
+		if (true) {
+			if (!confirmSubmit) {
+				$('#chooseStatus').val('Hold');
+			}
+
+			var cform = document.getElementById("claim-form");
+			var fd = new FormData(cform);
+			
+			$.ajax({
+				url: "write_claim.php",
+				data: fd,
+				cache: false,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success: function (response) {
+					window.location = "#";
+					if (response == "create_success") {
+						// show create success msg
+						$('#failAlert').hide();
+						$('#submitSuccess').html("<strong>Claim successfully created.</strong>");
+						$('#successAlert').show();
+					}
+					else if (response == "update_success") {
+						// show success msg
+						$('#failAlert').hide();
+						$('#submitSuccess').html("<strong>Update Success</strong>");
+						$('#successAlert').show();
+					}
+					else {
+						// show error msg
+						$('#successAlert').hide();
+						$('#submitFail').html("Submission failed. <strong>Error: "+response+"</strong>");
+						$('#failAlert').show();
+					}
+				}
+			});
+		}
 
 		// forgetting to return false will cause page to refresh 
 		// and lose control on all prev objects...
