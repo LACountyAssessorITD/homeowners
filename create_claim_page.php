@@ -1,3 +1,35 @@
+<?php
+session_start();
+include('constant.php');
+$message=null;
+
+$serverName = SERVERNAME;
+$uid = UID;
+$pwd = PWD;
+$databaseName = DATABASENAME;
+
+$connectionInfo = array( "UID"=>$uid,
+  "PWD"=>$pwd,
+  "Database"=>$databaseName);
+
+/* Connect using SQL Server Authentication. */
+$conn = sqlsrv_connect( $serverName, $connectionInfo);
+
+if($conn === false) {
+  echo "Could not connect.\n";
+  die(print_r( sqlsrv_errors(), true));
+}
+
+$tsql = "SELECT name FROM temp_table";
+
+$phpArray = array();
+
+$stmt = sqlsrv_query( $conn, $tsql);
+while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+{
+  array_push($phpArray, $row[0]);
+}
+?>
 
 <!doctype html>
 <html lang="en">
@@ -743,40 +775,63 @@
 		var checkFD = new FormData(checkForm);
 		var msg = "test";
 		$.ajax({
-			// url: "write_claim.php",
+			url: "check_dups.php",
 			data: checkFD,
 			cache: false,
 			processData: false,
 			contentType: false,
 			type: 'POST',
 			success: function (response) {
-				$data = $_POST['claimant'];
-				$sqlCheck = "SELECT claimID FROM dbo.claim_table WHERE (claimant = (?) )";
-				$checkparams = array($data);
-				if($conn === false) {
-					// echo print_r( sqlsrv_errors(), true);
+				let hold = false;
+				if (response == "found") {
+					if (confirm("Duplicate SSN found for claimant. Click 'OK' to continue submitting the claim or click 'cancel' to put it on hold.")) {
+				        hold = false;
+				    } else {
+				        hold = true;
+				    }
 				}
-				$checkResult = sqlsrv_query($conn, $sqlCheck, $checkparams);
 
-				if($checkResult === false || !$checkResult) {
-					// echo print_r( sqlsrv_errors(), true);
+				if (hold) {
+					$('#chooseStatus').val('Hold');
 				}
-				$rCount=0;
-				while($row = sqlsrv_fetch_array( $checkResult, SQLSRV_FETCH_NUMERIC))
-				{
-					$rCount++;
-				}
-				if (rCount>0) {
-					$('#submitFail').html("found");
-				$('#failAlert').show();
-				} else {
-					$('#submitFail').html("zero");
-				$('#failAlert').show();
-				}
+
+				var cform = document.getElementById("claim-form");
+				var fd = new FormData(cform);
 				
+				$.ajax({
+					url: "write_claim.php",
+					data: fd,
+					cache: false,
+					processData: false,
+					contentType: false,
+					type: 'POST',
+					success: function (response) {
+						window.location = "#";
+						if (response == "create_success") {
+							// show create success msg
+							$('#failAlert').hide();
+							$('#submitSuccess').html("<strong>Claim successfully created.</strong>");
+							$('#successAlert').show();
+						}
+						else if (response == "update_success") {
+							// show success msg
+							$('#failAlert').hide();
+							$('#submitSuccess').html("<strong>Update Success</strong>");
+							$('#successAlert').show();
+						}
+						else {
+							// show error msg
+							$('#successAlert').hide();
+							$('#submitFail').html("Submission failed. <strong>Error: "+response+"</strong>");
+							$('#failAlert').show();
+						}
+					}
+				});
 			}
 		});
 
+		// $('#submitFail').html(msg);
+		// $('#failAlert').show();
 
 /*
 		let confirmSubmit = true;
@@ -790,44 +845,7 @@
 		    }
 		}
 
-		if (true) {
-			if (!confirmSubmit) {
-				$('#chooseStatus').val('Hold');
-			}
-
-			var cform = document.getElementById("claim-form");
-			var fd = new FormData(cform);
-			
-			$.ajax({
-				url: "write_claim.php",
-				data: fd,
-				cache: false,
-				processData: false,
-				contentType: false,
-				type: 'POST',
-				success: function (response) {
-					window.location = "#";
-					if (response == "create_success") {
-						// show create success msg
-						$('#failAlert').hide();
-						$('#submitSuccess').html("<strong>Claim successfully created.</strong>");
-						$('#successAlert').show();
-					}
-					else if (response == "update_success") {
-						// show success msg
-						$('#failAlert').hide();
-						$('#submitSuccess').html("<strong>Update Success</strong>");
-						$('#successAlert').show();
-					}
-					else {
-						// show error msg
-						$('#successAlert').hide();
-						$('#submitFail').html("Submission failed. <strong>Error: "+response+"</strong>");
-						$('#failAlert').show();
-					}
-				}
-			});
-		}
+		
 */
 		// forgetting to return false will cause page to refresh 
 		// and lose control on all prev objects...
@@ -929,6 +947,9 @@ document.addEventListener("click", function (e) {
 	closeAllLists(e.target);
 });
 }
+var users = <?php echo json_encode($phpArray); ?>;
+autocomplete(document.getElementById("assignee"), users);
+autocomplete(document.getElementById("assignor"), users);
 </script>
 </body>
 </html>
