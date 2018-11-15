@@ -19,11 +19,16 @@
 	// //To encrypt
 	// $encryptedMessage = openssl_encrypt ($textToEncrypt, $encryptionMethod, $secretHash, true, $iv);
 	// $encryptedMessage = openssl_encrypt ($textToEncrypt, ENCRPYTIONMETHOD, HASH, true, IV);
-	
+
 
 	// //To Decrypt
 	// $decryptedMessage = openssl_decrypt($encryptedMessage, $encryptionMethod, $secretHash, true, $iv);
 
 	// $decryptedMessage = openssl_decrypt($encryptedMessage, ENCRPYTIONMETHOD, HASH, true, IV);
+
+
+
+
+
 	
 ?>

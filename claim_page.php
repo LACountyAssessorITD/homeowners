@@ -809,6 +809,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 
     function rePlaceholder(){
       var claimID = <?php echo $_GET['claimID']; ?>;
+      var permissions = <?php echo $_SESSION['permissions']; ?>;
       var phpObj;
       $.ajax({
           type: "GET",
@@ -816,22 +817,38 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
           data:{ claimID: claimID }, 
           success: function(data){
               phpObj=JSON.parse(data);
-              populate(phpObj);
+              populate(phpObj,permissions);
               // console.log(phpObj); 
               // console.log(phpObj.claimID);
           }
       })
     }
 
-      function populate(phpObj){
+      function populate(phpObj,permissions){
         console.log(phpObj);
         console.log(phpObj.claimID);
+        // console.log(permissions);
+
+        // permissions = 2;
 
         document.getElementById('claimID').value =phpObj.claimID;
         document.getElementById('claimant').value =phpObj.claimant;
-        document.getElementById('claimantSSN').value =phpObj.claimantSSN;
         document.getElementById('spouse').value =phpObj.spouse;
-        document.getElementById('spouseSSN').value =phpObj.spouseSSN;
+
+        if(permissions == 2)	document.getElementById('claimantSSN').value = phpObj.claimantSSN;
+        else 					document.getElementById('claimantSSN').style.display = "none";;//.value = claimantSSN;//claimantSSN = '*********';
+
+        // document.getElementById('claimantSSN').value = claimantSSN;
+        // document.getElementById('claimantSSN').value = phpObj.claimantSSN;
+
+
+        if(permissions == 2)	document.getElementById('spouseSSN').value = phpObj.spouseSSN;
+        else 					document.getElementById('spouseSSN').style.display = "none";;//spouseSSN = '*********';
+
+
+
+        // document.getElementById('spouseSSN').value = spouseSSN;
+        // document.getElementById('spouseSSN').value = phpObj.spouseSSN;
         document.getElementById('currentAPN').value =phpObj.currentAPN;
         document.getElementById('currentStName').value =phpObj.currentStName;
         document.getElementById('currentCity').value =phpObj.currentCity;
@@ -845,6 +862,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
         document.getElementById('suppTaxYear').value =phpObj.suppTaxYear;
         document.getElementById('exemptRE2').value =phpObj.exemptRE2;
         document.getElementById('claimAction').value =phpObj.claimAction;
+
 
         let reasonFound = false;
         for (i = 0; i < document.getElementById('findingReason').length; ++i){

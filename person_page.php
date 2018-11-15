@@ -49,10 +49,15 @@ include('constant.php');
             {
             	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	            {
+
+                  $ssn =        openssl_decrypt($row[1], ENCRPYTIONMETHOD, HASH, false, IV);
+                  $ssnSpouse =  openssl_decrypt($row[3], ENCRPYTIONMETHOD, HASH, false, IV);
 	                echo "Claimant: ".$row[0]."<br>";
-	                echo "claimantSSN: ".$row[1]."<br>";
+	                // echo "claimantSSN: ".$row[1]."<br>";
+                  echo "claimantSSN: ".$ssn."<br>";
 	                echo "spouse: ".$row[2]."<br>";
-	                echo "spouseSSN: ".$row[3]."<br>";
+	                // echo "spouseSSN: ".$row[3]."<br>";
+                  echo "spouseSSN: ".$ssnSpouse."<br>";
 	                echo "mailingStName: ".$row[4]."<br>";
 	                echo "mailingApt: ".$row[5]."<br>";
 	                echo "mailingCity: ".$row[6]."<br>";

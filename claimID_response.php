@@ -31,9 +31,15 @@ include('constant.php');
               {
                   $myObj->claimID =$row[0];
                   $myObj->claimant = $row[1];
-                  $myObj->claimantSSN = $row[2];
+                  // $myObj->claimantSSN = $row[2]; //Replace this with a decrpytion fn
+                  $alpha = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, false, IV);
+                  // echo $alpha;
+                  $myObj->claimantSSN = $alpha;
                   $myObj->spouse = $row[3];
-                  $myObj->spouseSSN = $row[4];
+                  // $myObj->spouseSSN = $row[4];
+                  $beta = openssl_decrypt($row[4], ENCRPYTIONMETHOD, HASH, false, IV);
+                  // echo $beta;
+                  $myObj->spouseSSN = $beta;
                   $myObj->currentAPN = $row[5];
 //echo "dateAcquired: ".$row[8];
 // echo "dateOccupied: ".$row[9];
