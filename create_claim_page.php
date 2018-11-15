@@ -1,35 +1,4 @@
-<?php
-session_start();
-include('constant.php');
-$message=null;
 
-$serverName = SERVERNAME;
-$uid = UID;
-$pwd = PWD;
-$databaseName = DATABASENAME;
-
-$connectionInfo = array( "UID"=>$uid,
-  "PWD"=>$pwd,
-  "Database"=>$databaseName);
-
-/* Connect using SQL Server Authentication. */
-$conn = sqlsrv_connect( $serverName, $connectionInfo);
-
-if($conn === false) {
-  echo "Could not connect.\n";
-  die(print_r( sqlsrv_errors(), true));
-}
-
-$tsql = "SELECT name FROM temp_table";
-
-$phpArray = array();
-
-$stmt = sqlsrv_query( $conn, $tsql);
-while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-{
-  array_push($phpArray, $row[0]);
-}
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -769,31 +738,49 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 
 	// post form with ajax, think this will help staying on same page
 	$("#claim-form").on("submit", function() {
-		let msg = <?php 
-			$cSSN = $_POST['claimant'];
-			$sqlCheck = "SELECT claimID FROM dbo.claim_table 
-							WHERE (claimant = (?) )";
-			$checkparams = array($cSSN);
-			if($conn === false) {
-				echo print_r( sqlsrv_errors(), true);
-			}
-			$checkResult = sqlsrv_query($conn, $sqlCheck, $checkparams);
 
-			if($checkResult === false || !$checkResult) {
-				echo print_r( sqlsrv_errors(), true);
-			}
-			$rCount=0;
-			while($row = sqlsrv_fetch_array( $checkResult, SQLSRV_FETCH_NUMERIC))
-			{
-				$rCount++;
-			}
+		var checkForm = document.getElementById("claim-form");
+		var checkFD = new FormData(checkForm);
+		var msg = "test";
+		$.ajax({
+			// url: "write_claim.php",
+			data: checkFD,
+			cache: false,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function (response) {
+				$data = $_POST['claimant'];
+				$sqlCheck = "SELECT claimID FROM dbo.claim_table WHERE (claimant = (?) )";
+				$checkparams = array($data);
+				if($conn === false) {
+					// echo print_r( sqlsrv_errors(), true);
+				}
+				$checkResult = sqlsrv_query($conn, $sqlCheck, $checkparams);
 
-		?>;
-		$('#submitFail').html(msg);
-		$('#failAlert').show();
+				if($checkResult === false || !$checkResult) {
+					// echo print_r( sqlsrv_errors(), true);
+				}
+				$rCount=0;
+				while($row = sqlsrv_fetch_array( $checkResult, SQLSRV_FETCH_NUMERIC))
+				{
+					$rCount++;
+				}
+				if (rCount>0) {
+					$('#submitFail').html("found");
+				$('#failAlert').show();
+				} else {
+					$('#submitFail').html("zero");
+				$('#failAlert').show();
+				}
+				
+			}
+		});
 
+
+/*
 		let confirmSubmit = true;
-		if (<?php echo $rCount > 0; ?>) {
+		if (msg > 0) {
 			if (confirm("Click 'OK' to continue submitting the claim or click 'cancel' to put it on hold.")) {
 		        // ok
 		        confirmSubmit = true;
@@ -841,7 +828,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 				}
 			});
 		}
-
+*/
 		// forgetting to return false will cause page to refresh 
 		// and lose control on all prev objects...
 		return false;
@@ -942,9 +929,6 @@ document.addEventListener("click", function (e) {
 	closeAllLists(e.target);
 });
 }
-var users = <?php echo json_encode($phpArray); ?>;
-autocomplete(document.getElementById("assignee"), users);
-autocomplete(document.getElementById("assignor"), users);
 </script>
 </body>
 </html>

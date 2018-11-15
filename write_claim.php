@@ -157,6 +157,14 @@
 			$sqlUpdateDate="UPDATE dbo.claim_table SET caseClosed = '$statusDate',
 			caseClosedAssignee = '$assignee', 
 			caseClosedAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if (strcasecmp($chooseStatus, "Preprint Sent")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET preprintSent = '$statusDate',
+			preprintSentAssignee = '$assignee', 
+			preprintSentAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if (strcasecmp($chooseStatus, "Hold")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET hold = '$statusDate',
+			holdAssignee = '$assignee', 
+			holdAssignor = '$assignor' WHERE claimID = '$claimID'";
 		}
 
 		sqlsrv_query( $conn, $sqlUpdateDate );
