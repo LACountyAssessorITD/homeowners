@@ -88,7 +88,7 @@ end";
 			}
 		$message = "processed";
 	}
-	else if(strcasecmp($option, "Staff Review")==0){
+	else if(strcasecmp($option, "Staff Assign")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
      	SET staffReview = (?), staffReviewAssignee = (?), staffReviewAssignor = (?), currStatus = (?)
@@ -175,7 +175,7 @@ end";
       }
     $message = "processed";
   }
-	else if(strcasecmp($option, "Closed")==0){
+	else if(strcasecmp($option, "Case Closed")==0){
 		$date = date("m.d.y");
 		$tsql = "UPDATE dbo.claim_table   
      	SET caseClosed = (?), caseClosedAssignee = (?), caseClosedAssignor = (?), currStatus = (?)
@@ -256,12 +256,15 @@ end";
 }	
     .navbar-dark .navbar-nav .nav-link {
         color: rgba(255,255,255,.9);
-    }   
+    }  
+    #active-page {
+    color: deepskyblue;
+  } 
 </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="home_page.php">HOX Home</a>
+    <a class="navbar-brand" href="productivity_report_page.php">HOX Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -272,7 +275,7 @@ end";
                 <a class="nav-link" href="productivity_report_page.php">Productivity Report</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="scan_claims_page.php">Scan Claims</a>
+                <a id="active-page" class="nav-link" href="scan_claims_page.php">Scan Claims</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="create_claim_page.php">Claim</a>
@@ -325,10 +328,10 @@ end";
       <option value="Preprint Sent">Preprint Sent</option>
 		  <option value="Claim Received">Claim Received</option>
 		  <option value="Supervisor Workload">Supervisor Workload</option>
-		  <option value="Staff Review">Staff Assign</option>
+		  <option value="Staff Assign">Staff Assign</option>
 		  <option value="Staff Review Date">Staff Review Date</option>
 		  <option value="Supervisor Review">Supervisor Review</option>
-		  <option value="Closed">Closed</option>
+		  <option value="Case Closed">Case Closed</option>
       <option value="Hold">Hold</option>
 		</select>
     </div>

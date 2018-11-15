@@ -32,7 +32,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 }
 
 // status
-$statusArray = array("Claim Received", "Supervisor Workload", "Staff Review", "Staff Review Date", "Supervisor Review", "Case Closed");
+$statusArray = array("Claim Received", "Supervisor Workload", "Staff Assign", "Staff Review Date", "Supervisor Review", "Hold", "Case Closed", "Preprint Sent");
 
 $startDate = null;
 $endDate = null;
@@ -131,11 +131,14 @@ else{
 	    .navbar-dark .navbar-nav .nav-link {
         color: rgba(255,255,255,.9);
     }   
+    #active-page {
+		color: deepskyblue;
+	}
 </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="home_page.php">HOX Home</a>
+    <a class="navbar-brand" href="productivity_report_page.php">HOX Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -143,7 +146,7 @@ else{
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="productivity_report_page.php">Productivity Report</a>
+                <a id="active-page" class="nav-link" href="productivity_report_page.php">Productivity Report</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="scan_claims_page.php">Scan Claims</a>
@@ -288,7 +291,7 @@ else{
 						$totalUnworked=$totalUnworked+$sumUnworked;
 						echo "<tr>"."<td>".$item."</td>"."<td>".$sumUnworked."</td>"."<td>".$worked."</td>"."</tr>";
 					}
-					echo "<tr>"."<td style='font-weight:bold'>Total Volume</td>"."<td>".$totalUnworked."</td>"."<td>".$totalWorked."</td>"."</tr>";
+					echo "<tr>"."<td style='font-weight:bold'>Total Volume</td>"."<td style='font-weight:bold'>".$totalUnworked."</td>"."<td style='font-weight:bold'>".$totalWorked."</td>"."</tr>";
 					echo "</table>";
 				}
 				?>

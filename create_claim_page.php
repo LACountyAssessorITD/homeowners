@@ -100,12 +100,15 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	.situs-row-bottom-margin {
 		margin-bottom: -15px;
 	}
+	#active-page {
+		color: deepskyblue;
+	}
 </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-	<a class="navbar-brand" href="home_page.php">HOX Home</a>
+	<a class="navbar-brand" href="productivity_report_page.php">HOX Home</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -119,7 +122,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 				<a class="nav-link" href="scan_claims_page.php">Scan Claims</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="create_claim_page.php">Claim</a>
+				<a id="active-page" class="nav-link" href="create_claim_page.php">Claim</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="advanced_search_page.php">Advanced Search</a>
@@ -214,10 +217,12 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 										<select class="form-control form-control-sm" id="chooseStatus" name="chooseStatus">
 											<option value="Claim Received">Claim Received</option>
 											<option value="Supervisor Workload">Supervisor Workload</option>
-											<option value="Staff Review">Staff Assign</option>
+											<option value="Staff Assign">Staff Assign</option>
 											<option value="Staff Review Date">Staff Review Date</option>
 											<option value="Supervisor Review">Supervisor Review</option>
+											<option value="Hold">Hold</option>
 											<option value="Case Closed">Case Closed</option>
+											<option value="Preprint Sent">Preprint Sent</option>
 										</select>
 									</div>
 								</div>

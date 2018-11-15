@@ -25,7 +25,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="home_page.php">HOX Home</a>
+    <a class="navbar-brand" href="productivity_report_page.php">HOX Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -111,6 +111,9 @@
             sqlsrv_free_stmt( $stmt);
             sqlsrv_close( $conn);
             //echo "<h1> You are logged in as ".$_SESSION["name"];
+            $url = "productivity_report_page.php";
+            header("Location:" . $url);
+
             ?>
 
     </div>
