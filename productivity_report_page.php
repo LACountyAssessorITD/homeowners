@@ -24,13 +24,11 @@
 	$tsql = "SELECT name FROM temp_table";
 
 	$phpArray = array();
-
 	$stmt = sqlsrv_query( $conn, $tsql);
 	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	{
 		array_push($phpArray, $row[0]);
 	}
-
 	// status
 	$statusArray = array("Claim Received", "Supervisor Workload", "Staff Assign", "Staff Review Date", "Supervisor Review", "Hold", "Case Closed", "Preprint Sent");
 
@@ -197,6 +195,23 @@
 					</tr>";
 					$totalUnworked=0;
 					$totalWorked=0;
+
+					$tsqlStatement = "SELECT claimID
+					FROM dbo.claim_table 
+					WHERE (claimReceived >= (?) ) AND (claimReceived <= (?) ) AND staffReview IS NULL";
+					$statementParams = array($startDate, $endDate);
+					$statement_result = sqlsrv_query($conn, $tsqlStatement, $statementParams);
+					$unAssigned=0;
+					while( $row = sqlsrv_fetch_array($statement_result, SQLSRV_FETCH_NUMERIC))
+					{
+						$unAssigned++;
+					}
+						echo "<tr>
+					<td>Unassigned</td>
+					<td>".$unAssigned."</td>
+					<td>-</td>
+					</tr>";
+					$totalUnworked=$totalUnworked+$unAssigned;
 					foreach($phpArray as $item) {
 						$workedsql = "SELECT claimID
 						FROM dbo.claim_table 
@@ -222,6 +237,9 @@
 						}
 
 						$sumUnworked=$unWorked-$worked;
+						if($sumUnworked<0){
+							$sumUnworked=0;
+						}
 						$totalUnworked=$totalUnworked+$sumUnworked;
 						echo "<tr>"."<td>".$item."</td>"."<td>".$sumUnworked."</td>"."<td>".$worked."</td>"."</tr>";
 					}
