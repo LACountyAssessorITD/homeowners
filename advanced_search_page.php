@@ -20,42 +20,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+    <link rel="stylesheet" type="text/css" href="styles/general-style.css">
+
 	<style>
-	* { box-sizing: border-box; }
-	.autocomplete {
-		/*the container must be positioned relative:*/
-		position: relative;
-		display: inline-block;
-	}
-	.autocomplete-items {
-		position: absolute;
-		border: 1px solid #d4d4d4;
-		border-bottom: none;
-		border-top: none;
-		z-index: 99;
-		/*position the autocomplete items to be the same width as the container:*/
-		top: 100%;
-		left: 0;
-		right: 0;
-	}
-	.autocomplete-items div {
-		padding: 10px;
-		cursor: pointer;
-		background-color: #fff; 
-		border-bottom: 1px solid #d4d4d4; 
-	}
-	.autocomplete-items div:hover {
-		/*when hovering an item:*/
-		background-color: #e9e9e9; 
-	}
-	.autocomplete-active {
-		/*when navigating through the items using the arrow keys:*/
-		background-color: DodgerBlue !important; 
-		color: #ffffff; 
-	} 
-	.navbar-dark .navbar-nav .nav-link {
-		color: rgba(255,255,255,.9);
-	}
 	.row-bottom-margin {
 		margin-bottom: -20px;
 	}
@@ -69,9 +36,6 @@
 	}
 	.situs-row-bottom-margin {
 		margin-bottom: -15px;
-	}
-	#active-page {
-		color: deepskyblue;
 	}
 </style>
     <script>
@@ -134,13 +98,6 @@
         });
       });
     </script>
-<!-- 
-    <script>
-
-    </script> 
--->
-
-
 
 </head>
 <body>
@@ -177,9 +134,8 @@
 	<div class="container rounded col-12" id="signin-container">
 		<div class="row">
 			<div class="col" id="form-col">
-				<form id="advanced-search" action="script">	<!--action="home.php" method="post">-->
+				<form id="advanced-search" action="script">
 					<br>
-					<!--h1>Advanced Search</h1-->
 
 						<div class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
 															padding-top: 10px; padding-bottom: 0px;">
@@ -190,12 +146,6 @@
 							<label for="homeownerFirstname" class="col-form-label col-form-label-sm">Homeowner Name:</label>
 							<input class="form-control" id="homeownerFirstname" name="homeownerFirstname" placeholder="Last, First Middle" type="text">
 						</div>
-<!-- 
-						<div class="col form-group required">
-							<label for="homeownerLastname" class="control-label">Homeowner Last Name:</label>
-							<input class="form-control" id="homeownerLastname" name="homeownerLastname" placeholder="" type="text">
-						</div>
-						 -->
 						<div class="col-2 form-group required">
 							<label for="homeownerSSN" class="col-form-label col-form-label-sm">SSN:</label>
 							<!-- TODO: onchange valid number check and formatting -->
@@ -205,10 +155,6 @@
 							<label for="spouseFirstname" class="col-form-label col-form-label-sm">Spouse Name (If applicable):</label>
 							<input class="form-control" id="spouseFirstname" name="spouseFirstname" placeholder="Last, First Middle" type="text">
 						</div>
-						<!--div class="col form-group">
-							<label for="spouseLastname" class="control-label">Spouse Last Name:</label>
-							<input class="form-control" id="spouseLastname" name="spouseLastname" placeholder="" type="text">
-						</div-->
 						<div class="col-2 form-group">
 							<label for="spouseSSN" class="col-form-label col-form-label-sm">Spouse SSN:</label>
 							<!-- TODO: onchange valid number check and formatting -->
@@ -216,12 +162,10 @@
 						</div>
 					</div>
 
-					<!--h6>Spouse/Partner Information (If applicable)</h5-->
 					<div class="form-row">
 
 					</div>
 
-					<!--  -->
 
 					<div class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
 															padding-top: 10px; padding-bottom: 0px;">
@@ -271,12 +215,6 @@
 							<input class="form-control" id="propertyZIP" name="propertyZIP" type="number" min="0" max="99999" data-bind="value:propertyZIP">
 						</div>
 					</div>
-
-					<!--div class="form-row">
-
-					</div-->
-
-					<!--  -->
 
   					<div class="form-row" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
 															padding-top: 10px; padding-bottom: 0px;">

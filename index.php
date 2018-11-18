@@ -1,5 +1,4 @@
 <?php
-include('constant.php');
 	session_start();
 	$_SESSION["name"] = null;
 ?>
@@ -22,9 +21,6 @@ include('constant.php');
 
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="styles/login-style.css">
-
-	<!-- Custom JS -->
-	<!--script type="text/javascript" src="scripts/login-script.js"></script-->
 </head>
 
 <body class="jumbotron d-flex align-items-start">
@@ -51,23 +47,18 @@ include('constant.php');
 
 		<div class="row">
 			<div class="col" id="form-col">
-				<!-- LDAP/login.php -->
-				<form id="login-form" action="home_page.php" method="post">
-					<div class="form-group">
-						<label for="username">Username:</label>
-						<input class="form-control" id="username" name="username" placeholder="Your Employee ID" type="text">
-					</div>
-
-					<div class="form-group">
-						<label for="password">Password:</label>
-						<input class="form-control" id="password" name="password" placeholder="**********" type="password">
-					</div>
-
-					<div class="form-group text-right">
-						<button type="submit" class="btn btn-primary">Sign In</button>
-					</div>
-
-				</form> <!-- end form -->
+				<div class="login">
+					<form action="LDAP/login.php" method="post" enctype="multipart/form-data">
+						<div class="formDiv">
+							<input class="inputField" type="text" placeholder="Username" name="username"><br>
+							<input class="inputField" type="password" placeholder="Password" name="password"><br>
+						</div>
+						<div class="loginDiv">
+							<input type="submit" value="SignUp" name="login">
+						</div>	
+					</form>
+					<div class="message"><?php //echo "Error: Incorrect Username / Password" ?></div>
+				</div>
 			</div>
 		</div> <!-- end row -->
 	</div> <!-- end container -->

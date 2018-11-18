@@ -1,34 +1,34 @@
 <?php
-session_start();
-include('constant.php');
-$message=null;
+	session_start();
+	include('LDAP/constants.php');
+	$message=null;
 
-$serverName = SERVERNAME;
-$uid = UID;
-$pwd = PWD;
-$databaseName = DATABASENAME;
+	$serverName = SERVERNAME;
+	$uid = UID;
+	$pwd = PWD;
+	$databaseName = DATABASENAME;
 
-$connectionInfo = array( "UID"=>$uid,
-  "PWD"=>$pwd,
-  "Database"=>$databaseName);
+	$connectionInfo = array( "UID"=>$uid,
+	  "PWD"=>$pwd,
+	  "Database"=>$databaseName);
 
-/* Connect using SQL Server Authentication. */
-$conn = sqlsrv_connect( $serverName, $connectionInfo);
+	/* Connect using SQL Server Authentication. */
+	$conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-if($conn === false) {
-  echo "Could not connect.\n";
-  die(print_r( sqlsrv_errors(), true));
-}
+	if($conn === false) {
+	  echo "Could not connect.\n";
+	  die(print_r( sqlsrv_errors(), true));
+	}
 
-$tsql = "SELECT name FROM temp_table";
+	$tsql = "SELECT name FROM temp_table";
 
-$phpArray = array();
+	$phpArray = array();
 
-$stmt = sqlsrv_query( $conn, $tsql);
-while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-{
-  array_push($phpArray, $row[0]);
-}
+	$stmt = sqlsrv_query( $conn, $tsql);
+	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+	{
+	  array_push($phpArray, $row[0]);
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,46 +44,6 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <style>
-        .navbar-dark .navbar-nav .nav-link {
-    color: rgba(255,255,255,.9);
-  }
-    </style>
-    	<style>
-	* { box-sizing: border-box; }
-	.autocomplete {
-		/*the container must be positioned relative:*/
-		position: relative;
-		display: inline-block;
-	}
-	.autocomplete-items {
-		position: absolute;
-		border: 1px solid #d4d4d4;
-		border-bottom: none;
-		border-top: none;
-		z-index: 99;
-		/*position the autocomplete items to be the same width as the container:*/
-		top: 100%;
-		left: 0;
-		right: 0;
-	}
-	.autocomplete-items div {
-		padding: 10px;
-		cursor: pointer;
-		background-color: #fff; 
-		border-bottom: 1px solid #d4d4d4; 
-	}
-	.autocomplete-items div:hover {
-		/*when hovering an item:*/
-		background-color: #e9e9e9; 
-	}
-	.autocomplete-active {
-		/*when navigating through the items using the arrow keys:*/
-		background-color: DodgerBlue !important; 
-		color: #ffffff; 
-	} 
-	.navbar-dark .navbar-nav .nav-link {
-		color: rgba(255,255,255,.9);
-	}
 	.row-bottom-margin {
 		margin-bottom: -20px;
 	}
@@ -98,37 +58,13 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	.situs-row-bottom-margin {
 		margin-bottom: -15px;
 	}
-		table {
-		font-family: arial, sans-serif;
-		border-collapse: collapse;
-		width: 100%;
-	}
-
-	td {
-		border: 1px solid #dddddd;
-		text-align: left;
-		padding: 8px;
-	}
-
-	th {
-		color: white;
-		border: 1px solid #dddddd;
-		background-color: #486F9E;
-		text-align: center;
-		padding: 8px;
-	}
-
-	tr:nth-child(even) {
-		background-color: #dddddd;
-	}
-</style>
-<script>
-    $( document ).ready(function() {
-        rePlaceholder();
-    });
-</script>
+	</style>
+	<script>
+	    $( document ).ready(function() {
+	        rePlaceholder();
+	    });
+	</script>
 </head>
-<!-- <body onload="rePlaceholder()"> -->
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="productivity_report_page.php">HOX Home</a>
@@ -240,26 +176,6 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 			</tr>
 		</table>
       </div>
-<!--       
-      <div class="form-row">
-          <div class="col-2">
-          	<p>Case Closed:  </p>
-          </div>
-          <div class="col-2">
-          	<div id="caseClosed"></div>
-          </div>
-          <div class="col-2">
-          	<div id="caseClosedDays"></div>
-          </div>
-          <div class="col-2">
-          	<div id="caseClosedAssignor"></div>
-          </div>
-          <div class="col-2">
-          	<div id="caseClosedAssignee"></div> 
-          </div>
-      </div>
-      <div class="form-row">
-      </div> -->
   </div>
       <hr class="my-4">
 				<div class="form-row">
@@ -457,19 +373,6 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 				</div>
 			</div>
 			<hr class="my-2">
-
-			<!-- AIN lookup -->
-<!-- 			<div class="form-group row p-1">
-				<label for="AINSearchInput" class="col-auto col-form-label">
-					<h4 id="searchText">Enter AIN here to search for a match:</h4>
-				</label>
-				<div class="col-9 col-sm-9 col-md-4">
-				</div>
-				<div class="col-auto">
-					<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2">Search</button>
-				</div>
-			</div>
- -->
 			<div class="alert alert-warning alert-dismissible collapse" role="alert" id="searchAlert">
 				<div id="alertMsg">
 				</div>
@@ -794,10 +697,6 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	        document.getElementById("historyButton").innerText="Show History";
 	    }
 	}	
-</script>
-
-  <script>
-
     document.getElementById("findingReason").onchange = function() {
       if ($("#findingReason").val() == "Other") {
         document.getElementById("otherReason").disabled = false;

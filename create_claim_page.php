@@ -1,34 +1,34 @@
 <?php
-session_start();
-include('constant.php');
-$message=null;
+	session_start();
+	include('LDAP/constants.php');
+	$message=null;
 
-$serverName = SERVERNAME;
-$uid = UID;
-$pwd = PWD;
-$databaseName = DATABASENAME;
+	$serverName = SERVERNAME;
+	$uid = UID;
+	$pwd = PWD;
+	$databaseName = DATABASENAME;
 
-$connectionInfo = array( "UID"=>$uid,
-  "PWD"=>$pwd,
-  "Database"=>$databaseName);
+	$connectionInfo = array( "UID"=>$uid,
+	  "PWD"=>$pwd,
+	  "Database"=>$databaseName);
 
-/* Connect using SQL Server Authentication. */
-$conn = sqlsrv_connect( $serverName, $connectionInfo);
+	/* Connect using SQL Server Authentication. */
+	$conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-if($conn === false) {
-  echo "Could not connect.\n";
-  die(print_r( sqlsrv_errors(), true));
-}
+	if($conn === false) {
+	  echo "Could not connect.\n";
+	  die(print_r( sqlsrv_errors(), true));
+	}
 
-$tsql = "SELECT name FROM temp_table";
+	$tsql = "SELECT name FROM temp_table";
 
-$phpArray = array();
+	$phpArray = array();
 
-$stmt = sqlsrv_query( $conn, $tsql);
-while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-{
-  array_push($phpArray, $row[0]);
-}
+	$stmt = sqlsrv_query( $conn, $tsql);
+	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+	{
+	  array_push($phpArray, $row[0]);
+	}
 ?>
 
 <!doctype html>
@@ -50,43 +50,9 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-	<!-- <link rel="stylesheet" type="text/css" href="styles/home-style.css"> -->
+	<link rel="stylesheet" type="text/css" href="styles/general-style.css">
+
 	<style>
-	* { box-sizing: border-box; }
-	.autocomplete {
-		/*the container must be positioned relative:*/
-		position: relative;
-		display: inline-block;
-	}
-	.autocomplete-items {
-		position: absolute;
-		border: 1px solid #d4d4d4;
-		border-bottom: none;
-		border-top: none;
-		z-index: 99;
-		/*position the autocomplete items to be the same width as the container:*/
-		top: 100%;
-		left: 0;
-		right: 0;
-	}
-	.autocomplete-items div {
-		padding: 10px;
-		cursor: pointer;
-		background-color: #fff; 
-		border-bottom: 1px solid #d4d4d4; 
-	}
-	.autocomplete-items div:hover {
-		/*when hovering an item:*/
-		background-color: #e9e9e9; 
-	}
-	.autocomplete-active {
-		/*when navigating through the items using the arrow keys:*/
-		background-color: DodgerBlue !important; 
-		color: #ffffff; 
-	} 
-	.navbar-dark .navbar-nav .nav-link {
-		color: rgba(255,255,255,.9);
-	}
 	.row-bottom-margin {
 		margin-bottom: -20px;
 	}
@@ -101,10 +67,7 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 	.situs-row-bottom-margin {
 		margin-bottom: -15px;
 	}
-	#active-page {
-		color: deepskyblue;
-	}
-</style>
+	</style>
 </head>
 <body>
 
@@ -140,9 +103,6 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 </nav>
 
 <div class="container rounded col-12 p-3" id="signin-container">
-<!-- 	<div class="row">
-		<h2 class="col">Claim</h2>
-	</div> -->
 	<div class="alert alert-success alert-dismissible collapse" role="alert" id="successAlert">
 		<div id="submitSuccess"> Submission Success
 		</div>

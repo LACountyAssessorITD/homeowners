@@ -1,214 +1,256 @@
 <?php
-include('constant.php');
-session_start(); 
-$message=null;
-/* better way to connect without exposing password info? */
-$serverName = SERVERNAME;
-$uid = UID;
-$pwd = PWD;
-$databaseName = DATABASENAME;
+  include('LDAP/constants.php');
+  session_start();
+  $message=null;
+  /* better way to connect without exposing password info? */
+  $serverName = SERVERNAME;
+  $uid = UID;
+  $pwd = PWD;
+  $databaseName = DATABASENAME;
 
-$connectionInfo = array( "UID"=>$uid,
-	"PWD"=>$pwd,
-	"Database"=>$databaseName);
+  $connectionInfo = array( "UID"=>$uid,
+  	"PWD"=>$pwd,
+  	"Database"=>$databaseName);
 
-/* Connect using SQL Server Authentication. */
-$conn = sqlsrv_connect( $serverName, $connectionInfo);
+  /* Connect using SQL Server Authentication. */
+  $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-if($conn === false) {
-	echo "Could not connect.\n";
-	die(print_r( sqlsrv_errors(), true));
-}
-
-$tsql = "SELECT name FROM temp_table";
-
-$phpArray = array();
-
-$stmt = sqlsrv_query( $conn, $tsql);
-while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-{
-	array_push($phpArray, $row[0]);
-}
-if(isset($_POST['submit'])){ //check if form was submitted
-
-	$option = null;
-	if (isset($_POST['option'])) {
-		$option = $_POST['option'];
-	}
-
-	$claimID = null;
-	if (isset($_POST['claimID'])) {
-		$claimID = $_POST['claimID'];
-	}
-
-	$user = null;
-	if (isset($_POST['users'])) {
-		$user = $_POST['users'];
-	}
-
-	if(strcasecmp($option, "Claim Received")==0){
-    $claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
-begin
-   update dbo.claim_table SET claimReceived = (?), claimReceivedAssignee = (?), claimReceivedAssignor = (?), currStatus = (?) 
-    WHERE claimID = (?)
-end 
-else
-begin 
-   INSERT INTO dbo.claim_table (claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus) VALUES(?,?,?,?,?)
-end";
-			// $claim_query = "INSERT INTO dbo.claim_table
-			// (claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus)
-			// VALUES(?,?,?,?,?)";
-			foreach($claimID as $item) {
-				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
-				/* Execute the query. */
-				if($item!=""){
-					$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
-				}              
-			}
-      if(!$claim_result){
-              echo "Claim Receieved Error";
-        echo print_r( sqlsrv_errors(), true);
-        die( print_r( sqlsrv_errors(), true));
-      }
-		$message = "processed";
-	}
-	else if(strcasecmp($option, "Supervisor Workload")==0){
-			$date = date("m.d.y");
-			$tsql = "UPDATE dbo.claim_table   
-         	SET supervisorWorkload = (?), supervisorWorkloadAssignee = (?), supervisorWorkloadAssignor = (?), currStatus = (?) 
-         	WHERE claimID = (?)";  
-
-			foreach($claimID as $item) {
-				$params = array($date, $user, $_SESSION["name"], $option, $item);
-				/* Execute the query. */    
-				if($item!=""){              
-					$claim_result = sqlsrv_query($conn, $tsql, $params);
-				}
-			}
-		$message = "processed";
-	}
-	else if(strcasecmp($option, "Staff Assign")==0){
-		$date = date("m.d.y");
-		$tsql = "UPDATE dbo.claim_table   
-     	SET staffReview = (?), staffReviewAssignee = (?), staffReviewAssignor = (?), currStatus = (?)
-     	WHERE claimID = (?)";  
-
-		foreach($claimID as $item) {
-			$params = array($date, $user, $_SESSION["name"], $option, $item);
-			/* Execute the query. */                  
-			if($item!=""){              
-				$claim_result = sqlsrv_query($conn, $tsql, $params);
-			}
-		}
-		$message = "processed";
-	}
-	else if(strcasecmp($option, "Staff Review Date")==0){
-		$date = date("m.d.y");
-		$tsql = "UPDATE dbo.claim_table   
-     	SET staffReviewDate = (?), staffReviewDateAssignee = (?), staffReviewDateAssignor = (?), currStatus = (?)
-     	WHERE claimID = (?)";  
-
-		foreach($claimID as $item) {
-			$params = array($date, $user, $_SESSION["name"], $option, $item);
-			/* Execute the query. */                  
-			if($item!=""){              
-				$claim_result = sqlsrv_query($conn, $tsql, $params);
-			}
-		}
-		$message = "processed";
-	}
-	else if(strcasecmp($option, "Supervisor Review")==0){
-		$date = date("m.d.y");
-		$tsql = "UPDATE dbo.claim_table   
-     	SET supervisorReview = (?), supervisorReviewAssignee = (?), supervisorReviewAssignor = (?), currStatus = (?)
-     	WHERE claimID = (?)";  
-
-		foreach($claimID as $item) {
-			$params = array($date, $user, $_SESSION["name"], $option, $item);
-			/* Execute the query. */                  
-			if($item!=""){              
-				$claim_result = sqlsrv_query($conn, $tsql, $params);
-			}
-		}
-		$message = "processed";
-	}
-	else if(strcasecmp($option, "Hold")==0){
-    $date = date("m.d.y");
-    $tsql = "UPDATE dbo.claim_table   
-      SET hold = (?), holdAssignee = (?), holdAssignor = (?), currStatus = (?)
-      WHERE claimID = (?)";  
-
-    foreach($claimID as $item) {
-      $params = array($date, $user, $_SESSION["name"], $option, $item);
-      /* Execute the query. */                  
-      if($item!=""){              
-        $claim_result = sqlsrv_query($conn, $tsql, $params);
-      }
-    }
-    $message = "processed";
-	}
-  else if(strcasecmp($option, "Preprint Sent")==0){
-        $claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
-begin
-   update dbo.claim_table SET preprintSent = (?), preprintSentAssignee = (?), preprintSentAssignor = (?), currStatus = (?) 
-    WHERE claimID = (?)
-end 
-else
-begin 
-   INSERT INTO dbo.claim_table (claimID, preprintSent, preprintSentAssignee, preprintSentAssignor, currStatus) VALUES(?,?,?,?,?)
-end";
-      // $claim_query = "INSERT INTO dbo.claim_table
-      // (claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus)
-      // VALUES(?,?,?,?,?)";
-      foreach($claimID as $item) {
-        $claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
-        /* Execute the query. */
-        if($item!=""){
-          $claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
-        }              
-      }
-      if(!$claim_result){
-              echo "Claim Receieved Error";
-        echo print_r( sqlsrv_errors(), true);
-        die( print_r( sqlsrv_errors(), true));
-      }
-    $message = "processed";
+  if($conn === false) {
+  	echo "Could not connect.\n";
+  	die(print_r( sqlsrv_errors(), true));
   }
-	else if(strcasecmp($option, "Case Closed")==0){
-		$date = date("m.d.y");
-		$tsql = "UPDATE dbo.claim_table   
-     	SET caseClosed = (?), caseClosedAssignee = (?), caseClosedAssignor = (?), currStatus = (?)
-     	WHERE claimID = (?)";  
 
-		foreach($claimID as $item) {
-			$params = array($date, $user, $_SESSION["name"], $option, $item);
-			/* Execute the query. */                  
-			if($item!=""){
-				//update the claim              
-				$claim_result = sqlsrv_query($conn, $tsql, $params);
+  $tsql = "SELECT name FROM temp_table";
 
-				//get the row corresponding to the claimID in the claim table
-				$sql = "SELECT claimID, claimant, mailingStName, mailingApt, mailingCity, mailingState, mailingZip, claimAction, findingReason, rollTaxYear, exemptRE, suppTaxYear, exemptRE2 FROM dbo.claim_table WHERE";
-				$sql= $sql." claimID = '$item'";
-				$stmt = sqlsrv_query( $conn, $sql );
-				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-				{
-					//and insert it into the harvest table since the claim is closed
-					$claim_query = "INSERT INTO dbo.harvest_table
-					(claimID, claimant, mailingStName, mailingApt, mailingCity, mailingState, mailingZip, claimAction, findingReason, rollTaxYear, exemptRE, suppTaxYear, exemptRE2)
-					VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-					$claim_params = array($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12]);
-					$claim_result_new = sqlsrv_query($conn,$claim_query,$claim_params);
-				}
-			}
+  $phpArray = array();
+
+  $stmt = sqlsrv_query( $conn, $tsql);
+  while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+  {
+  	array_push($phpArray, $row[0]);
+  }
+  if(isset($_POST['submit'])){ //check if form was submitted
+
+  	$option = null;
+  	if (isset($_POST['option'])) {
+  		$option = $_POST['option'];
+  	}
+
+  	$claimID = null;
+  	if (isset($_POST['claimID'])) {
+  		$claimID = $_POST['claimID'];
+  	}
+
+  	$user = null;
+  	if (isset($_POST['users'])) {
+  		$user = $_POST['users'];
+  	}
+
+  	if(strcasecmp($option, "Claim Received")==0){
+      $claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
+  begin
+     update dbo.claim_table SET claimReceived = (?), claimReceivedAssignee = (?), claimReceivedAssignor = (?), currStatus = (?) 
+      WHERE claimID = (?)
+  end 
+  else
+  begin 
+     INSERT INTO dbo.claim_table (claimID, claimReceived, claimReceivedAssignee, claimReceivedAssignor, currStatus) VALUES(?,?,?,?,?)
+  end";
+  			foreach($claimID as $item) {
+  				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
+  				/* Execute the query. */
+  				if($item!=""){
+  					$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+  				}              
+  			}
+        if(!$claim_result){
+          echo "Claim Receieved Error";
+          echo print_r( sqlsrv_errors(), true);
+          die( print_r( sqlsrv_errors(), true));
+        }
+  		$message = "processed";
+  	}
+  	else if(strcasecmp($option, "Supervisor Workload")==0){
+  			$claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
+  begin
+     update dbo.claim_table SET supervisorWorkload = (?), supervisorWorkloadAssignee = (?), supervisorWorkloadAssignor = (?), currStatus = (?) 
+      WHERE claimID = (?)
+  end 
+  else
+  begin 
+     INSERT INTO dbo.claim_table (claimID, supervisorWorkload, supervisorWorkloadAssignee, supervisorWorkloadAssignor, currStatus) VALUES(?,?,?,?,?)
+  end";  
+  			foreach($claimID as $item) {
+  				$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
+  				/* Execute the query. */    
+  				if($item!=""){              
+  					$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+  				}
+  			}
+  		  if(!$claim_result){
+	          echo "Supervisor Workload Error";
+	          echo print_r( sqlsrv_errors(), true);
+	          die( print_r( sqlsrv_errors(), true));
+	      }
+  		$message = "processed";
+  	}
+  	else if(strcasecmp($option, "Staff Assign")==0){
+  		$claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
+  begin
+     update dbo.claim_table SET staffReview = (?), staffReviewAssignee = (?), staffReviewAssignor = (?), currStatus = (?) 
+      WHERE claimID = (?)
+  end 
+  else
+  begin 
+     INSERT INTO dbo.claim_table (claimID, staffReview, staffReviewAssignee, staffReviewAssignor, currStatus) VALUES(?,?,?,?,?)
+  end"; 
+  		foreach($claimID as $item) {
+  			 $claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
+  			/* Execute the query. */                  
+  			if($item!=""){              
+  				$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+  			}
+  		}
+  		if(!$claim_result){
+          echo "Staff Assign Error";
+          echo print_r( sqlsrv_errors(), true);
+          die( print_r( sqlsrv_errors(), true));
+	    }
+  		$message = "processed";
+  	}
+  	else if(strcasecmp($option, "Staff Review Date")==0){
+  		$claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
+  begin
+     update dbo.claim_table SET staffReviewDate = (?), staffReviewDateAssignee = (?), staffReviewDateAssignor = (?), currStatus = (?) 
+      WHERE claimID = (?)
+  end 
+  else
+  begin 
+     INSERT INTO dbo.claim_table (claimID, staffReviewDate, staffReviewDateAssignee, staffReviewDateAssignor, currStatus) VALUES(?,?,?,?,?)
+  end"; 
+
+  		foreach($claimID as $item) {
+  			$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
+  			/* Execute the query. */                  
+  			if($item!=""){              
+  				$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+  			}
+  		}
+  		if(!$claim_result){
+          echo "Staff Review Date Error";
+          echo print_r( sqlsrv_errors(), true);
+          die( print_r( sqlsrv_errors(), true));
+	    }
+  		$message = "processed";
+  	}
+  	else if(strcasecmp($option, "Supervisor Review")==0){
+  		$claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
+  begin
+     update dbo.claim_table SET supervisorReview = (?), supervisorReviewAssignee = (?), supervisorReviewAssignor = (?), currStatus = (?) 
+      WHERE claimID = (?)
+  end 
+  else
+  begin 
+     INSERT INTO dbo.claim_table (claimID, supervisorReview, supervisorReviewAssignee, supervisorReviewAssignor, currStatus) VALUES(?,?,?,?,?)
+  end";   
+
+  		foreach($claimID as $item) {
+  			$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
+  			/* Execute the query. */                  
+  			if($item!=""){              
+  				$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+  			}
+  		}
+  		if(!$claim_result){
+          echo "Supervisor Review Error";
+          echo print_r( sqlsrv_errors(), true);
+          die( print_r( sqlsrv_errors(), true));
+	    }
+  		$message = "processed";
+  	}
+  	else if(strcasecmp($option, "Hold")==0){
+        $claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
+  begin
+     update dbo.claim_table SET hold = (?), holdAssignee = (?), holdAssignor = (?), currStatus = (?) 
+      WHERE claimID = (?)
+  end 
+  else
+  begin 
+     INSERT INTO dbo.claim_table (claimID, hold, holdAssignee, holdAssignor, currStatus) VALUES(?,?,?,?,?)
+  end"; 
+
+      foreach($claimID as $item) {
+		$claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
+		/* Execute the query. */                  
+		if($item!=""){              
+			$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
 		}
+      }
+	  if(!$claim_result){
+	      echo "Hold Error";
+	      echo print_r( sqlsrv_errors(), true);
+	      die( print_r( sqlsrv_errors(), true));
+      }
+      $message = "processed";
+  	}
+    else if(strcasecmp($option, "Preprint Sent")==0){
+          $claim_query = "if exists (select * from dbo.claim_table where claimID = (?))
+  begin
+     update dbo.claim_table SET preprintSent = (?), preprintSentAssignee = (?), preprintSentAssignor = (?), currStatus = (?) 
+      WHERE claimID = (?)
+  end 
+  else
+  begin 
+     INSERT INTO dbo.claim_table (claimID, preprintSent, preprintSentAssignee, preprintSentAssignor, currStatus) VALUES(?,?,?,?,?)
+  end";
+        foreach($claimID as $item) {
+          $claim_params = array((int)$item, date("m.d.y"), $user, $_SESSION["name"], $option, (int)$item, (int)$item, date("m.d.y"), $user, $_SESSION["name"], $option);
+          /* Execute the query. */
+          if($item!=""){
+            $claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+          }              
+        }
+        if(!$claim_result){
+                echo "Preprint Sent Error";
+          echo print_r( sqlsrv_errors(), true);
+          die( print_r( sqlsrv_errors(), true));
+        }
+      $message = "processed";
+    }
+  	else if(strcasecmp($option, "Case Closed")==0){
+  		$date = date("m.d.y");
+  		$tsql = "UPDATE dbo.claim_table   
+       	SET caseClosed = (?), caseClosedAssignee = (?), caseClosedAssignor = (?), currStatus = (?)
+       	WHERE claimID = (?)";  
 
-		$message = "processed";
-	}
+  		foreach($claimID as $item) {
+  			$params = array($date, $user, $_SESSION["name"], $option, $item);
+  			/* Execute the query. */                  
+  			if($item!=""){
+  				//update the claim              
+  				$claim_result = sqlsrv_query($conn, $tsql, $params);
 
-	sqlsrv_close($conn);
-}    
+  				//get the row corresponding to the claimID in the claim table
+  				$sql = "SELECT claimID, claimant, mailingStName, mailingApt, mailingCity, mailingState, mailingZip, claimAction, findingReason, rollTaxYear, exemptRE, suppTaxYear, exemptRE2 FROM dbo.claim_table WHERE";
+  				$sql= $sql." claimID = '$item'";
+  				$stmt = sqlsrv_query( $conn, $sql );
+  				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+  				{
+  					//and insert it into the harvest table since the claim is closed
+  					$claim_query = "INSERT INTO dbo.harvest_table
+  					(claimID, claimant, mailingStName, mailingApt, mailingCity, mailingState, mailingZip, claimAction, findingReason, rollTaxYear, exemptRE, suppTaxYear, exemptRE2)
+  					VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  					$claim_params = array($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12]);
+  					$claim_result_new = sqlsrv_query($conn,$claim_query,$claim_params);
+  				}
+  			}
+  		}
+
+  		$message = "processed";
+  	}
+
+  	sqlsrv_close($conn);
+  }    
 ?>
 <!doctype html>
 <html lang="en">
@@ -227,40 +269,7 @@ end";
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-	<style>
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
-}
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
-}
-.autocomplete-items div:hover {
-  /*when hovering an item:*/
-  background-color: #e9e9e9; 
-}
-.autocomplete-active {
-  /*when navigating through the items using the arrow keys:*/
-  background-color: DodgerBlue !important; 
-  color: #ffffff; 
-}	
-    .navbar-dark .navbar-nav .nav-link {
-        color: rgba(255,255,255,.9);
-    }  
-    #active-page {
-    color: deepskyblue;
-  } 
-</style>
+    <link rel="stylesheet" type="text/css" href="styles/general-style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">

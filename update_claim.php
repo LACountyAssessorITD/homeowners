@@ -1,5 +1,6 @@
 <?php
-	include('constant.php');
+//TODO HENRY NEEDS TO FIX THIS
+	include('LDAP/constants.php');
 	$serverName = SERVERNAME;
 	$uid = UID;
 	$pwd = PWD;

@@ -1,5 +1,5 @@
 <?php
-	include('constant.php');
+	include('LDAP/constants.php');
 	$serverName = SERVERNAME;
 	$uid = UID;
 	$pwd = PWD;
@@ -127,6 +127,7 @@
 			}
 		}
 	}
+
 	//Unsure/unstated properties in the tables: TODO
 	// $propertyVacated = $_GET['propertyVacated'];
 	// if($propertyVacated !empty){
@@ -162,7 +163,7 @@
 
 			// $decryptedMessage = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, true, IV);
 			//replace openssldecrpyt with just $row[2] if buggy
-			echo "<a href='claim_page.php?claimID=".$row[0]."' class='col-sm-4'>Claim ID#=".$row[0]."</a><a href='person_page.php?claimantSSN=".$decrypt."' class='col-sm-4'>SSN=".$decrypt."</a><a href='property_page.php?AIN=".$row[3]."' class='col-sm-4'>PropertyID=".$row[3]."</a><br>" ;
+			echo "<a href='claim_page.php?claimID=".$row[0]."' class='col-sm-4'>Claim ID#=".$row[0]."</a>" ;
 		}
 	}	
 	/* Free statement and connection resources. */

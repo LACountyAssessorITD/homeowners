@@ -25,6 +25,7 @@
 <h1> Person History </h1>
 <?php
 include('constant.php');
+include('LDAP/constants.php');
 	$claimantSSN = $_GET['claimantSSN'];
   // $claimantSSN  = openssl_encrypt ($homeownerSSN, ENCRPYTIONMETHOD, HASH, true, IV);
 	         $serverName = SERVERNAME;

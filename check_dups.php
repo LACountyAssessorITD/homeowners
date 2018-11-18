@@ -1,5 +1,5 @@
 <?php
-	include('constant.php');
+	include('LDAP/constants.php');
 	/* better way to connect without exposing password info? */
 	$serverName = SERVERNAME;
 	$uid = UID;

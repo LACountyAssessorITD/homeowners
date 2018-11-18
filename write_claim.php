@@ -1,5 +1,6 @@
 <?php
-	include('constant.php');
+	include('LDAP/constants.php');
+
 	/* better way to connect without exposing password info? */
 	$serverName = SERVERNAME;
 	$uid = UID;
@@ -71,7 +72,6 @@
 	if (isset($_POST['spouseSSN'])) {
 		$spouseSSN = 0;
 	}
-
 
 	// turn all into variables
 	$claimant = $_POST['claimant'];
@@ -181,6 +181,7 @@
 		sqlsrv_free_stmt($stmtUpdate);
 
 	}
+
 	// create entry if record is new
 	else {
 		//Encrypt SSN
@@ -229,17 +230,10 @@
 				$_POST['currentState'],$_POST['currentZip'],$_POST['claimant'],$_POST['claimantSSN'],
 				$_POST['dateAcquired'],$_POST['dateOccupied'],null);
 
-/*
-		$claims_list_query = "INSERT INTO dbo.claims_list
-				(claimID, AIN,claimantSSN)
-				VALUES(?, ?,?)";
-		$claims_list_params = array($_POST['claimID'], $_POST['currentAPN'],$_POST['claimantSSN']);
-*/
 		/* Execute the query. */                  
 		$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
 		$claimant_result = sqlsrv_query($conn,$claimant_query,$claimant_params);
 		$property_result = sqlsrv_query($conn,$property_query,$property_params);
-//		$claims_list_result = sqlsrv_query($conn,$claims_list_query,$claims_list_params);
 
 		// check success
 		if ($claim_result && $claimant_result && $property_result) {
@@ -260,19 +254,11 @@
 			echo print_r( sqlsrv_errors(), true);
 			die( print_r( sqlsrv_errors(), true));
 		}
-/*
-		else if (!$claims_list_result) {
-			echo "claims_list_result error\n";
-			echo print_r( sqlsrv_errors(), true);
-			die( print_r( sqlsrv_errors(), true));
-		}
-*/
 
 		/* Free statement and connection resources. */
 		sqlsrv_free_stmt($claim_result);
 		sqlsrv_free_stmt($claimant_result);
 		sqlsrv_free_stmt($property_result);
-		//sqlsrv_free_stmt($claims_list_result);
 	}
 
 	sqlsrv_close($conn);

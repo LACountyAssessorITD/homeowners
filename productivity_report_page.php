@@ -1,59 +1,57 @@
 <?php
-include('constant.php');
-session_start(); 
-$message=null;
-/* better way to connect without exposing password info? */
-$serverName = SERVERNAME;
-$uid = UID;
-$pwd = PWD;
-$databaseName = DATABASENAME;
+	include('LDAP/constants.php');
+	session_start(); 
+	$message=null;
+	/* better way to connect without exposing password info? */
+	$serverName = SERVERNAME;
+	$uid = UID;
+	$pwd = PWD;
+	$databaseName = DATABASENAME;
 
-$connectionInfo = array( "UID"=>$uid,
-	"PWD"=>$pwd,
-	"Database"=>$databaseName);
+	$connectionInfo = array( "UID"=>$uid,
+		"PWD"=>$pwd,
+		"Database"=>$databaseName);
 
-/* Connect using SQL Server Authentication. */
-$conn = sqlsrv_connect( $serverName, $connectionInfo);
+	/* Connect using SQL Server Authentication. */
+	$conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-if($conn === false) {
-	echo "Could not connect.\n";
-	die(print_r( sqlsrv_errors(), true));
-}
-
-// appraiser query
-$tsql = "SELECT name FROM temp_table";
-
-$phpArray = array();
-
-$stmt = sqlsrv_query( $conn, $tsql);
-while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-{
-	array_push($phpArray, $row[0]);
-}
-
-// status
-$statusArray = array("Claim Received", "Supervisor Workload", "Staff Assign", "Staff Review Date", "Supervisor Review", "Hold", "Case Closed", "Preprint Sent");
-
-$startDate = null;
-$endDate = null;
-if(isset($_POST['submit'])){ //check if form was submitted
-	if (isset($_POST['startDate'])) {
-		$startDate = $_POST['startDate'];
+	if($conn === false) {
+		echo "Could not connect.\n";
+		die(print_r( sqlsrv_errors(), true));
 	}
-	if (isset($_POST['endDate'])) {
-		$endDate = $_POST['endDate'];
+
+	// appraiser query
+	$tsql = "SELECT name FROM temp_table";
+
+	$phpArray = array();
+
+	$stmt = sqlsrv_query( $conn, $tsql);
+	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+	{
+		array_push($phpArray, $row[0]);
 	}
-	$message = $startDate.$endDate;
-	//$claimsAppraiser = null;
-}
-else{
-	$d=mktime(0, 0, 0, 1, 1, date("Y"));
-	$startDate = date("Y-m-d", $d);
-	$endDate = date("Y-m-d");
-}
+
+	// status
+	$statusArray = array("Claim Received", "Supervisor Workload", "Staff Assign", "Staff Review Date", "Supervisor Review", "Hold", "Case Closed", "Preprint Sent");
+
+	$startDate = null;
+	$endDate = null;
+	if(isset($_POST['submit'])){ //check if form was submitted
+		if (isset($_POST['startDate'])) {
+			$startDate = $_POST['startDate'];
+		}
+		if (isset($_POST['endDate'])) {
+			$endDate = $_POST['endDate'];
+		}
+		$message = $startDate.$endDate;
+		//$claimsAppraiser = null;
+	}
+	else{
+		$d=mktime(0, 0, 0, 1, 1, date("Y"));
+		$startDate = date("Y-m-d", $d);
+		$endDate = date("Y-m-d");
+	}
 ?>
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -72,69 +70,7 @@ else{
 
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-	<style>
-	* { box-sizing: border-box; }
-	.autocomplete {
-		/*the container must be positioned relative:*/
-		position: relative;
-		display: inline-block;
-	}
-	.autocomplete-items {
-		position: absolute;
-		border: 1px solid #d4d4d4;
-		border-bottom: none;
-		border-top: none;
-		z-index: 99;
-		/*position the autocomplete items to be the same width as the container:*/
-		top: 100%;
-		left: 0;
-		right: 0;
-	}
-	.autocomplete-items div {
-		padding: 10px;
-		cursor: pointer;
-		background-color: #fff; 
-		border-bottom: 1px solid #d4d4d4; 
-	}
-	.autocomplete-items div:hover {
-		/*when hovering an item:*/
-		background-color: #e9e9e9; 
-	}
-	.autocomplete-active {
-		/*when navigating through the items using the arrow keys:*/
-		background-color: DodgerBlue !important; 
-		color: #ffffff; 
-	}	
-	table {
-		font-family: arial, sans-serif;
-		border-collapse: collapse;
-		width: 100%;
-	}
-
-	td {
-		border: 1px solid #dddddd;
-		text-align: left;
-		padding: 8px;
-	}
-
-	th {
-		color: white;
-		border: 1px solid #dddddd;
-		background-color: #486F9E;
-		text-align: center;
-		padding: 8px;
-	}
-
-	tr:nth-child(even) {
-		background-color: #dddddd;
-	}
-	    .navbar-dark .navbar-nav .nav-link {
-        color: rgba(255,255,255,.9);
-    }   
-    #active-page {
-		color: deepskyblue;
-	}
-</style>
+	<link rel="stylesheet" type="text/css" href="styles/general-style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -169,8 +105,6 @@ else{
 </nav>
 	<div class="container rounded col-12 p-3" id="signin-container">
 		<div class="row">
-<!-- 			<div class="form-col col-sm-6" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
-															padding-top: 10px; padding-bottom: 5px;"> -->
 			<h1 class="col-4">Productivity Report</h1>
 			<div class="col-4">
 				<?php 

@@ -1,5 +1,5 @@
 <?php
-include('constant.php');
+	include('LDAP/constants.php');
 	$serverName = SERVERNAME;
 	$uid = UID;
 	$pwd = PWD;
@@ -25,14 +25,11 @@ include('constant.php');
 
 	$stmt = sqlsrv_query( $conn, $sql );
 
-	//$sql = "SELECT FirstName, LastName FROM SomeTable";
-
 	if( $stmt === false) {
     	die();
 	}
 
 	if($stmt){
-     	//echo "Results:<br>\n";
 	}
 	else
 	{

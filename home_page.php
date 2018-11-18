@@ -1,5 +1,63 @@
 <?php
     session_start();
+    include('LDAP/constants.php');
+    $serverName = SERVERNAME;
+    $uid = UID;
+    $pwd = PWD;
+    $databaseName = DATABASENAME;
+
+    $connectionInfo = array( "UID"=>$uid,
+        "PWD"=>$pwd,
+        "Database"=>$databaseName);
+
+    /* Connect using SQL Server Authentication. */
+    $conn = sqlsrv_connect( $serverName, $connectionInfo);
+
+    $tsql = "SELECT id, username, password, name, permissions FROM temp_table";
+
+    /* Execute the query. */
+
+    $stmt = sqlsrv_query( $conn, $tsql);
+
+    if ( $stmt )
+    {
+    }
+    else
+    {
+        echo "Error in statement execution.\n";
+        die( print_r( sqlsrv_errors(), true));
+    }
+
+    /* Iterate through the result set printing a row of data upon each iteration.*/
+    //$loggedIn='false';
+    if($_SESSION["name"]==null || $_SESSION["permissions"] == null){
+        while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+        {
+            if(strcmp($_POST["username"], $row[1])==0){
+                if(strcmp($_POST["password"], $row[2])==0){
+                    $_SESSION["name"] = $row[3];
+                    $_SESSION["permissions"] = $row[4];
+                    //$loggedIn=$row[3];
+                }
+            }
+        }
+    }
+
+    // if login invalid, redirect back to login page
+    //  so login page displays errer message
+    //commented this out cause im testing single sign on
+
+    if ($_SESSION["name"]==null) {
+        $url = "index.php?loginfail=true";
+        header("Location:" . $url);
+        exit();
+    }
+    /* Free statement and connection resources. */
+    sqlsrv_free_stmt( $stmt);
+    sqlsrv_close( $conn);
+    //echo "<h1> You are logged in as ".$_SESSION["name"];
+    $url = "productivity_report_page.php";
+    header("Location:" . $url);
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,11 +75,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-    <style>
-    .navbar-dark .navbar-nav .nav-link {
-        color: rgba(255,255,255,.9);
-    }   
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles/general-style.css">
+
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -54,68 +109,6 @@
         </form>
     </div>
 </nav>
-            <?php
-            include('constant.php');
-            $serverName = SERVERNAME;
-            $uid = UID;
-            $pwd = PWD;
-            $databaseName = DATABASENAME;
-
-            $connectionInfo = array( "UID"=>$uid,
-                "PWD"=>$pwd,
-                "Database"=>$databaseName);
-
-            /* Connect using SQL Server Authentication. */
-            $conn = sqlsrv_connect( $serverName, $connectionInfo);
-
-            $tsql = "SELECT id, username, password, name, permissions FROM temp_table";
-
-            /* Execute the query. */
-
-            $stmt = sqlsrv_query( $conn, $tsql);
-
-            if ( $stmt )
-            {
-            }
-            else
-            {
-                echo "Error in statement execution.\n";
-                die( print_r( sqlsrv_errors(), true));
-            }
-
-            /* Iterate through the result set printing a row of data upon each iteration.*/
-            //$loggedIn='false';
-            if($_SESSION["name"]==null || $_SESSION["permissions"] == null){
-                while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-                {
-                    if(strcmp($_POST["username"], $row[1])==0){
-                        if(strcmp($_POST["password"], $row[2])==0){
-                            $_SESSION["name"] = $row[3];
-                            $_SESSION["permissions"] = $row[4];
-                            //$loggedIn=$row[3];
-                        }
-                    }
-                }
-            }
-
-            // if login invalid, redirect back to login page
-            //  so login page displays errer message
-            //commented this out cause im testing single sign on
-
-            if ($_SESSION["name"]==null) {
-                $url = "index.php?loginfail=true";
-                header("Location:" . $url);
-                exit();
-            }
-            /* Free statement and connection resources. */
-            sqlsrv_free_stmt( $stmt);
-            sqlsrv_close( $conn);
-            //echo "<h1> You are logged in as ".$_SESSION["name"];
-            $url = "productivity_report_page.php";
-            header("Location:" . $url);
-
-            ?>
-
-    </div>
+</div>
 </body>
 </html>
