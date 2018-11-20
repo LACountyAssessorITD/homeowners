@@ -74,7 +74,7 @@
 		$spouse = null;
 	}
 	$spouseSSN = null;
-	if (isset($_POST['spouseSSN'])) {
+	if (isset($_POST['spouseSSN']) && $_POST['spouseSSN']>0) {
 		$spouseSSN = openssl_encrypt ($_POST['spouseSSN'], ENCRPYTIONMETHOD, HASH, false, IV);
 	}
 
@@ -120,15 +120,15 @@
 	// update if record exists
 	if ($rowMatch != null) {
 		$sqlUpdate = "UPDATE dbo.claim_table SET claimant = '$claimant',
-				claimantSSN = '$claimantSSN', spouse = '$spouse', spouseSSN = '$spouseSSN',
+				claimantSSN = '$claimantSSN', spouse = '$spouse', spouseSSN = '$spouseSSN', 
 				currentAPN = '$currentAPN', dateAcquired = '$dateAcquired', dateOccupied = '$dateOccupied',
-				currentStName = '$currentStName', currentApt = '$currentApt', currentCity = '$currentCity',
-				currentState = '$currentState', currentZip = '$currentZip', mailingStName = '$mailingStName',
-				mailingApt = '$mailingApt', mailingCity = '$mailingCity', mailingState = '$mailingState',
-				mailingZip = '$mailingZip', priorAPN = '$priorAPN', dateMovedOut = '$dateMovedOut',
-				priorStName = '$priorStName', priorApt = '$priorApt', priorCity = '$priorCity',
-				priorState = '$priorState', priorZip = '$priorZip', rollTaxYear = '$rollTaxYear',
-				exemptRE = '$exemptRE', suppTaxYear = '$suppTaxYear', exemptRE2 = '$exemptRE2',
+				currentStName = '$currentStName', currentApt = '$currentApt', currentCity = '$currentCity', 
+				currentState = '$currentState', currentZip = '$currentZip', mailingStName = '$mailingStName', 
+				mailingApt = '$mailingApt', mailingCity = '$mailingCity', mailingState = '$mailingState', 
+				mailingZip = '$mailingZip', priorAPN = '$priorAPN', dateMovedOut = '$dateMovedOut', 
+				priorStName = '$priorStName', priorApt = '$priorApt', priorCity = '$priorCity', 
+				priorState = '$priorState', priorZip = '$priorZip', rollTaxYear = '$rollTaxYear', 
+				exemptRE = '$exemptRE', suppTaxYear = '$suppTaxYear', exemptRE2 = '$exemptRE2', 
 				claimAction = '$claimAction', findingReason = '$findingReason', currStatus = '$chooseStatus'
 				WHERE claimID = '$claimID'";
 
@@ -140,31 +140,31 @@
 			claimReceivedAssignor = '$assignor' WHERE claimID = '$claimID'";
 		} else if (strcasecmp($chooseStatus, "Supervisor Workload")==0) {
 			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorWorkload = '$statusDate',
-			supervisorWorkloadAssignee = '$assignee',
+			supervisorWorkloadAssignee = '$assignee', 
 			supervisorWorkloadAssignor = '$assignor' WHERE claimID = '$claimID'";
 		} else if (strcasecmp($chooseStatus, "Staff Review")==0) {
 			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReview = '$statusDate',
-			staffReviewAssignee = '$assignee',
+			staffReviewAssignee = '$assignee', 
 			staffReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
 		} else if (strcasecmp($chooseStatus, "Staff Review Date")==0) {
 			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReviewDate = '$statusDate',
-			staffReviewDateAssignee = '$assignee',
+			staffReviewDateAssignee = '$assignee', 
 			staffReviewDateAssignor = '$assignor' WHERE claimID = '$claimID'";
 		} else if (strcasecmp($chooseStatus, "Supervisor Review")==0) {
 			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorReview = '$statusDate',
-			supervisorReviewAssignee = '$assignee',
+			supervisorReviewAssignee = '$assignee', 
 			supervisorReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
 		} else if (strcasecmp($chooseStatus, "Case Closed")==0) {
 			$sqlUpdateDate="UPDATE dbo.claim_table SET caseClosed = '$statusDate',
-			caseClosedAssignee = '$assignee',
+			caseClosedAssignee = '$assignee', 
 			caseClosedAssignor = '$assignor' WHERE claimID = '$claimID'";
 		} else if (strcasecmp($chooseStatus, "Preprint Sent")==0) {
 			$sqlUpdateDate="UPDATE dbo.claim_table SET preprintSent = '$statusDate',
-			preprintSentAssignee = '$assignee',
+			preprintSentAssignee = '$assignee', 
 			preprintSentAssignor = '$assignor' WHERE claimID = '$claimID'";
 		} else if (strcasecmp($chooseStatus, "Hold")==0) {
 			$sqlUpdateDate="UPDATE dbo.claim_table SET hold = '$statusDate',
-			holdAssignee = '$assignee',
+			holdAssignee = '$assignee', 
 			holdAssignor = '$assignor' WHERE claimID = '$claimID'";
 		}
 
@@ -192,34 +192,27 @@
 				currentAPN,dateAcquired,dateOccupied,currentStName,currentApt,currentCity,currentState,currentZip,
 				mailingStName,mailingApt,mailingCity,mailingState,mailingZip,
 				priorAPN,dateMovedOut,priorStName,priorApt,priorCity,priorState,priorZip,
-				rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason)
-				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,currStatus)
+				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$claim_params = array($claimID,$claimant,$claimantSSN,$spouse,$spouseSSN,
 				$currentAPN,$dateAcquired,$dateOccupied,$currentStName,$currentApt,$currentCity,$currentState,$currentZip,
 				$mailingStName,$mailingApt,$mailingCity,$mailingState,$mailingZip,
 				$priorAPN,$dateMovedOut,$priorStName,$priorApt,$priorCity,$priorState,$priorZip,
-				$rollTaxYear,$exemptRE,$suppTaxYear,$exemptRE2,$claimAction,$findingReason);
+				$rollTaxYear,$exemptRE,$suppTaxYear,$exemptRE2,$claimAction,$findingReason,$chooseStatus);
 
-
-		$claimant_query = "INSERT INTO dbo.claimant_table
-				(claimant,claimantSSN,spouse,spouseSSN,
-				mailingStName,mailingApt,mailingCity,mailingState,mailingZip)
-				VALUES(?,?,?,?,?,?,?,?,?)";
-		$claimant_params = array($claimant,$claimantSSN,$spouse,$spouseSSN,
-				$mailingStName,$mailingApt,$mailingCity,$mailingState,$mailingZip);
-
-
-		$property_query = "INSERT INTO dbo.property_table
-				(AIN,streetName,apt,city,state,zip,ownerName,ownerSSN,dateAcquired,dateOccupied,dateMovedOut)
-				VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-		$property_params = array($currentAPN,$currentStName,$currentApt,$currentCity,
-				$currentState,$currentZip,$claimant,$claimantSSN,
-				$dateAcquired,$dateOccupied,null);
-
-		/* Execute the query. */
+		/* Execute the query. */                  
 		$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
-		$claimant_result = sqlsrv_query($conn,$claimant_query,$claimant_params);
-		$property_result = sqlsrv_query($conn,$property_query,$property_params);
+
+
+		// $claimant_query = "INSERT INTO dbo.claimant_table
+		// 		(claimant,claimantSSN,spouse,spouseSSN,
+		// 		mailingStName,mailingApt,mailingCity,mailingState,mailingZip)
+		// 		VALUES(?,?,?,?,?,?,?,?,?)";
+		// $claimant_params = array($claimant,$claimantSSN,$spouse,$spouseSSN,
+		// 		$mailingStName,$mailingApt,$mailingCity,$mailingState,$mailingZip);
+		// $claimant_result = sqlsrv_query($conn,$claimant_query,$claimant_params);
+
+		
 
 		if ($claim_result) {
 			// update status accordingly
@@ -230,31 +223,31 @@
 				claimReceivedAssignor = '$assignor' WHERE claimID = '$claimID'";
 			} else if (strcasecmp($chooseStatus, "Supervisor Workload")==0) {
 				$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorWorkload = '$statusDate',
-				supervisorWorkloadAssignee = '$assignee',
+				supervisorWorkloadAssignee = '$assignee', 
 				supervisorWorkloadAssignor = '$assignor' WHERE claimID = '$claimID'";
 			} else if (strcasecmp($chooseStatus, "Staff Review")==0) {
 				$sqlUpdateDate="UPDATE dbo.claim_table SET staffReview = '$statusDate',
-				staffReviewAssignee = '$assignee',
+				staffReviewAssignee = '$assignee', 
 				staffReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
 			} else if (strcasecmp($chooseStatus, "Staff Review Date")==0) {
 				$sqlUpdateDate="UPDATE dbo.claim_table SET staffReviewDate = '$statusDate',
-				staffReviewDateAssignee = '$assignee',
+				staffReviewDateAssignee = '$assignee', 
 				staffReviewDateAssignor = '$assignor' WHERE claimID = '$claimID'";
 			} else if (strcasecmp($chooseStatus, "Supervisor Review")==0) {
 				$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorReview = '$statusDate',
-				supervisorReviewAssignee = '$assignee',
+				supervisorReviewAssignee = '$assignee', 
 				supervisorReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
 			} else if (strcasecmp($chooseStatus, "Case Closed")==0) {
 				$sqlUpdateDate="UPDATE dbo.claim_table SET caseClosed = '$statusDate',
-				caseClosedAssignee = '$assignee',
+				caseClosedAssignee = '$assignee', 
 				caseClosedAssignor = '$assignor' WHERE claimID = '$claimID'";
 			} else if (strcasecmp($chooseStatus, "Preprint Sent")==0) {
 				$sqlUpdateDate="UPDATE dbo.claim_table SET preprintSent = '$statusDate',
-				preprintSentAssignee = '$assignee',
+				preprintSentAssignee = '$assignee', 
 				preprintSentAssignor = '$assignor' WHERE claimID = '$claimID'";
 			} else if (strcasecmp($chooseStatus, "Hold")==0) {
 				$sqlUpdateDate="UPDATE dbo.claim_table SET hold = '$statusDate',
-				holdAssignee = '$assignee',
+				holdAssignee = '$assignee', 
 				holdAssignor = '$assignor' WHERE claimID = '$claimID'";
 			}
 
@@ -268,29 +261,39 @@
 		}
 
 		// check success
-		if ($claim_result && $claimant_result && $property_result) {
+		if ($claim_result) {
 			echo "create_success";
 		}
-		else if (!$claim_result) {
+		if (!$claim_result) {
 			echo "claim_result error\n";
 			echo print_r( sqlsrv_errors(), true);
 			die( print_r( sqlsrv_errors(), true));
 		}
-		else if (!$claimant_result) {
-			echo "claimant_result error\n";
-			echo print_r( sqlsrv_errors(), true);
-			die( print_r( sqlsrv_errors(), true));
-		}
-		else if (!$property_result) {
-			echo "property_result error\n";
-			echo print_r( sqlsrv_errors(), true);
-			die( print_r( sqlsrv_errors(), true));
-		}
+		// else if (!$claimant_result) {
+		// 	echo "claimant_result error\n";
+		// 	echo print_r( sqlsrv_errors(), true);
+		// 	die( print_r( sqlsrv_errors(), true));
+		// }
 
+		// if (isset($_POST['currentAPN']) && $_POST['currentAPN']>0) {
+		// 	$property_query = "INSERT INTO dbo.property_table
+		// 		(AIN,streetName,apt,city,state,zip,ownerName,ownerSSN,dateAcquired,dateOccupied,dateMovedOut)
+		// 		VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		// 	$property_params = array($currentAPN,$currentStName,$currentApt,$currentCity,
+		// 			$currentState,$currentZip,$claimant,$claimantSSN,
+		// 			$dateAcquired,$dateOccupied,null);
+		// 	$property_result = sqlsrv_query($conn,$property_query,$property_params);
+		// 	if (!$property_result) {
+		// 		echo "property_result error\n";
+		// 		echo print_r( sqlsrv_errors(), true);
+		// 		die( print_r( sqlsrv_errors(), true));
+		// 	}
+		// 	sqlsrv_free_stmt($property_result);
+		// }
+		
 		/* Free statement and connection resources. */
 		sqlsrv_free_stmt($claim_result);
-		sqlsrv_free_stmt($claimant_result);
-		sqlsrv_free_stmt($property_result);
+		// sqlsrv_free_stmt($claimant_result);
 	}
 
 	sqlsrv_close($conn);

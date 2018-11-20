@@ -143,7 +143,7 @@
 								<div class="form-group row">
 									<label for="claimant" class="col-sm-3 col-form-label col-form-label-sm">Claimant:</label>
 									<div class="col-sm-9">
-										<input class="form-control form-control-sm" id="claimant" name="claimant" placeholder="Last, First Middle" type="text">
+										<input class="form-control form-control-sm" id="claimant" name="claimant" placeholder="Last, First Middle" type="text" required="true">
 									</div>
 								</div>
 							</div>
@@ -152,7 +152,7 @@
 									<label for="claimantSSN" class="col-sm-4 col-form-label col-form-label-sm" 
 									style="padding-right: 0;">Claimant SSN:</label>
 									<div class="col-sm-8">
-										<input class="form-control form-control-sm" id="claimantSSN" name="claimantSSN" placeholder="123456789" type="number" min="0" data-bind="value:claimantSSN">
+										<input class="form-control form-control-sm" id="claimantSSN" name="claimantSSN" placeholder="123456789" type="number" min="0" data-bind="value:claimantSSN" required="true">
 									</div>
 								</div>
 							</div>
@@ -243,7 +243,7 @@
 					<div class="form-row situs-row-bottom-margin">
 						<div class="col-6 form-group required">
 							<label for="claimID" class="col-form-label col-form-label-sm">ClaimID:</label>
-							<input class="form-control form-control-sm" id="claimID" name="claimID" placeholder="1234567" type="text">
+							<input class="form-control form-control-sm" id="claimID" name="claimID" placeholder="1234567" type="text" required="true">
 						</div>
 					</div>
 					<div class="form-row situs-row-bottom-margin">
@@ -786,8 +786,10 @@
 					$('#successAlert').hide();
 					$('#dupCheckBanner').show();
 				} else {
-					$('#dupCheckBanner').hide();
-					processForm();
+					$('#submitSuccess').html(response);
+					$('#successAlert').show();
+					// $('#dupCheckBanner').hide();
+					// processForm();
 				}
 			}
 		});
