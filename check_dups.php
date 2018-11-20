@@ -18,9 +18,9 @@
 		die(print_r( sqlsrv_errors(), true));
 	}
 
-	$data = $_POST['claimant'];
-	$sqlCheck = "SELECT claimID FROM dbo.claim_table WHERE (claimant = (?) )";
-	$checkparams = array($data);
+	$encryptedSSN = openssl_encrypt ($_POST['claimantSSN'];, ENCRPYTIONMETHOD, HASH, false, IV);
+	$sqlCheck = "SELECT claimID FROM dbo.claim_table WHERE (claimantSSN = (?) )";
+	$checkparams = array($encryptedSSN);
 	if($conn === false) {
 		// echo print_r( sqlsrv_errors(), true);
 	}
