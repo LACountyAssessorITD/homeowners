@@ -100,7 +100,7 @@
   <div class="row">
     <div class="col" id="form-col">
       <!-- <form id="login-form"> -->
-      <form id="login-form" action="update_claim.php" method="get">
+      <form id="login-form" action="update_claim.php" method="post">
         <div class="form-group p-1">
           <!-- personal info row -->
           <div>
@@ -708,7 +708,7 @@
 
     function rePlaceholder(){
       var claimID = <?php echo $_GET['claimID']; ?>;
-      var permissions = <?php echo $_SESSION['permissions']; ?>;
+      var permissions = <?php echo $_SESSION["permissions"]; ?>;
       var phpObj;
       $.ajax({
           type: "GET",
@@ -726,7 +726,7 @@
       function populate(phpObj,permissions){
         console.log(phpObj);
         console.log(phpObj.claimID);
-        // console.log(permissions);
+        console.log(permissions);
 
         // permissions = 2;
 
@@ -751,6 +751,7 @@
         document.getElementById('currentAPN').value =phpObj.currentAPN;
         document.getElementById('currentStName').value =phpObj.currentStName;
         document.getElementById('currentCity').value =phpObj.currentCity;
+        document.getElementById('currentState').value =phpObj.currentState;
         document.getElementById('currentZip').value =phpObj.currentZip;
         document.getElementById('priorAPN').value =phpObj.priorAPN;
         document.getElementById('priorStName').value =phpObj.priorStName;

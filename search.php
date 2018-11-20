@@ -159,11 +159,11 @@
 	if(is_null($sql_2) || $exists_AIN){
 		while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 		{
-			$decrypt = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, false, IV);
+			// $decrypt = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, false, IV);
 
 			// $decryptedMessage = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, true, IV);
 			//replace openssldecrpyt with just $row[2] if buggy
-			echo "<a href='claim_page.php?claimID=".$row[0]."' class='col-sm-4'>Claim ID#=".$row[0]."</a>" ;
+			echo "<a style=\"background-color: #D6EAF8; border: 1px solid black; padding-left: 0px; padding-right: 0px; padding-top: 5px; padding-bottom: 5px;\"  href='claim_page.php?claimID=".$row[0]."' class='form-row'>Claim ID#=".$row[0]."</a> " ;
 		}
 	}	
 	/* Free statement and connection resources. */

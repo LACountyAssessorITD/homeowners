@@ -1,358 +1,265 @@
 <?php
-//TODO HENRY NEEDS TO FIX THIS
 	include('LDAP/constants.php');
+
+	/* better way to connect without exposing password info? */
 	$serverName = SERVERNAME;
 	$uid = UID;
 	$pwd = PWD;
 	$databaseName = DATABASENAME;
-	$connectionInfo = array("UID"=>$uid,
+
+	$connectionInfo = array( "UID"=>$uid,
 		"PWD"=>$pwd,
 		"Database"=>$databaseName);
 
+	/* Connect using SQL Server Authentication. */
 	$conn = sqlsrv_connect( $serverName, $connectionInfo);
+
 	if($conn === false) {
 		echo "Could not connect.\n";
 		die(print_r( sqlsrv_errors(), true));
 	}
 
-	//There's a cleaner way to write this code, and it involves a pretty array, but I needed to write this in a few hours. *I'll go back and fix it later*
+	// set current addr as mailing addr
+	$mailingStName = $_POST['currentStName'];
+	$mailingApt = $_POST['currentApt'];
+	$mailingCity = $_POST['currentCity'];
+	$mailingState = $_POST['currentState'];
+	$mailingZip = $_POST['currentZip'];
 
-	$sql = "UPDATE dbo.claim_table SET ";
-	$populated = false; //Represents need for "and" in the SQL statement, and if there is no minimum by the end, there is no need to query the database
-
-	$homeownerName = /*$_GET['homeownerLastname']." ".*/$_GET['claimant'];
-	if(!empty($homeownerName)){
-		$sql= $sql." claimant = '$homeownerName'";
-		$populated = True;
+	// if mailing is different then rewrite the values
+	if (isset($_POST['enableMailing'])) {
+		$mailingStName = $_POST['mailingStName'];
+		$mailingApt = $_POST['mailingApt'];
+		$mailingCity = $_POST['mailingCity'];
+		$mailingState = $_POST['mailingState'];
+		$mailingZip = $_POST['mailingZip'];
 	}
-	$homeownerSSN = $_GET['claimantSSN'];
-	
-	if(!empty($homeownerSSN)){
-		if($populated)
-			$sql=$sql.", ";
-		//Encrypt
-		$homeownerSSN = openssl_encrypt ($homeownerSSN, ENCRPYTIONMETHOD, HASH, false, IV);
-		$sql= $sql." claimantSSN = '$homeownerSSN'";
-		$populated = True;
+
+	$priorState = null;
+	if (isset($_POST['priorState'])) {
+		$priorState = $_POST['priorState'];
 	}
-// $spouseName = /*$_GET['spouseLastname']." ".*/$_GET['spouse'];
-// if(!empty($spouseName)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." spouse = '$spouseName'";
-// 	$populated = True;
-// }
-// $spouseSSN = $_GET['spouseSSN'];
-// if(!empty($spouseSSN)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-		// Encrypt
-		// $spouseSSN = openssl_encrypt ($spouseSSN, ENCRPYTIONMETHOD, HASH, true, IV);
-// 	$sql= $sql." spouseSSN = '$spouseSSN'";
-// 	$populated = True;
-// }
-// $propertyAcquired = $_GET['dateAcquired'];
-// if(!empty($propertyAcquired)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." dateAcquired = '$propertyAcquired'";
-// 	$populated = True;
-// }
-// $propertyOccupied = $_GET['dateOccupied'];
-// if(!empty($propertyOccupied)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." dateOccupied = '$propertyOccupied'";
-// 	$populated = True;
-// }
 
-// $propertyAddress = $_GET['currentStName'];
-// if(!empty($propertyAddress)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." currentStName = '$propertyAddress'";
-// 	$populated = True;
-// }
-// $propertyApartment = $_GET['currentApt'];
-// if(!empty($propertyApartment)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." currentApt = '$propertyApartment'";
-// 	$populated = True;
-// }
-// $propertyCity = $_GET['currentCity'];
-// if(!empty($propertyCity)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." currentCity = '$propertyCity'";
-// 	$populated = True;
-// }
-	// $propertyState = $_GET['currentState'];
-	// if(!empty($propertyState)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." currentState = '$propertyState'";
-	// 	$populated = True;
-	// }
-	// $propertyZIP = intval($_GET['propertyZIP']);
-	// if(!empty($propertyZIP)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." currentZip = '$propertyZIP'";
-	// 	$populated = True;
-	// }
-//v
-	// $mailingStName = $_GET['mailingStName'];
-	// if(!empty($mailingStName)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." mailingStName = '$mailingStName'";
-	// 	$populated = True;
-	// }
-	// $mailingApt = $_GET['mailingApt'];
-	// if(!empty($mailingApt)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." mailingApt = '$mailingApt'";
-	// 	$populated = True;
-	// }
-	// $mailingCity = $_GET['mailingCity'];
-	// if(!empty($mailingCity)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." mailingCity = '$mailingCity'";
-	// 	$populated = True;
-	// }
-	// $mailingState = $_GET['mailingState'];
-	// if(!empty($mailingState)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." mailingState = '$mailingState'";
-	// 	$populated = True;
-	// }
-	// $mailingZip = intval($_GET['mailingZip']);
-	// if(!empty($mailingZip)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." mailingZip = '$mailingZip'";
-	// 	$populated = True;
-	// }
-// $priorAPN = intval($_GET['priorAPN']);
-// if(!empty($priorAPN)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." priorAPN = '$priorAPN'";
-// 	$populated = True;
-// }
-// $dateMovedOut = intval($_GET['dateMovedOut']);
-// if(!empty($dateMovedOut)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." dateMovedOut = '$dateMovedOut'";
-// 	$populated = True;
-// }
-// $priorStName = $_GET['priorStName'];
-// if(!empty($priorStName)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." priorStName = '$priorStName'";
-// 	$populated = True;
-// }
-// $priorApt = $_GET['priorApt'];
-// if(!empty($priorApt)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." priorApt = '$priorApt'";
-// 	$populated = True;
-// }
-// $priorCity = $_GET['priorCity'];
-// if(!empty($priorCity)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." priorCity = '$priorCity'";
-// 	$populated = True;
-// }
-	// $priorState = $_GET['priorState'];
-	// if(!empty($priorState)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." priorState = '$priorState'";
-	// 	$populated = True;
-	// }
-// $priorZip = intval($_GET['priorZip']);
-// if(!empty($priorZip)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." priorZip = '$priorZip'";
-// 	$populated = True;
-// }
-// $rollTaxYear = intval($_GET['rollTaxYear']);
-// if(!empty($rollTaxYear)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." rollTaxYear = '$rollTaxYear'";
-// 	$populated = True;
-// }
-// $exemptRE = intval($_GET['exemptRE']);
-// if(!empty($exemptRE)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." exemptRE = '$exemptRE'";
-// 	$populated = True;
-// }
-// $suppTaxYear = intval($_GET['suppTaxYear']);
-// if(!empty($suppTaxYear)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." suppTaxYear = '$suppTaxYear'";
-// 	$populated = True;
-// }
-// $exemptRE2 = intval($_GET['exemptRE2']);
-// if(!empty($exemptRE2)){
-// 	if($populated)
-// 		$sql=$sql." AND ";
-// 	$sql= $sql." exemptRE2 = '$exemptRE2'";
-// 	$populated = True;
-// }
-	// $claimAction = $_GET['claimAction'];
-	// if(!empty($claimAction)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." claimAction = '$claimAction'";
-	// 	$populated = True;
-	// }
-	// $findingReason = $_GET['findingReason'];
-	// if(!empty($findingReason)){
-	// 	if($populated)
-	// 		$sql=$sql." AND ";
-	// 	$sql= $sql." findingReason = '$findingReason'";
-	// 	$populated = True;
-	// }
-		//this is due to the new "show history" div on claim_page
-			// $claimReceived = intval($_GET['claimReceived']);
-			// if(!empty($claimReceived)){
-			// 	if($populated)
-			// 		$sql=$sql." AND ";
-			// 	$sql= $sql." claimReceived = '$claimReceived'";
-			// 	$populated = True;
-			// }
-			// $supervisorWorkload = intval($_GET['supervisorWorkload']);
-			// if(!empty($supervisorWorkload)){
-			// 	if($populated)
-			// 		$sql=$sql." AND ";
-			// 	$sql= $sql." supervisorWorkload = '$supervisorWorkload'";
-			// 	$populated = True;
-			// }
-			// $staffReview = intval($_GET['staffReview']);
-			// if(!empty($staffReview)){
-			// 	if($populated)
-			// 		$sql=$sql." AND ";
-			// 	$sql= $sql." staffReview = '$staffReview'";
-			// 	$populated = True;
-			// }
-			// $staffReviewDate = intval($_GET['staffReviewDate']);
-			// if(!empty($staffReviewDate)){
-			// 	if($populated)
-			// 		$sql=$sql." AND ";
-			// 	$sql= $sql." staffReviewDate = '$staffReviewDate'";
-			// 	$populated = True;
-			// }
-			// $supervisorReview = intval($_GET['supervisorReview']);
-			// if(!empty($supervisorReview)){
-			// 	if($populated)
-			// 		$sql=$sql." AND ";
-			// 	$sql= $sql." supervisorReview = '$supervisorReview'";
-			// 	$populated = True;
-			// }
-			// $caseClosed = intval($_GET['caseClosed']);
-			// if(!empty($caseClosed)){
-			// 	if($populated)
-			// 		$sql=$sql." AND ";
-			// 	$sql= $sql." caseClosed = '$caseClosed'";
-			// 	$populated = True;
-			// }
-	//^
+	$priorApt = null;
+	if (isset($_POST['priorApt'])) {
+		$priorApt = $_POST['priorApt'];
+	}
+
+	$currentApt = null;
+	if (isset($_POST['currentApt'])) {
+		$currentApt = $_POST['currentApt'];
+	}
+
+	$claimAction = null;
+	if (isset($_POST['claimAction'])) {
+		$claimAction = $_POST['claimAction'];
+	}
+
+	$findingReason = null;
+	if (isset($_POST['findingReason']) && $_POST['findingReason'] != "Other") {
+		$findingReason = $_POST['findingReason'];
+	} else if ($_POST['findingReason'] === "Other"){
+		$findingReason = $_POST['otherReason'];
+	}
+
+	$spouse = null;
+	if (isset($_POST['spouse'])) {
+		$spouse = $_POST['spouse'];
+	} else {
+		$spouse = null;
+	}
+	$spouseSSN = null;
+	if (isset($_POST['spouseSSN'])) {
+		$spouseSSN = 0;
+	}
+
+	// turn all into variables
+	$claimant = $_POST['claimant'];
+	$claimantSSN = $_POST['claimantSSN'];
+	$currentAPN = $_POST['currentAPN'];
+	$dateAcquired = $_POST['dateAcquired'];
+	$dateOccupied = $_POST['dateOccupied'];
+	$currentStName = $_POST['currentStName'];
+	$currentCity = $_POST['currentCity'];
+	$currentState = $_POST['currentState'];
+	$currentZip = $_POST['currentZip'];
+	$priorAPN = $_POST['priorAPN'];
+	$dateMovedOut = $_POST['dateMovedOut'];
+	$priorStName = $_POST['priorStName'];
+	$priorCity = $_POST['priorCity'];
+	$priorZip = $_POST['priorZip'];
+	$rollTaxYear = $_POST['rollTaxYear'];
+	$exemptRE = $_POST['exemptRE'];
+	$suppTaxYear = $_POST['suppTaxYear'];
+	$exemptRE2 = $_POST['exemptRE2'];
+	$chooseStatus = $_POST['chooseStatus'];
+	$statusDate = $_POST['statusDate'];
+	$assignee = $_POST['assignee'];
+	$assignor = $_POST['assignor'];
 
 
+	// check if ain exists
+	$sqlSelect = "SELECT * FROM dbo.claim_table WHERE ";
+	$claimID = $_POST['claimID'];
+	if(!empty($claimID)){
+		$sqlSelect = $sqlSelect." claimID = '$claimID'";
+	}
+	$stmtSelect = sqlsrv_query( $conn, $sqlSelect );
+	if($stmtSelect === false || !$stmtSelect) {
+		echo "select statement error\n";
+		echo print_r( sqlsrv_errors(), true);
+		die( print_r( sqlsrv_errors(), true));
+	}
+	$rowMatch = sqlsrv_fetch_array( $stmtSelect, SQLSRV_FETCH_NUMERIC);
 
-	//grab this from dbo.claims_list TODO
-	// $sql_2 = NULL;
-	// $exists_AIN = true;
-	// $propertyAIN = intval($_GET['currentAPN']);
-	// if(!empty($propertyAIN)){
-	// 	$sql_2= "SELECT claimID FROM dbo.claim_table WHERE AIN = '$propertyAIN'";
-	// }
-	// if(!is_null($sql_2)){
-	// 	$stmt = sqlsrv_query( $conn, $sql );
 
-	// 	if( $stmt === false) {
-	//     	die();
-	// 	}else{
-	// 		$row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC);
-	// 		if(!$row){
-	// 			$exists_AIN = false;
-	// 		}else{
-	// 			// $exists_AIN=true; //true by default
-	// 		}
+	// update if record exists
+	if ($rowMatch != null) {
+		//Encrypt SSN
+		$claimantSSN = openssl_encrypt ($claimantSSN, ENCRPYTIONMETHOD, HASH, false, IV);
+		$spouseSSN = openssl_encrypt ($spouseSSN, ENCRPYTIONMETHOD, HASH, false, IV);
+		$sqlUpdate = "UPDATE dbo.claim_table SET claimant = '$claimant',
+				claimantSSN = '$claimantSSN', spouse = '$spouse', spouseSSN = '$spouseSSN', 
+				currentAPN = '$currentAPN', dateAcquired = '$dateAcquired', dateOccupied = '$dateOccupied',
+				currentStName = '$currentStName', currentApt = '$currentApt', currentCity = '$currentCity', 
+				currentState = '$currentState', currentZip = '$currentZip', mailingStName = '$mailingStName', 
+				mailingApt = '$mailingApt', mailingCity = '$mailingCity', mailingState = '$mailingState', 
+				mailingZip = '$mailingZip', priorAPN = '$priorAPN', dateMovedOut = '$dateMovedOut', 
+				priorStName = '$priorStName', priorApt = '$priorApt', priorCity = '$priorCity', 
+				priorState = '$priorState', priorZip = '$priorZip', rollTaxYear = '$rollTaxYear', 
+				exemptRE = '$exemptRE', suppTaxYear = '$suppTaxYear', exemptRE2 = '$exemptRE2', 
+				claimAction = '$claimAction', findingReason = '$findingReason', currStatus = '$chooseStatus'
+				WHERE claimID = '$claimID'";
+
+		// update status accordingly
+		$sqlUpdateDate='';
+		if (strcasecmp($chooseStatus, "Claim Received")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET claimReceived = '$statusDate',
+			claimReceivedAssignee = '$assignee',
+			claimReceivedAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if (strcasecmp($chooseStatus, "Supervisor Workload")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorWorkload = '$statusDate',
+			supervisorWorkloadAssignee = '$assignee', 
+			supervisorWorkloadAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if (strcasecmp($chooseStatus, "Staff Review")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReview = '$statusDate',
+			staffReviewAssignee = '$assignee', 
+			staffReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if (strcasecmp($chooseStatus, "Staff Review Date")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReviewDate = '$statusDate',
+			staffReviewDateAssignee = '$assignee', 
+			staffReviewDateAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if (strcasecmp($chooseStatus, "Supervisor Review")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorReview = '$statusDate',
+			supervisorReviewAssignee = '$assignee', 
+			supervisorReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if (strcasecmp($chooseStatus, "Case Closed")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET caseClosed = '$statusDate',
+			caseClosedAssignee = '$assignee', 
+			caseClosedAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if (strcasecmp($chooseStatus, "Preprint Sent")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET preprintSent = '$statusDate',
+			preprintSentAssignee = '$assignee', 
+			preprintSentAssignor = '$assignor' WHERE claimID = '$claimID'";
+		} else if (strcasecmp($chooseStatus, "Hold")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET hold = '$statusDate',
+			holdAssignee = '$assignee', 
+			holdAssignor = '$assignor' WHERE claimID = '$claimID'";
+		}
+
+		sqlsrv_query( $conn, $sqlUpdateDate );
+		$stmtUpdate = sqlsrv_query( $conn, $sqlUpdate );
+		if($stmtUpdate == false || !$stmtUpdate) {
+			echo "update statement error\n";
+			echo print_r( sqlsrv_errors(), true);
+			die( print_r( sqlsrv_errors(), true));
+		} else {
+			// update success
+			echo "update_success";
+		}
+
+		sqlsrv_free_stmt($stmtUpdate);
+
+	}
+
+	// // create entry if record is new
+	// else {
+	// 	//Encrypt SSN
+	// 	$claimantSSN = openssl_encrypt ($claimantSSN, ENCRPYTIONMETHOD, HASH, false, IV);
+	// 	$spouseSSN = openssl_encrypt ($spouseSSN, ENCRPYTIONMETHOD, HASH, false, IV);
+	// 	/* query building */
+	// 	$claim_query = "INSERT INTO dbo.claim_table
+	// 			(claimID, claimant,claimantSSN,spouse,spouseSSN,currentAPN,dateAcquired,dateOccupied,
+	// 			currentStName,currentApt,currentCity,currentState,currentZip,
+	// 			mailingStName,mailingApt,mailingCity,mailingState,mailingZip,
+	// 			priorAPN,dateMovedOut,priorStName,priorApt,priorCity,priorState,priorZip,
+	// 			rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,
+	// 			claimReceived,claimReceivedAssignee,claimReceivedAssignor,
+	// 			supervisorWorkload,supervisorWorkloadAssignee,supervisorWorkloadAssignor,
+	// 			staffReview,staffReviewAssignee,staffReviewAssignor,
+	// 			staffReviewDate,staffReviewDateAssignee,staffReviewDateAssignor,
+	// 			supervisorReview,supervisorReviewAssignee,supervisorReviewAssignor,
+	// 			caseClosed,caseClosedAssignee,caseClosedAssignor)
+	// 			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	// 	$claim_params = array($_POST['claimID'],$_POST['claimant'],$_POST['claimantSSN'],$spouse,$spouseSSN,
+	// 			$_POST['currentAPN'],$_POST['dateAcquired'],$_POST['dateOccupied'],$_POST['currentStName'],
+	// 			$_POST['currentApt'],$_POST['currentCity'],$_POST['currentState'],$_POST['currentZip'],
+	// 			$mailingStName,$mailingApt,$mailingCity,$mailingState,$mailingZip,
+	// 			$_POST['priorAPN'],$_POST['dateMovedOut'],$_POST['priorStName'],$_POST['priorApt'],
+	// 			$_POST['priorCity'],$priorState,$_POST['priorZip'],$_POST['rollTaxYear'],
+	// 			$_POST['exemptRE'],$_POST['suppTaxYear'],$_POST['exemptRE2'],$claimAction,$findingReason,
+	// 			$_POST['statusDate'],$_POST['assignee'],$_POST['assignor'],
+	// 			null, null, null,
+	// 			null, null, null,
+	// 			null, null, null,
+	// 			null, null, null,
+	// 			null, null, null);
+
+	// 	$claimant_query = "INSERT INTO dbo.claimant_table
+	// 			(claimant,claimantSSN,spouse,spouseSSN,
+	// 			mailingStName,mailingApt,mailingCity,mailingState,mailingZip)
+	// 			VALUES(?,?,?,?,?,?,?,?,?)";
+	// 	$claimant_params = array($_POST['claimant'],$_POST['claimantSSN'],$spouse,$spouseSSN,
+	// 			$mailingStName,$mailingApt,$mailingCity,$mailingState,$mailingZip);
+
+
+	// 	$property_query = "INSERT INTO dbo.property_table
+	// 			(AIN,streetName,apt,city,state,zip,ownerName,ownerSSN,dateAcquired,dateOccupied,dateMovedOut)
+	// 			VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	// 	$property_params = array($_POST['currentAPN'],$_POST['currentStName'],$_POST['currentApt'],$_POST['currentCity'],
+	// 			$_POST['currentState'],$_POST['currentZip'],$_POST['claimant'],$_POST['claimantSSN'],
+	// 			$_POST['dateAcquired'],$_POST['dateOccupied'],null);
+
+	// 	/* Execute the query. */                  
+	// 	$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
+	// 	$claimant_result = sqlsrv_query($conn,$claimant_query,$claimant_params);
+	// 	$property_result = sqlsrv_query($conn,$property_query,$property_params);
+
+	// 	// check success
+	// 	if ($claim_result && $claimant_result && $property_result) {
+	// 		echo "create_success";
 	// 	}
-	// }
-
-
-
-
-
-
-	//Unsure/unstated properties in the tables: TODO
-	// $propertyVacated = $_GET['propertyVacated'];
-	// if($propertyVacated !empty){
-	// 	$sql= $sql." claimant = '$propertyVacated'";
-	// 	$populated = True;
-	// }
-	// $taxYear = $_GET['taxYear'];
-	// if($taxYear !empty){
-	// 	$sql= $sql." claimant = '$taxYear'";
-	// 	$populated = True;
-	// }
-
-	$claimNumber = intval($_GET['claimID']);
-
-	if($populated && !empty($claimNumber)){
-		$sql= $sql." WHERE claimID = '$claimNumber'";
-
-		// $retval = sqlsrv_query( $sql, $conn );
-  //       if(! $retval ) {
-  //          die('Could not update data: ');
-  //       }else{
-  //       	echo "Success";
-  //       }
-
-		$result = sqlsrv_query($conn,$sql) or die(sqlsrv_errors());
-		echo "Successfully Updated";
-
-	// 	$stmt = sqlsrv_query( $conn, $sql );
-
-	// 	if( $stmt === false) {
-	//     	die();
+	// 	else if (!$claim_result) {
+	// 		echo "claim_result error\n";
+	// 		echo print_r( sqlsrv_errors(), true);
+	// 		die( print_r( sqlsrv_errors(), true));
 	// 	}
-	// 	if($stmt){
-	//      	echo "<h5 class='col'>Results:</h5><br>\n";
+	// 	else if (!$claimant_result) {
+	// 		echo "claimant_result error\n";
+	// 		echo print_r( sqlsrv_errors(), true);
+	// 		die( print_r( sqlsrv_errors(), true));
 	// 	}
-	// 	else
-	// 	{
-	//     	echo "Error in statement execution.\n";
-	//      	die( print_r( sqlsrv_errors(), true));
+	// 	else if (!$property_result) {
+	// 		echo "property_result error\n";
+	// 		echo print_r( sqlsrv_errors(), true);
+	// 		die( print_r( sqlsrv_errors(), true));
 	// 	}
 
-	// 	session_start();
-	// 	if(is_null($sql_2) || $exists_AIN){
-	// 		while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-	// 		{
-	// 			echo "<a href='claim_page.php?claimID=".$row[0]."' class='col-sm-4'>Claim ID#=".$row[0]."</a><a href='person_page.php?claimantSSN=".$row[2]."' class='col-sm-4'>SSN=".$row[2]."</a><a href='property_page.php?AIN=".$row[3]."' class='col-sm-4'>PropertyID=".$row[3]."</a><br>" ;
-	// 		}
-	// 	}	
 	// 	/* Free statement and connection resources. */
-	// 	sqlsrv_free_stmt( $stmt);
-	}
-	sqlsrv_close( $conn);
+	// 	sqlsrv_free_stmt($claim_result);
+	// 	sqlsrv_free_stmt($claimant_result);
+	// 	sqlsrv_free_stmt($property_result);
+	// }
 
+	sqlsrv_close($conn);
 ?>

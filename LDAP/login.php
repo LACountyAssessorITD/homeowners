@@ -28,7 +28,7 @@ session_start();
 
 		/* Connect using SQL Server Authentication. */
 		$conn = sqlsrv_connect( $serverName, $connectionInfo);
-		$tsql = "SELECT id, username, name FROM temp_table";
+		$tsql = "SELECT id, username, name, permissions FROM temp_table";
 
 		/* Execute the query. */
 
@@ -50,6 +50,7 @@ session_start();
 		    {
 		        if(strcmp($_POST["username"], $row[1])==0){
 		            $_SESSION["name"] = $row[2];
+                	$_SESSION["permissions"] = $row[3];
 		        }
 		    }
 		}
@@ -65,7 +66,7 @@ session_start();
 		    exit();
 		}
 		else{
-			$url = "../productivity_report_page.php";
+			$url = "../home_page.php";
 			//echo "<p>Everything Worked</p>";
 		    header("Location:" . $url);
 		    exit();

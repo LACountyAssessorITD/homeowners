@@ -13,7 +13,7 @@
     /* Connect using SQL Server Authentication. */
     $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-    $tsql = "SELECT id, username, password, name, permissions FROM temp_table";
+    $tsql = "SELECT id, username, name, permissions FROM temp_table";
 
     /* Execute the query. */
 
@@ -34,11 +34,10 @@
         while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
         {
             if(strcmp($_POST["username"], $row[1])==0){
-                if(strcmp($_POST["password"], $row[2])==0){
-                    $_SESSION["name"] = $row[3];
-                    $_SESSION["permissions"] = $row[4];
-                    //$loggedIn=$row[3];
-                }
+                $_SESSION["name"] = $row[2];
+                $_SESSION["permissions"] = $row[3];
+                //This line of text no longer works ^
+                //$loggedIn=$row[3];
             }
         }
     }
