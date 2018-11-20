@@ -736,23 +736,18 @@
         document.getElementById('spouse').value =phpObj.spouse;
 
         if(permissions == 2)	document.getElementById('claimantSSN').value = phpObj.claimantSSN;
-        else 					document.getElementById('claimantSSN').value = "*********";//.value = claimantSSN;//claimantSSN = '*********';
+        else 					document.getElementById('claimantSSN').style.display = "none";//value = "*********";
 
         // document.getElementById('claimantSSN').value = claimantSSN;
         // document.getElementById('claimantSSN').value = phpObj.claimantSSN;
 
-
-        if(permissions == 2){document.getElementById('spouseSSN').value = phpObj.spouseSSN;}
-        else{
-        	$spouseSSN = phpObj.spouseSSN;
-        	$str = "$spouseSSN";
-        	if($spouseSSN==0){
+        if(permissions == 2){
+        	document.getElementById('spouseSSN').value = phpObj.spouseSSN;
+        	if(phpObj.spouseSSN== "0"){
         		document.getElementById('spouseSSN').value="";
         	}
-        	else{
-        		document.getElementById('spouseSSN').value = "*********";//spouseSSN = '*********';
-        	}
         }
+        else document.getElementById('spouseSSN').style.display = "none";//value = "*********";
 
 
 
@@ -763,15 +758,18 @@
         document.getElementById('currentCity').value =phpObj.currentCity;
         document.getElementById('currentState').value =phpObj.currentState;
         document.getElementById('currentZip').value =phpObj.currentZip;
-        document.getElementById('priorAPN').value =phpObj.priorAPN;
-        document.getElementById('priorStName').value =phpObj.priorStName;
-        document.getElementById('priorCity').value =phpObj.priorCity;
-        document.getElementById('priorZip').value =phpObj.priorZip;
+        if(phpObj.priorAPN == 0)document.getElementById('priorAPN').value = ""; else document.getElementById('priorAPN').value =phpObj.priorAPN;
+        if(phpObj.priorStName ==0) document.getElementById('priorStName').value = ""; else document.getElementById('priorStName').value =phpObj.priorStName;
+        if(phpObj.priorCity == 0) document.getElementById('priorCity').value = ""; else document.getElementById('priorCity').value =phpObj.priorCity;
+        if(phpObj.priorZip ==0) document.getElementById('priorZip').value =""; else document.getElementById('priorZip').value =phpObj.priorZip;
         document.getElementById('rollTaxYear').value =phpObj.rollTaxYear;
         document.getElementById('exemptRE').value =phpObj.exemptRE;
         document.getElementById('suppTaxYear').value =phpObj.suppTaxYear;
         document.getElementById('exemptRE2').value =phpObj.exemptRE2;
         document.getElementById('claimAction').value =phpObj.claimAction;
+
+        document.getElementById('dateAcquired').value = phpObj.dateAcquired.date.substring(0, 10);
+        document.getElementById('dateOccupied').value = phpObj.dateOccupied.date.substring(0, 10);
 
 
         let reasonFound = false;
@@ -856,7 +854,7 @@
         var caseClosedDate ="";
         var caseClosedDays ="";
         if(phpObj.supervisorReview!=null){
-          caseClosedDate = phpObj.caseClosed.date.substring(0,10)
+          caseClosedDate = phpObj.caseClosed.date.substring(0,10);
           caseClosedDays = days_between(new Date(phpObj.caseClosed.date), new Date());
         }
         document.getElementById('caseClosed').innerHTML = caseClosedDate;
@@ -1002,6 +1000,118 @@ document.addEventListener("click", function (e) {
 var users = <?php echo json_encode($phpArray); ?>;
 autocomplete(document.getElementById("assignee"), users);
 autocomplete(document.getElementById("assignor"), users);
+
+
+
+
+
+//Molly's script
+	// enable input for mailing if box is checked
+	document.getElementById("enableMailing").onchange = function() {
+		document.getElementById("mailingStName").disabled = !this.checked;
+		document.getElementById("mailingApt").disabled = !this.checked;
+		document.getElementById("mailingCity").disabled = !this.checked;
+		document.getElementById("mailingState").disabled = !this.checked;
+		document.getElementById("mailingZip").disabled = !this.checked;
+	};
+	document.getElementById("findingReason").onchange = function() {
+		if ($("#findingReason").val() == "Other") {
+			document.getElementById("otherReason").disabled = false;
+		} else {
+			$("#otherReason").val("");
+			document.getElementById("otherReason").disabled = true;
+		}
+	};
+
+	// for re-showing alert
+	$(function(){
+		$("[data-hide]").on("click", function(){
+			$(this).closest("." + $(this).attr("data-hide")).hide();
+		});
+	});
+
+	// autofill with json callback
+	document.getElementById("AINSearchBtn").onclick = function() {
+		var failMsg = "No match was found in database."
+		var successMsg = "Match found. Homeowner name on file: ";
+		var ainValue = document.getElementById("currentAPN").value;
+
+		var request = new XMLHttpRequest();
+		request.overrideMimeType("application/json");
+		request.open("GET", "ainlookup.php?ain="+ainValue,true);
+
+		request.onload = function () {
+			// begin accessing JSON data here
+			// console.log(this.response);
+			if (this.response!=null) {
+				var jsonResponse = JSON.parse(this.response);
+				console.log(jsonResponse);
+
+				if (jsonResponse["hasData"]=="true") {
+					// valid data
+					// set form input val to jsonResponse
+					// ["4109018003","211060850",7000,"7918"," ","COWAN AVE"," "," ","LOS ANGELES CA","CA","900451139",null,null,null,null,null,null,"SHIKIAR,ANDREW AND"]
+					$('#currentAPN').val(jsonResponse["AIN"]);
+					//$('#rollTaxYear').val(jsonResponse["RecDate"]);
+					//$('#exemptRE').val(jsonResponse["HOXAmount"]);
+
+					var streetAddr = jsonResponse["SitusHouseNo"] + " " + jsonResponse["SitusStreet"];
+					$('#currentStName').val(streetAddr);
+					$('#currentApt').val(jsonResponse["SitusUnit"]);
+					$('#currentCity').val(jsonResponse["SitusCity"]);
+					$('#currentState').val(jsonResponse["SitusState"]);
+					$('#currentZip').val(jsonResponse["situsZip"].substring(0, 5));
+
+					$('#alertMsg').html(successMsg+"<strong>"+jsonResponse["OwnerName"]+"</strong>");
+				} else {
+					$('#alertMsg').html("<strong>"+failMsg+"</strong>");
+
+					// reset
+					$('#currentAPN').val('');
+					//$('#rollTaxYear').val('');
+					//$('#exemptRE').val('');
+					$('#currentStName').val('');
+					$('#currentApt').val('');
+					$('#currentCity').val('');
+					$('#currentState').val('');
+					$('#currentZip').val('');
+				}
+
+			} else {
+				$('#alertMsg').html("<strong>"+failMsg+"</strong>");
+
+				// reset
+				$('#currentAPN').val('');
+				//$('#rollTaxYear').val('');
+				//$('#exemptRE').val('');
+				$('#currentStName').val('');
+				$('#currentApt').val('');
+				$('#currentCity').val('');
+				$('#currentState').val('');
+				$('#currentZip').val('');
+			}	
+		}
+		request.send();
+
+
+		$('#searchAlert').show();
+	};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 </body>

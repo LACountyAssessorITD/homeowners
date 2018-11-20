@@ -18,7 +18,7 @@
     staffReview, staffReviewAssignor, staffReviewAssignee, 
     staffReviewDate, staffReviewDateAssignor, staffReviewDateAssignee, 
     supervisorReview, supervisorReviewAssignor, supervisorReviewAssignee,
-    caseClosed, caseClosedAssignor, caseClosedAssignee, currStatus, preprintSent, preprintSentAssignor, preprintSentAssignee, hold, holdAssignor, holdAssignee
+    caseClosed, caseClosedAssignor, caseClosedAssignee, currStatus, preprintSent, preprintSentAssignor, preprintSentAssignee, hold, holdAssignor, holdAssignee, currentState, dateAcquired, dateOccupied
     FROM claim_table WHERE claimID=".$claimID;
 
   /* Execute the query. */
@@ -33,12 +33,10 @@
         $myObj->claimant = $row[1];
         // $myObj->claimantSSN = $row[2]; //Replace this with a decrpytion fn
         $alpha = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, false, IV);
-        // echo $alpha;
         $myObj->claimantSSN = $alpha;
         $myObj->spouse = $row[3];
         // $myObj->spouseSSN = $row[4];
         $beta = openssl_decrypt($row[4], ENCRPYTIONMETHOD, HASH, false, IV);
-        // echo $beta;
         $myObj->spouseSSN = $beta;
         $myObj->currentAPN = $row[5];
 //echo "dateAcquired: ".$row[8];
@@ -82,6 +80,13 @@
         $myObj->hold = $row[44];
         $myObj->holdAssignor = $row[45];
         $myObj->holdAssignee = $row[46];
+
+        $myObj->currentState = $row[47];
+
+        $myObj->dateAcquired = $row[48];
+        $myObj->dateOccupied = $row[49];
+        // $myObj->currentState = $row[47];
+
         $myJSON = json_encode($myObj);
         echo $myJSON;
         //echo "var phpObj = ".$myJSON.";";
