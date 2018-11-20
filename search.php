@@ -163,7 +163,7 @@
 
 			// $decryptedMessage = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, true, IV);
 			//replace openssldecrpyt with just $row[2] if buggy
-			echo "<a style=\"background-color: #D6EAF8; border: 1px solid black; padding-left: 0px; padding-right: 0px; padding-top: 5px; padding-bottom: 5px;\"  href='claim_page.php?claimID=".$row[0]."' class='form-row'>Claim ID#=".$row[0]."</a> " ;
+			echo "<a style=\"background-color: #D6EAF8; border: 1px solid black; padding-left: 10px; padding-right: 0px; padding-top: 5px; padding-bottom: 5px;\"  href='claim_page.php?claimID=".$row[0]."' class='form-row'>Claim ID#=".$row[0]."</a><hr>" ;
 		}
 	}	
 	/* Free statement and connection resources. */
