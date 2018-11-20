@@ -67,6 +67,13 @@
 	.situs-row-bottom-margin {
 		margin-bottom: -15px;
 	}
+	.bannerBtn {
+		float: right;
+		margin-left: 10px;
+	}
+	#dupCheckBannerInner {
+		height: 32px;
+	}
 	</style>
 </head>
 <body>
@@ -112,6 +119,13 @@
 		<div id="submitFail"> Submission Failed
 		</div>
 		<button type="button" class="close" data-hide="alert">&times;</button>
+	</div>
+	<div class="alert alert-danger alert-dismissible collapse" role="alert" id="dupCheckBanner">
+		<div id="dupCheckBannerInner"> 
+			<span>Duplicate SSN found on claimant. Do you want to put a hold on the claim or submit anyway?</span>
+			<button id="proceedBtn" type="button" class="btn btn-secondary bannerBtn btn-sm" data-hide="alert">Proceed</button>
+			<button id="holdBtn" type="button" class="btn btn-danger bannerBtn btn-sm" data-hide="alert">Hold</button>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col" id="form-col">
@@ -315,17 +329,7 @@
 			<hr class="my-2">
 
 			<!-- AIN lookup -->
-<!-- 			<div class="form-group row p-1">
-				<label for="AINSearchInput" class="col-auto col-form-label">
-					<h4 id="searchText">Enter AIN here to search for a match:</h4>
-				</label>
-				<div class="col-9 col-sm-9 col-md-4">
-				</div>
-				<div class="col-auto">
-					<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2">Search</button>
-				</div>
-			</div>
- -->
+
 			<div class="alert alert-warning alert-dismissible collapse" role="alert" id="searchAlert">
 				<div id="alertMsg">
 				</div>
@@ -728,12 +732,46 @@
 		$('#searchAlert').show();
 	};
 
+	function processForm() {
+		var cform = document.getElementById("claim-form");
+		var fd = new FormData(cform);
+		
+		$.ajax({
+			url: "write_claim.php",
+			data: fd,
+			cache: false,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function (response) {
+				window.location = "#";
+				if (response == "create_success") {
+					// show create success msg
+					$('#failAlert').hide();
+					$('#submitSuccess').html("<strong>Claim successfully created.</strong>");
+					$('#successAlert').show();
+				}
+				else if (response == "update_success") {
+					// show success msg
+					$('#failAlert').hide();
+					$('#submitSuccess').html("<strong>Update Success</strong>");
+					$('#successAlert').show();
+				}
+				else {
+					// show error msg
+					$('#successAlert').hide();
+					$('#submitFail').html("Submission failed. <strong>Error: "+response+"</strong>");
+					$('#failAlert').show();
+				}
+			}
+		});
+	};
+
 	// post form with ajax, think this will help staying on same page
 	$("#claim-form").on("submit", function() {
 
 		var checkForm = document.getElementById("claim-form");
 		var checkFD = new FormData(checkForm);
-		var msg = "test";
 		$.ajax({
 			url: "check_dups.php",
 			data: checkFD,
@@ -742,75 +780,34 @@
 			contentType: false,
 			type: 'POST',
 			success: function (response) {
-				let hold = false;
+				window.location = "#";
 				if (response == "found") {
-					if (confirm("Duplicate SSN found for claimant. Click 'OK' to continue submitting the claim or click 'cancel' to put it on hold.")) {
-				        hold = false;
-				    } else {
-				        hold = true;
-				    }
+					$('#failAlert').hide();
+					$('#successAlert').hide();
+					$('#dupCheckBanner').show();
+				} else {
+					$('#dupCheckBanner').hide();
+					processForm();
 				}
-
-				if (hold) {
-					$('#chooseStatus').val('Hold');
-				}
-
-				var cform = document.getElementById("claim-form");
-				var fd = new FormData(cform);
-				
-				$.ajax({
-					url: "write_claim.php",
-					data: fd,
-					cache: false,
-					processData: false,
-					contentType: false,
-					type: 'POST',
-					success: function (response) {
-						window.location = "#";
-						if (response == "create_success") {
-							// show create success msg
-							$('#failAlert').hide();
-							$('#submitSuccess').html("<strong>Claim successfully created.</strong>");
-							$('#successAlert').show();
-						}
-						else if (response == "update_success") {
-							// show success msg
-							$('#failAlert').hide();
-							$('#submitSuccess').html("<strong>Update Success</strong>");
-							$('#successAlert').show();
-						}
-						else {
-							// show error msg
-							$('#successAlert').hide();
-							$('#submitFail').html("Submission failed. <strong>Error: "+response+"</strong>");
-							$('#failAlert').show();
-						}
-					}
-				});
 			}
 		});
 
-		// $('#submitFail').html(msg);
-		// $('#failAlert').show();
-
-/*
-		let confirmSubmit = true;
-		if (msg > 0) {
-			if (confirm("Click 'OK' to continue submitting the claim or click 'cancel' to put it on hold.")) {
-		        // ok
-		        confirmSubmit = true;
-		    } else {
-		        // cancel
-		        confirmSubmit = false;
-		    }
-		}
-
-		
-*/
 		// forgetting to return false will cause page to refresh 
 		// and lose control on all prev objects...
 		return false;
 	});
+
+
+	document.getElementById("holdBtn").onclick = function() {
+		$('#chooseStatus').val('Hold');
+		processForm();
+	};
+
+	document.getElementById("proceedBtn").onclick = function() {
+		processForm();
+	};
+
+
 	function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
