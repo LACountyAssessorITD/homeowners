@@ -19,13 +19,17 @@
 	}
 
 	$sqlCheck = "SELECT claimID FROM dbo.claim_table WHERE (claimID = (?) )";
-	$checkparams = array($_POST['claimID']);
-	$checkResult = sqlsrv_query($conn, $sqlCheck, $checkparams);
+	$checkParams = array($_POST['claimID']);
+	$checkResult = sqlsrv_query($conn, $sqlCheck, $checkParams);
 	if($checkResult === false || !$checkResult) {
 		// echo print_r( sqlsrv_errors(), true);
 	}
 
-	if($row = sqlsrv_fetch_array( $checkResult, SQLSRV_FETCH_NUMERIC)) {
+	$rCount = 0;
+	while ($row = sqlsrv_fetch_array( $checkResult, SQLSRV_FETCH_NUMERIC)) {
+		$rCount++;
+	}
+	if ($rCount > 0) {
 		echo "existing_claim";
 	} else {
 		$encryptedSSN = openssl_encrypt ($_POST['claimantSSN'], ENCRPYTIONMETHOD, HASH, false, IV);
@@ -33,16 +37,20 @@
 		$ssnParams = array($encryptedSSN);
 		$ssnResult = sqlsrv_query($conn, $ssnCheck, $ssnParams);
 
-		if($ssnResult === false || !$ssnResult) {
+		if ($ssnResult === false || !$ssnResult) {
 			// echo print_r( sqlsrv_errors(), true);
 		}
 
-		if($row = sqlsrv_fetch_array($ssnResult, SQLSRV_FETCH_NUMERIC)) {
+		$rCount = 0;
+		while ($row = sqlsrv_fetch_array($ssnResult, SQLSRV_FETCH_NUMERIC)) {
+			$rCount++;
+		}
+		if ($rCount > 0) {
 			echo "found";
 		} else {
 			echo $encryptedSSN;
 		}
-		sqlsrv_free_stmt($ssnCheck);
+		sqlsrv_free_stmt($ssnResult);
 	}
 
 	/* Free statement and connection resources. */
