@@ -98,10 +98,18 @@
     </div>
 </nav>
 <div class="container rounded col-12 p-3" id="signin-container">
+
+	<div class="alert alert-success alert-dismissible collapse" role="alert" id="successAlert">
+		<div id="submitSuccess"> Submission Success
+		</div>
+		<button type="button" class="close" data-hide="alert">&times;</button>
+	</div>
+
+
   <div class="row">
     <div class="col" id="form-col">
-      <!-- <form id="login-form"> -->
-      <form id="login-form" action="update_claim.php" method="post">
+      <!--form id="update-form" action="update_claim.php" method="post"-->
+      <form id="update-form" method="post">
         <div class="form-group p-1">
           <!-- personal info row -->
           <div>
@@ -713,7 +721,6 @@
 
     function rePlaceholder(){
       var claimID = <?php echo $_GET['claimID']; ?>;
-      var permissions = <?php echo $_SESSION["permissions"]; ?>;
       var phpObj;
       $.ajax({
           type: "GET",
@@ -721,23 +728,26 @@
           data:{ claimID: claimID }, 
           success: function(data){
               phpObj=JSON.parse(data);
-              populate(phpObj,permissions);
+              populate(phpObj);
               // console.log(phpObj); 
               // console.log(phpObj.claimID);
           }
       })
     }
 
-      function populate(phpObj,permissions){
+      function populate(phpObj){
         console.log(phpObj);
-        console.log(phpObj.claimID);
-        console.log(permissions);
+        // console.log(phpObj.claimID);
+        // console.log(permissions);
 
-        // permissions = 2;
+     	var permissions = <?php echo $_SESSION["permissions"]; ?>;
+
+        document.getElementById('assignor').value = <?php echo json_encode($_SESSION["name"]); ?>;
 
         document.getElementById('claimID').value =phpObj.claimID;
         document.getElementById('claimant').value =phpObj.claimant;
         document.getElementById('spouse').value =phpObj.spouse;
+
 
         if(permissions == 2)	document.getElementById('claimantSSN').value = phpObj.claimantSSN;
         else 					document.getElementById('claimantSSN').style.display = "none";//value = "*********";
@@ -762,6 +772,7 @@
         document.getElementById('currentCity').value =phpObj.currentCity;
         document.getElementById('currentState').value =phpObj.currentState;
         document.getElementById('currentZip').value =phpObj.currentZip;
+        if(phpObj.currentApt != undefined) document.getElementById('currentApt').value =phpObj.currentApt;
         if(phpObj.priorAPN == 0)document.getElementById('priorAPN').value = ""; else document.getElementById('priorAPN').value =phpObj.priorAPN;
         if(phpObj.priorStName ==0) document.getElementById('priorStName').value = ""; else document.getElementById('priorStName').value =phpObj.priorStName;
         if(phpObj.priorCity == 0) document.getElementById('priorCity').value = ""; else document.getElementById('priorCity').value =phpObj.priorCity;
@@ -771,6 +782,7 @@
         document.getElementById('suppTaxYear').value =phpObj.suppTaxYear;
         document.getElementById('exemptRE2').value =phpObj.exemptRE2;
         document.getElementById('claimAction').value =phpObj.claimAction;
+        document.getElementById('statusDate').value =phpObj.statusDate.date.substring(0, 10);
 
         document.getElementById('dateAcquired').value = phpObj.dateAcquired.date.substring(0, 10);
         document.getElementById('dateOccupied').value = phpObj.dateOccupied.date.substring(0, 10);
@@ -888,6 +900,43 @@
         document.getElementById('holdDays').innerHTML = holdDays;
         document.getElementById('holdAssignor').innerHTML = phpObj.holdAssignor;
         document.getElementById('holdAssignee').innerHTML = phpObj.holdAssignee;
+
+
+        document.getElementById('mailingStName').value =phpObj.mailingStName;
+        if(phpObj.mailingApt != undefined)	document.getElementById('mailingApt').value =phpObj.mailingApt;
+        document.getElementById('mailingCity').value =phpObj.mailingCity;
+        document.getElementById('mailingState').value =phpObj.mailingState;
+        document.getElementById('mailingZip').value =phpObj.mailingZip;
+
+        var addressesAreTheSame = (phpObj.mailingStName == phpObj.currentStName &&
+        							phpObj.mailingApt == phpObj.currentApt &&
+        							phpObj.mailingCity == phpObj.currentCity &&
+        							phpObj.mailingState == phpObj.currentState &&
+        							phpObj.mailingZip == phpObj.currentZip);
+        if(!addressesAreTheSame){
+        	$('.form-check-input').prop('checked', true);
+        	var mailingBox = document.getElementById("enableMailing");
+			document.getElementById("mailingStName").disabled = !mailingBox.checked;
+			document.getElementById("mailingApt").disabled = !mailingBox.checked;
+			document.getElementById("mailingCity").disabled = !mailingBox.checked;
+			document.getElementById("mailingState").disabled = !mailingBox.checked;
+			document.getElementById("mailingZip").disabled = !mailingBox.checked;
+        }
+
+
+        //enableMailing
+
+        /*
+
+
+        document.getElementById('currentStName').value =phpObj.currentStName;
+        document.getElementById('currentApt').value =phpObj.currentApt;
+        document.getElementById('currentCity').value =phpObj.currentCity;
+        document.getElementById('currentState').value =phpObj.currentState;
+        document.getElementById('currentZip').value =phpObj.currentZip;
+
+        */
+
       }
 
       function days_between(date1, date2) {
@@ -1010,7 +1059,7 @@ autocomplete(document.getElementById("assignor"), users);
 
 
 
-//Molly's script
+
 	// enable input for mailing if box is checked
 	document.getElementById("enableMailing").onchange = function() {
 		document.getElementById("mailingStName").disabled = !this.checked;
@@ -1108,6 +1157,50 @@ autocomplete(document.getElementById("assignor"), users);
 
 
 
+
+
+
+	$("#update-form").on("submit", function() {
+		var cform = document.getElementById("update-form");
+		var fd = new FormData(cform);
+
+		$.ajax({
+			url: "update_claim.php",
+			data: fd,
+			cache: false,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function (response) {
+				window.location = "#";
+				/*if (response == "create_success") {
+					// show create success msg
+					$('#failAlert').hide();
+					$('#submitSuccess').html("<strong>Claim successfully created.</strong>");
+					$('#successAlert').show();
+				}else */
+				console.log(response);
+				if (response == "update_success") {
+					// show success msg
+					// $('#failAlert').hide();
+					//TODO: Only works some of the time, and reloads the page. What's up with that?
+					$('#submitSuccess').html("<strong>Update Success</strong>");
+					$('#successAlert').show();
+					rePlaceholder();
+					// rePlaceholder();
+				}/*
+				else {
+					// show error msg
+					$('#successAlert').hide();
+					$('#submitFail').html("Submission failed. <strong>Error: "+response+"</strong>");
+					$('#failAlert').show();
+				}*/
+			}
+			// complete: function (response) {
+				 
+			// }
+		});
+	});
 
 
 

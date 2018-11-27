@@ -18,7 +18,7 @@
     staffReview, staffReviewAssignor, staffReviewAssignee, 
     staffReviewDate, staffReviewDateAssignor, staffReviewDateAssignee, 
     supervisorReview, supervisorReviewAssignor, supervisorReviewAssignee,
-    caseClosed, caseClosedAssignor, caseClosedAssignee, currStatus, preprintSent, preprintSentAssignor, preprintSentAssignee, hold, holdAssignor, holdAssignee, currentState, dateAcquired, dateOccupied, active
+    caseClosed, caseClosedAssignor, caseClosedAssignee, currStatus, preprintSent, preprintSentAssignor, preprintSentAssignee, hold, holdAssignor, holdAssignee, currentState, dateAcquired, dateOccupied, active, mailingStName, mailingApt, mailingCity, mailingState, mailingZip, currentApt
     FROM claim_table WHERE claimID=".$claimID;
 
   /* Execute the query. */
@@ -86,6 +86,15 @@
         $myObj->dateAcquired = $row[48];
         $myObj->dateOccupied = $row[49];
         $myObj->activeStatus = $row[50];
+
+        $myObj->mailingStName = $row[51];
+        $myObj->mailingApt    = $row[52];
+        $myObj->mailingCity   = $row[53];
+        $myObj->mailingState  = $row[54];
+        $myObj->mailingZip    = $row[55];
+
+        $myObj->currentApt    = $row[56];
+
         // $myObj->currentState = $row[47];
 
         $myJSON = json_encode($myObj);

@@ -60,8 +60,8 @@
     	padding-right: 0px;
 	}
 	.info-status-grid {
-		background-color: #D6EAF8; 
-		padding-left: 24px; 
+		background-color: #D6EAF8;
+		padding-left: 24px;
 		padding-right: 24px;
 	}
 	.situs-row-bottom-margin {
@@ -121,7 +121,7 @@
 		<button type="button" class="close" data-hide="alert">&times;</button>
 	</div>
 	<div class="alert alert-danger alert-dismissible collapse" role="alert" id="dupCheckBanner">
-		<div id="dupCheckBannerInner"> 
+		<div id="dupCheckBannerInner">
 			<span>Duplicate SSN found on claimant. Do you want to put a hold on the claim or submit anyway?</span>
 			<button id="proceedBtn" type="button" class="btn btn-secondary bannerBtn btn-sm" data-hide="alert">Proceed</button>
 			<button id="holdBtn" type="button" class="btn btn-danger bannerBtn btn-sm" data-hide="alert">Hold</button>
@@ -132,7 +132,7 @@
 			<form id="claim-form" method="post" action="">
 				<div class="form-row">
 					<!-- personal info row -->
-					
+
 					<div class="form-col col-sm-6" style="background-color: #D6EAF8; padding-left: 24px; padding-right: 24px;
 															padding-top: 10px; padding-bottom: 5px;">
 						<div>
@@ -149,7 +149,7 @@
 							</div>
 							<div class="col form-group required">
 								<div class="form-group row">
-									<label for="claimantSSN" class="col-sm-4 col-form-label col-form-label-sm" 
+									<label for="claimantSSN" class="col-sm-4 col-form-label col-form-label-sm"
 									style="padding-right: 0;">Claimant SSN:</label>
 									<div class="col-sm-8">
 										<input class="form-control form-control-sm" id="claimantSSN" name="claimantSSN" placeholder="123456789" type="number" min="0" data-bind="value:claimantSSN" required="true">
@@ -183,7 +183,7 @@
 						<div>
 							<h5>Claim Status</h5>
 						</div>
-						
+
 						<div class="form-row row-bottom-margin">
 							<div class="col form-group required" >
 								<div class="form-group row">
@@ -206,7 +206,7 @@
 								<div class="form-group row">
 									<label for="statusDate" class="col-sm-3 col-form-label col-form-label-sm" value="<?php echo date("Y-m-d"); ?>">Date:</label>
 									<div class="col-sm-9">
-										<input class="form-control form-control-sm" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date">
+										<input class="form-control form-control-sm" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date" required="true">
 									</div>
 								</div>
 							</div>
@@ -256,7 +256,7 @@
 								<div class="col">
 									<button type="button" id="AINSearchBtn" name="AINSearchBtn" class="btn btn-info mb-2 btn-sm">Search for a match</button>
 								</div>
-							</div>	
+							</div>
 						</div>
 					</div>
 				</div>
@@ -415,7 +415,7 @@
 								<option value="WY">Wyoming</option>
 							</select>
 						</div>
-						
+
 					</div>
 					<div class="form-row situs-row-bottom-margin">
 						<div class="col-3 form-group required">
@@ -627,7 +627,7 @@
 			</div> <!-- end situs row -->
 			<hr class="my-2">
 
-			
+
 			<!-- buttons -->
 			<div class="form-group text-right p-3">
 				<button type="submit" name="save" class="btn btn-danger">Submit</button>
@@ -724,7 +724,7 @@
 				$('#currentCity').val('');
 				$('#currentState').val('');
 				$('#currentZip').val('');
-			}	
+			}
 		}
 		request.send();
 
@@ -735,7 +735,7 @@
 	function processForm() {
 		var cform = document.getElementById("claim-form");
 		var fd = new FormData(cform);
-		
+
 		$.ajax({
 			url: "write_claim.php",
 			data: fd,
@@ -794,7 +794,7 @@
 			}
 		});
 
-		// forgetting to return false will cause page to refresh 
+		// forgetting to return false will cause page to refresh
 		// and lose control on all prev objects...
 		return false;
 	});

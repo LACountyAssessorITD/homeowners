@@ -70,7 +70,11 @@
 	}
 	$spouseSSN = null;
 	if (isset($_POST['spouseSSN'])) {
-		$spouseSSN = 0;
+		$spouseSSN = $_POST['spouseSSN'];
+	}
+	$activeStatus = null;
+	if (isset($_POST['activeStatus'])) {
+		$activeStatus = $_POST['activeStatus'];
 	}
 
 	// turn all into variables
@@ -128,9 +132,10 @@
 				priorStName = '$priorStName', priorApt = '$priorApt', priorCity = '$priorCity', 
 				priorState = '$priorState', priorZip = '$priorZip', rollTaxYear = '$rollTaxYear', 
 				exemptRE = '$exemptRE', suppTaxYear = '$suppTaxYear', exemptRE2 = '$exemptRE2', 
-				claimAction = '$claimAction', findingReason = '$findingReason', currStatus = '$chooseStatus'
-				WHERE claimID = '$claimID'";
+				claimAction = '$claimAction', findingReason = '$findingReason', currStatus = '$chooseStatus',
+				active = '$activeStatus'
 
+				WHERE claimID = '$claimID'";
 		// update status accordingly
 		$sqlUpdateDate='';
 		if (strcasecmp($chooseStatus, "Claim Received")==0) {
