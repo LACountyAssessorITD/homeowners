@@ -788,8 +788,8 @@
 				} else {
 					$('#submitSuccess').html(response);
 					$('#successAlert').show();
-					// $('#dupCheckBanner').hide();
-					// processForm();
+					$('#dupCheckBanner').hide();
+					processForm();
 				}
 			}
 		});
