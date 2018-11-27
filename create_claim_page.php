@@ -29,6 +29,13 @@
 	{
 	  array_push($phpArray, $row[0]);
 	}
+
+	// setting todays date
+	$tz = 'America/Los_Angeles';
+	$timestamp = time();
+	$dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
+	$dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+	$todays_date = $dt->format('Y-m-d');
 ?>
 
 <!doctype html>
@@ -204,9 +211,9 @@
 							</div>
 							<div class="col form-group required">
 								<div class="form-group row">
-									<label for="statusDate" class="col-sm-3 col-form-label col-form-label-sm" value="<?php echo date("Y-m-d"); ?>">Date:</label>
+									<label for="statusDate" class="col-sm-3 col-form-label col-form-label-sm">Date:</label>
 									<div class="col-sm-9">
-										<input class="form-control form-control-sm" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date">
+										<input class="form-control form-control-sm" value="<?php echo $todays_date; ?>" id="statusDate" name="statusDate" type="date">
 									</div>
 								</div>
 							</div>
