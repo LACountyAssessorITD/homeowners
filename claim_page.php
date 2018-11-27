@@ -142,7 +142,7 @@
 			<td><div id="claimReceivedAssignee"></div></td>
 			</tr>
 			<tr>
-			<td>Claim Receieved</td>
+			<td>Supervisor Workload</td>
 			<td><div id="supervisorWorkload"></div></td>
 			<td><div id="supervisorWorkloadDays"></div></td>
 			<td><div id="supervisorWorkloadAssignor"></div></td>
@@ -757,7 +757,7 @@
 
         if(permissions == 2){
         	document.getElementById('spouseSSN').value = phpObj.spouseSSN;
-        	if(phpObj.spouseSSN== "0"){
+        	if(phpObj.spouseSSN=="0"){
         		document.getElementById('spouseSSN').value="";
         	}
         }
@@ -782,10 +782,18 @@
         document.getElementById('suppTaxYear').value =phpObj.suppTaxYear;
         document.getElementById('exemptRE2').value =phpObj.exemptRE2;
         document.getElementById('claimAction').value =phpObj.claimAction;
-        document.getElementById('statusDate').value =phpObj.statusDate.date.substring(0, 10);
 
-        document.getElementById('dateAcquired').value = phpObj.dateAcquired.date.substring(0, 10);
-        document.getElementById('dateOccupied').value = phpObj.dateOccupied.date.substring(0, 10);
+        if(phpObj.statusDate!=null){
+        	document.getElementById('statusDate').value =phpObj.statusDate.date.substring(0, 10);
+        }
+
+        if(phpObj.dateAcquired!=null){
+        	document.getElementById('dateAcquired').value = phpObj.dateAcquired.date.substring(0, 10);
+        }
+
+        if(phpObj.dateOccupied!=null){
+        	ocument.getElementById('dateOccupied').value = phpObj.dateOccupied.date.substring(0, 10);
+        }
 
 
         let reasonFound = false;
@@ -804,12 +812,22 @@
         }
         document.getElementById('activeStatus').value =phpObj.activeStatus;
         
-        
+        var preprintSentDate ="";
+        var preprintSentDays ="";
+        if(phpObj.preprintSent!=null){
+          preprintSentDate = phpObj.preprintSent.date.substring(0,10);
+          preprintSentDays = days_between(new Date(phpObj.preprintSent.date), new Date());
+        }
+        document.getElementById('preprintSent').innerHTML = preprintSentDate;
+        document.getElementById('preprintSentDays').innerHTML = preprintSentDays;
+        document.getElementById('preprintSentAssignor').innerHTML = phpObj.preprintSentAssignor;
+        document.getElementById('preprintSentAssignee').innerHTML = phpObj.preprintSentAssignee;
+
 
         var claimReceivedDate ="";
         var claimReceivedDays ="";
         if(phpObj.claimReceived!=null){
-          claimReceivedDate = phpObj.claimReceived.date.substring(0,10)
+          claimReceivedDate = phpObj.claimReceived.date.substring(0,10);
           claimReceivedDays = days_between(new Date(phpObj.claimReceived.date), new Date()); 
         }
         document.getElementById('claimReceived').innerHTML = claimReceivedDate;
@@ -820,7 +838,7 @@
         var supervisorWorkloadDate ="";
         var supervisorWorkloadDays ="";
         if(phpObj.supervisorWorkload!=null){
-          supervisorWorkloadDate = phpObj.supervisorWorkload.date.substring(0,10)
+          supervisorWorkloadDate = phpObj.supervisorWorkload.date.substring(0,10);
           supervisorWorkloadDays = days_between(new Date(phpObj.supervisorWorkload.date), new Date());
         }
         document.getElementById('supervisorWorkload').innerHTML = supervisorWorkloadDate;
@@ -828,17 +846,10 @@
         document.getElementById('supervisorWorkloadAssignor').innerHTML = phpObj.supervisorWorkloadAssignor;
         document.getElementById('supervisorWorkloadAssignee').innerHTML = phpObj.supervisorWorkloadAssignee;
 
-        var supervisorWorkloadDate ="";
-        var supervisorWorkloadDays ="";
-        if(phpObj.supervisorWorkload!=null){
-          supervisorWorkloadDate = phpObj.supervisorWorkload.date.substring(0,10)
-          supervisorWorkloadDays = days_between(new Date(phpObj.supervisorWorkload.date), new Date());
-        }
-
         var assignmentDate ="";
         var assignmentDays ="";
         if(phpObj.staffReview!=null){
-          assignmentDate = phpObj.staffReview.date.substring(0,10)
+          assignmentDate = phpObj.staffReview.date.substring(0,10);
           assignmentDays = days_between(new Date(phpObj.staffReview.date), new Date());
         }
         document.getElementById('staffReview').innerHTML = assignmentDate;
@@ -849,7 +860,7 @@
         var staffReviewDate ="";
         var staffReviewDays ="";
         if(phpObj.staffReviewDate!=null){
-          staffReviewDate = phpObj.staffReviewDate.date.substring(0,10)
+          staffReviewDate = phpObj.staffReviewDate.date.substring(0,10);
           staffReviewDays = days_between(new Date(phpObj.staffReviewDate.date), new Date());
         }
         document.getElementById('staffReviewDate').innerHTML = staffReviewDate;
@@ -860,7 +871,7 @@
         var supervisorReviewDate ="";
         var supervisorReviewDays ="";
         if(phpObj.supervisorReview!=null){
-          supervisorReviewDate = phpObj.supervisorReview.date.substring(0,10)
+          supervisorReviewDate = phpObj.supervisorReview.date.substring(0,10);
           supervisorReviewDays = days_between(new Date(phpObj.supervisorReview.date), new Date());
         }
         document.getElementById('supervisorReview').innerHTML = supervisorReviewDate;
@@ -870,7 +881,7 @@
 
         var caseClosedDate ="";
         var caseClosedDays ="";
-        if(phpObj.supervisorReview!=null){
+        if(phpObj.caseClosed!=null){
           caseClosedDate = phpObj.caseClosed.date.substring(0,10);
           caseClosedDays = days_between(new Date(phpObj.caseClosed.date), new Date());
         }
@@ -879,21 +890,10 @@
         document.getElementById('caseClosedAssignor').innerHTML = phpObj.caseClosedAssignor;
         document.getElementById('caseClosedAssignee').innerHTML = phpObj.caseClosedAssignee;
 
-        var preprintSentDate ="";
-        var preprintSentDays ="";
-        if(phpObj.preprintSent!=null){
-          preprintSentDate = phpObj.preprintSent.date.substring(0,10)
-          preprintSentDays = days_between(new Date(phpObj.preprintSent.date), new Date());
-        }
-        document.getElementById('preprintSent').innerHTML = preprintSentDate;
-        document.getElementById('preprintSentDays').innerHTML = preprintSentDays;
-        document.getElementById('preprintSentAssignor').innerHTML = phpObj.preprintSentAssignor;
-        document.getElementById('preprintSentAssignee').innerHTML = phpObj.preprintSentAssignee;
-
         var holdDate ="";
         var holdDays ="";
         if(phpObj.hold!=null){
-          holdDate = phpObj.hold.date.substring(0,10)
+          holdDate = phpObj.hold.date.substring(0,10);
           holdDays = days_between(new Date(phpObj.hold.date), new Date());
         }
         document.getElementById('hold').innerHTML = holdDate;
