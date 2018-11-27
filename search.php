@@ -16,7 +16,7 @@
 
 	//There's a cleaner way to write this code, and it involves a pretty array, but I needed to write this in a few hours. *I'll go back and fix it later*
 
-	$sql = "SELECT claimID, claimant, claimantSSN, currentAPN FROM dbo.claim_table WHERE";
+	$sql = "SELECT claimID, claimant, currentAPN, active FROM dbo.claim_table WHERE";
 	$populated = False; //Represents need for "and" in the SQL statement, and if there is no minimum by the end, there is no need to query the database
 
 	$homeownerName = /*$_GET['homeownerLastname']." ".*/$_GET['homeownerFirstname'];
@@ -163,7 +163,7 @@
 
 			// $decryptedMessage = openssl_decrypt($row[2], ENCRPYTIONMETHOD, HASH, true, IV);
 			//replace openssldecrpyt with just $row[2] if buggy
-			echo "<a style=\"background-color: #D6EAF8; border: 1px solid black; padding-left: 10px; padding-right: 0px; padding-top: 5px; padding-bottom: 5px;\"  href='claim_page.php?claimID=".$row[0]."' class='form-row'>Claim ID#=".$row[0]."</a><hr>" ;
+			echo "<a style=\"background-color: #D6EAF8; border: 1px solid black; padding-left: 10px; padding-right: 0px; padding-top: 5px; padding-bottom: 5px;\"  href='claim_page.php?claimID=".$row[0].$row[1].$row[2].$row[3]."' class='form-row'>Claim ID#=".$row[0]."</a><hr>" ;
 		}
 	}	
 	/* Free statement and connection resources. */

@@ -56,8 +56,14 @@
 	}
 
 	$claimAction = null;
+	$active = null;
 	if (isset($_POST['claimAction'])) {
 		$claimAction = $_POST['claimAction'];
+		if($_POST['claimAction'] === "Denied"){
+			$active = "Not Active";
+		}else{
+			$active = "Active";
+		}
 	}
 
 	$findingReason = null;
@@ -129,7 +135,7 @@
 				priorStName = '$priorStName', priorApt = '$priorApt', priorCity = '$priorCity', 
 				priorState = '$priorState', priorZip = '$priorZip', rollTaxYear = '$rollTaxYear', 
 				exemptRE = '$exemptRE', suppTaxYear = '$suppTaxYear', exemptRE2 = '$exemptRE2', 
-				claimAction = '$claimAction', findingReason = '$findingReason', currStatus = '$chooseStatus'
+				claimAction = '$claimAction', findingReason = '$findingReason', currStatus = '$chooseStatus', active = '$active'
 				WHERE claimID = '$claimID'";
 
 		// update status accordingly
@@ -192,13 +198,13 @@
 				currentAPN,dateAcquired,dateOccupied,currentStName,currentApt,currentCity,currentState,currentZip,
 				mailingStName,mailingApt,mailingCity,mailingState,mailingZip,
 				priorAPN,dateMovedOut,priorStName,priorApt,priorCity,priorState,priorZip,
-				rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,currStatus)
-				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				rollTaxYear,exemptRE,suppTaxYear,exemptRE2,claimAction,findingReason,currStatus,active)
+				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$claim_params = array($claimID,$claimant,$claimantSSN,$spouse,$spouseSSN,
 				$currentAPN,$dateAcquired,$dateOccupied,$currentStName,$currentApt,$currentCity,$currentState,$currentZip,
 				$mailingStName,$mailingApt,$mailingCity,$mailingState,$mailingZip,
 				$priorAPN,$dateMovedOut,$priorStName,$priorApt,$priorCity,$priorState,$priorZip,
-				$rollTaxYear,$exemptRE,$suppTaxYear,$exemptRE2,$claimAction,$findingReason,$chooseStatus);
+				$rollTaxYear,$exemptRE,$suppTaxYear,$exemptRE2,$claimAction,$findingReason,$chooseStatus,$active);
 
 		/* Execute the query. */                  
 		$claim_result = sqlsrv_query($conn,$claim_query,$claim_params);
