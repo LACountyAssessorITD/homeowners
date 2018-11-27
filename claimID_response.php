@@ -18,7 +18,7 @@
     staffReview, staffReviewAssignor, staffReviewAssignee, 
     staffReviewDate, staffReviewDateAssignor, staffReviewDateAssignee, 
     supervisorReview, supervisorReviewAssignor, supervisorReviewAssignee,
-    caseClosed, caseClosedAssignor, caseClosedAssignee, currStatus, preprintSent, preprintSentAssignor, preprintSentAssignee, hold, holdAssignor, holdAssignee, currentState, dateAcquired, dateOccupied
+    caseClosed, caseClosedAssignor, caseClosedAssignee, currStatus, preprintSent, preprintSentAssignor, preprintSentAssignee, hold, holdAssignor, holdAssignee, currentState, dateAcquired, dateOccupied, active
     FROM claim_table WHERE claimID=".$claimID;
 
   /* Execute the query. */
@@ -85,6 +85,7 @@
 
         $myObj->dateAcquired = $row[48];
         $myObj->dateOccupied = $row[49];
+        $myObj->activeStatus = $row[50];
         // $myObj->currentState = $row[47];
 
         $myJSON = json_encode($myObj);

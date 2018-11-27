@@ -370,6 +370,10 @@
 							<label for="otherReason" class="col-form-label col-form-label-sm">Other Reason (If applicable):</label>
 							<input class="form-control form-control-sm" id="otherReason" name="otherReason" placeholder="Specify other reason" type="text" disabled="true">
 						</div>
+						<div class="col form-group required">
+							<label for="activeStatus" class="col-form-label col-form-label-sm">Active Status:</label>
+							<input class="form-control form-control-sm" id="activeStatus" name="activeStatus" placeholder="Active" type="text" data-bind="value:activeStatus">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -786,6 +790,7 @@
           document.getElementById("otherReason").disabled = false;
           document.getElementById('otherReason').value = phpObj.findingReason;
         }
+        document.getElementById('activeStatus').value =phpObj.activeStatus;
         
         
 
