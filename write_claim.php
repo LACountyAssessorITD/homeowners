@@ -73,12 +73,7 @@
 		$findingReason = $_POST['otherReason'];
 	}
 
-	$spouse = null;
-	if (isset($_POST['spouse'])) {
-		$spouse = $_POST['spouse'];
-	} else {
-		$spouse = null;
-	}
+
 	$spouseSSN = null;
 	if (isset($_POST['spouseSSN']) && $_POST['spouseSSN']>0) {
 		$spouseSSN = openssl_encrypt ($_POST['spouseSSN'], ENCRPYTIONMETHOD, HASH, false, IV);
@@ -87,14 +82,15 @@
 	// turn all into variables
 	$claimant = $_POST['claimant'];
 	$claimantSSN = openssl_encrypt ($_POST['claimantSSN'], ENCRPYTIONMETHOD, HASH, false, IV);
+	$spouse = (isset($_POST['spouse'])) ? $_POST['spouse'] : null;
 	$currentAPN = $_POST['currentAPN'];
-	$dateAcquired = $_POST['dateAcquired'];
-	$dateOccupied = $_POST['dateOccupied'];
+	$dateAcquired = (empty($_POST['dateAcquired'])) ? null : $_POST['dateAcquired'];
+	$dateOccupied = (empty($_POST['dateOccupied'])) ? null : $_POST['dateOccupied'];
 	$currentStName = $_POST['currentStName'];
 	$currentCity = $_POST['currentCity'];
 	$currentZip = $_POST['currentZip'];
 	$priorAPN = $_POST['priorAPN'];
-	$dateMovedOut = $_POST['dateMovedOut'];
+	$dateMovedOut = (empty($_POST['dateMovedOut'])) ? null : $_POST['dateMovedOut'];
 	$priorStName = $_POST['priorStName'];
 	$priorCity = $_POST['priorCity'];
 	$priorZip = $_POST['priorZip'];
@@ -103,7 +99,7 @@
 	$suppTaxYear = $_POST['suppTaxYear'];
 	$exemptRE2 = $_POST['exemptRE2'];
 	$chooseStatus = $_POST['chooseStatus'];
-	$statusDate = $_POST['statusDate'];
+	$statusDate = (empty($_POST['statusDate'])) ? null : $_POST['statusDate'];
 	$assignee = $_POST['assignee'];
 	$assignor = $_POST['assignor'];
 
@@ -141,41 +137,45 @@
 		// update status accordingly
 		$sqlUpdateDate='';
 		if (strcasecmp($chooseStatus, "Claim Received")==0) {
-			$sqlUpdateDate="UPDATE dbo.claim_table SET claimReceived = '$statusDate',
-			claimReceivedAssignee = '$assignee',
-			claimReceivedAssignor = '$assignor' WHERE claimID = '$claimID'";
+			$sqlUpdateDate="UPDATE dbo.claim_table SET claimReceived = (?),
+			claimReceivedAssignee = (?),
+			claimReceivedAssignor = (?) WHERE claimID = (?)";
 		} else if (strcasecmp($chooseStatus, "Supervisor Workload")==0) {
-			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorWorkload = '$statusDate',
-			supervisorWorkloadAssignee = '$assignee', 
-			supervisorWorkloadAssignor = '$assignor' WHERE claimID = '$claimID'";
-		} else if (strcasecmp($chooseStatus, "Staff Review")==0) {
-			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReview = '$statusDate',
-			staffReviewAssignee = '$assignee', 
-			staffReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
+			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorWorkload = (?),
+			supervisorWorkloadAssignee = (?), 
+			supervisorWorkloadAssignor = (?) WHERE claimID = (?)";
+		} else if (strcasecmp($chooseStatus, "Staff Assign")==0) {
+			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReview = (?),
+			staffReviewAssignee = (?), 
+			staffReviewAssignor = (?) WHERE claimID = (?)";
 		} else if (strcasecmp($chooseStatus, "Staff Review Date")==0) {
-			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReviewDate = '$statusDate',
-			staffReviewDateAssignee = '$assignee', 
-			staffReviewDateAssignor = '$assignor' WHERE claimID = '$claimID'";
+			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReviewDate = (?),
+			staffReviewDateAssignee = (?), 
+			staffReviewDateAssignor = (?) WHERE claimID = (?)";
 		} else if (strcasecmp($chooseStatus, "Supervisor Review")==0) {
-			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorReview = '$statusDate',
-			supervisorReviewAssignee = '$assignee', 
-			supervisorReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
+			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorReview = (?),
+			supervisorReviewAssignee = (?), 
+			supervisorReviewAssignor = (?) WHERE claimID = (?)";
 		} else if (strcasecmp($chooseStatus, "Case Closed")==0) {
-			$sqlUpdateDate="UPDATE dbo.claim_table SET caseClosed = '$statusDate',
-			caseClosedAssignee = '$assignee', 
-			caseClosedAssignor = '$assignor' WHERE claimID = '$claimID'";
+			$sqlUpdateDate="UPDATE dbo.claim_table SET caseClosed = (?),
+			caseClosedAssignee = (?), 
+			caseClosedAssignor = (?) WHERE claimID = (?)";
 		} else if (strcasecmp($chooseStatus, "Preprint Sent")==0) {
-			$sqlUpdateDate="UPDATE dbo.claim_table SET preprintSent = '$statusDate',
-			preprintSentAssignee = '$assignee', 
-			preprintSentAssignor = '$assignor' WHERE claimID = '$claimID'";
+			$sqlUpdateDate="UPDATE dbo.claim_table SET preprintSent = (?),
+			preprintSentAssignee = (?), 
+			preprintSentAssignor = (?) WHERE claimID = (?)";
 		} else if (strcasecmp($chooseStatus, "Hold")==0) {
-			$sqlUpdateDate="UPDATE dbo.claim_table SET hold = '$statusDate',
-			holdAssignee = '$assignee', 
-			holdAssignor = '$assignor' WHERE claimID = '$claimID'";
+			$sqlUpdateDate="UPDATE dbo.claim_table SET hold = (?),
+			holdAssignee = (?), 
+			holdAssignor = (?) WHERE claimID = (?)";
 		}
 
-		sqlsrv_query( $conn, $sqlUpdateDate );
-		$stmtUpdate = sqlsrv_query( $conn, $sqlUpdate );
+
+		$assignParams = array($statusDate, $assignee, $assignor, $claimID);
+		sqlsrv_query( $conn, $sqlUpdateDate, $assignParams);
+
+		$stmtUpdate = sqlsrv_query( $conn, $sqlUpdate);
+
 		if($stmtUpdate == false || !$stmtUpdate) {
 			echo "update statement error\n";
 			echo print_r( sqlsrv_errors(), true);
@@ -224,40 +224,43 @@
 			// update status accordingly
 			$sqlUpdateDate='';
 			if (strcasecmp($chooseStatus, "Claim Received")==0) {
-				$sqlUpdateDate="UPDATE dbo.claim_table SET claimReceived = '$statusDate',
-				claimReceivedAssignee = '$assignee',
-				claimReceivedAssignor = '$assignor' WHERE claimID = '$claimID'";
+				$sqlUpdateDate="UPDATE dbo.claim_table SET claimReceived = (?),
+				claimReceivedAssignee = (?),
+				claimReceivedAssignor = (?) WHERE claimID = (?)";
 			} else if (strcasecmp($chooseStatus, "Supervisor Workload")==0) {
-				$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorWorkload = '$statusDate',
-				supervisorWorkloadAssignee = '$assignee', 
-				supervisorWorkloadAssignor = '$assignor' WHERE claimID = '$claimID'";
-			} else if (strcasecmp($chooseStatus, "Staff Review")==0) {
-				$sqlUpdateDate="UPDATE dbo.claim_table SET staffReview = '$statusDate',
-				staffReviewAssignee = '$assignee', 
-				staffReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
+				$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorWorkload = (?),
+				supervisorWorkloadAssignee = (?), 
+				supervisorWorkloadAssignor = (?) WHERE claimID = (?)";
+			} else if (strcasecmp($chooseStatus, "Staff Assign")==0) {
+				$sqlUpdateDate="UPDATE dbo.claim_table SET staffReview = (?),
+				staffReviewAssignee = (?), 
+				staffReviewAssignor = (?) WHERE claimID = (?)";
 			} else if (strcasecmp($chooseStatus, "Staff Review Date")==0) {
-				$sqlUpdateDate="UPDATE dbo.claim_table SET staffReviewDate = '$statusDate',
-				staffReviewDateAssignee = '$assignee', 
-				staffReviewDateAssignor = '$assignor' WHERE claimID = '$claimID'";
+				$sqlUpdateDate="UPDATE dbo.claim_table SET staffReviewDate = (?),
+				staffReviewDateAssignee = (?), 
+				staffReviewDateAssignor = (?) WHERE claimID = (?)";
 			} else if (strcasecmp($chooseStatus, "Supervisor Review")==0) {
-				$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorReview = '$statusDate',
-				supervisorReviewAssignee = '$assignee', 
-				supervisorReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
+				$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorReview = (?),
+				supervisorReviewAssignee = (?), 
+				supervisorReviewAssignor = (?) WHERE claimID = (?)";
 			} else if (strcasecmp($chooseStatus, "Case Closed")==0) {
-				$sqlUpdateDate="UPDATE dbo.claim_table SET caseClosed = '$statusDate',
-				caseClosedAssignee = '$assignee', 
-				caseClosedAssignor = '$assignor' WHERE claimID = '$claimID'";
+				$sqlUpdateDate="UPDATE dbo.claim_table SET caseClosed = (?),
+				caseClosedAssignee = (?), 
+				caseClosedAssignor = (?) WHERE claimID = (?)";
 			} else if (strcasecmp($chooseStatus, "Preprint Sent")==0) {
-				$sqlUpdateDate="UPDATE dbo.claim_table SET preprintSent = '$statusDate',
-				preprintSentAssignee = '$assignee', 
-				preprintSentAssignor = '$assignor' WHERE claimID = '$claimID'";
+				$sqlUpdateDate="UPDATE dbo.claim_table SET preprintSent = (?),
+				preprintSentAssignee = (?), 
+				preprintSentAssignor = (?) WHERE claimID = (?)";
 			} else if (strcasecmp($chooseStatus, "Hold")==0) {
-				$sqlUpdateDate="UPDATE dbo.claim_table SET hold = '$statusDate',
-				holdAssignee = '$assignee', 
-				holdAssignor = '$assignor' WHERE claimID = '$claimID'";
+				$sqlUpdateDate="UPDATE dbo.claim_table SET hold = (?),
+				holdAssignee = (?), 
+				holdAssignor = (?) WHERE claimID = (?)";
 			}
 
-			$stmtUpdate = sqlsrv_query( $conn, $sqlUpdateDate );
+
+			$assignParams = array($statusDate, $assignee, $assignor, $claimID);
+			$stmtUpdate = sqlsrv_query( $conn, $sqlUpdateDate, $assignParams);
+
 			if($stmtUpdate == false || !$stmtUpdate) {
 				echo "update statement error\n";
 				echo print_r( sqlsrv_errors(), true);

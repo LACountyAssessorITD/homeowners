@@ -206,7 +206,7 @@
 								<div class="form-group row">
 									<label for="statusDate" class="col-sm-3 col-form-label col-form-label-sm" value="<?php echo date("Y-m-d"); ?>">Date:</label>
 									<div class="col-sm-9">
-										<input class="form-control form-control-sm" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date" required="true">
+										<input class="form-control form-control-sm" id="statusDate" name="statusDate" placeholder="1-1-2018" type="date">
 									</div>
 								</div>
 							</div>

@@ -146,7 +146,7 @@
 			$sqlUpdateDate="UPDATE dbo.claim_table SET supervisorWorkload = '$statusDate',
 			supervisorWorkloadAssignee = '$assignee', 
 			supervisorWorkloadAssignor = '$assignor' WHERE claimID = '$claimID'";
-		} else if (strcasecmp($chooseStatus, "Staff Review")==0) {
+		} else if (strcasecmp($chooseStatus, "Staff Assign")==0) {
 			$sqlUpdateDate="UPDATE dbo.claim_table SET staffReview = '$statusDate',
 			staffReviewAssignee = '$assignee', 
 			staffReviewAssignor = '$assignor' WHERE claimID = '$claimID'";
