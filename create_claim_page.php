@@ -773,10 +773,12 @@
 			}
 		});
 	};
-
+// $("#prospects_form").submit(function(e) {
+//     e.preventDefault();
+// });
 	// post form with ajax, think this will help staying on same page
-	$("#claim-form").on("submit", function() {
-
+	$("#claim-form").on("submit", function(e) {
+		e.preventDefault();
 		var checkForm = document.getElementById("claim-form");
 		var checkFD = new FormData(checkForm);
 		$.ajax({

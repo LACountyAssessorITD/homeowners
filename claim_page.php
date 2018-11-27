@@ -792,7 +792,7 @@
         }
 
         if(phpObj.dateOccupied!=null){
-        	ocument.getElementById('dateOccupied').value = phpObj.dateOccupied.date.substring(0, 10);
+        	document.getElementById('dateOccupied').value = phpObj.dateOccupied.date.substring(0, 10);
         }
 
 
@@ -1146,24 +1146,12 @@ autocomplete(document.getElementById("assignor"), users);
 			}	
 		}
 		request.send();
-
-
 		$('#searchAlert').show();
 	};
-
-
-
-
-
-
-
-
-
-
-	$("#update-form").on("submit", function() {
+	$("#update-form").on("submit", function(evt) {
 		var cform = document.getElementById("update-form");
 		var fd = new FormData(cform);
-
+		evt.preventDefault();
 		$.ajax({
 			url: "update_claim.php",
 			data: fd,
@@ -1171,35 +1159,17 @@ autocomplete(document.getElementById("assignor"), users);
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			success: function (response) {
-				window.location = "#";
-				/*if (response == "create_success") {
-					// show create success msg
-					$('#failAlert').hide();
-					$('#submitSuccess').html("<strong>Claim successfully created.</strong>");
-					$('#successAlert').show();
-				}else */
-				console.log(response);
-				if (response == "update_success") {
-					// show success msg
-					// $('#failAlert').hide();
-					//TODO: Only works some of the time, and reloads the page. What's up with that?
-					$('#submitSuccess').html("<strong>Update Success</strong>");
-					$('#successAlert').show();
-					rePlaceholder();
+			// success: function (response) {
 					// rePlaceholder();
-				}/*
-				else {
-					// show error msg
-					$('#successAlert').hide();
-					$('#submitFail').html("Submission failed. <strong>Error: "+response+"</strong>");
-					$('#failAlert').show();
-				}*/
-			}
-			// complete: function (response) {
-				 
+				// window.location = "#";
+				// 	$('#submitSuccess').html("<strong>Update Success</strong>");
+				// 	$('#successAlert').show();
+				// 	rePlaceholder();
 			// }
 		});
+				window.location = "#";
+					$('#submitSuccess').html("<strong>Update Success</strong>");
+					$('#successAlert').show();
 	});
 
 

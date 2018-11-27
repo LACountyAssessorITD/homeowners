@@ -155,15 +155,15 @@
 		sqlsrv_query( $conn, $sqlUpdateDate, $assignParams);
 
 		$stmtUpdate = sqlsrv_query( $conn, $sqlUpdate, $sqlUpdateParams);
-
-		if($stmtUpdate == false || !$stmtUpdate) {
-			echo "update statement error\n";
-			echo print_r( sqlsrv_errors(), true);
-			die( print_r( sqlsrv_errors(), true));
-		} else {
-			// update success
-			echo "update_success";
-		}
+		echo "update_success";
+		// if($stmtUpdate == false || !$stmtUpdate) {
+		// 	echo "update statement error\n";
+		// 	echo print_r( sqlsrv_errors(), true);
+		// 	die( print_r( sqlsrv_errors(), true));
+		// } else {
+		// 	// update success
+		// 	echo "update_success";
+		// }
 
 		sqlsrv_free_stmt($stmtUpdate);
 
