@@ -12,18 +12,24 @@
 
    Login Page that handles single sign on (routes to LDAP login)  
 * home_page.php
-- Checks whether the user is actually in the database once LDAP has authenticated them, then routes to productivity_report_page.php
+
+   Checks whether the user is actually in the database once LDAP has authenticated them, then routes to productivity_report_page.php  
 * productivity_report_page.php
-- Has both the Claims by Type table and Claims by Staff table
+
+   Has both the Claims by Type table and Claims by Staff table  
 * scan_claims_page.php
-- Has the ability to scan claims, add more inputs for more claims, assign them to staff, and change the status of a claim
-- This is the only page where a claim can be closed
+
+   Has the ability to scan claims, add more inputs for more claims, assign them to staff, and change the status of a claim  
+   This is the only page where a claim can be closed  
 * create_claim_page.php
-- This page is intended to create new claims (or update claims that have only be scanned in), it also handles duplicate SSN
+
+   This page is intended to create new claims (or update claims that have only be scanned in), it also handles duplicate SSN  
 * advanced_search_page.php
-- This page allows advanced search functionality by fields other than claimID
+
+   This page allows advanced search functionality by fields other than claimID  
 * claim_page.php
-- This page surfaces claims and allows them to be updated as well
+
+   This page surfaces claims and allows them to be updated as well  
 
 ## 2 PHP Function Files:
 * ainlookup.php
