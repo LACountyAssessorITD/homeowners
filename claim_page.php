@@ -247,12 +247,13 @@
 									<label for="chooseStatus" class="col-sm-5 col-form-label col-form-label-sm" style="padding-right: 0px;">Choose Status:</label>
 									<div class="col-sm-7">
 										<select class="form-control form-control-sm" id="chooseStatus" name="chooseStatus">
+											<option value="Preprint Sent">Preprint Sent</option>
 											<option value="Claim Received">Claim Received</option>
 											<option value="Supervisor Workload">Supervisor Workload</option>
-											<option value="Staff Review">Staff Assign</option>
+											<option value="Staff Assign">Staff Assign</option>
 											<option value="Staff Review Date">Staff Review Date</option>
 											<option value="Supervisor Review">Supervisor Review</option>
-											<option value="Case Closed">Case Closed</option>
+											<option value="Hold">Hold</option>
 										</select>
 									</div>
 								</div>
@@ -355,7 +356,6 @@
 						<div class="col form-group required">
 							<label for="claimAction" class="col-form-label col-form-label-sm">Claim Action:</label>
 							<select class="form-control form-control-sm" id="claimAction" name="claimAction">
-								<option value="NA" disabled selected>Select</option>
 								<option value="Met">Met</option>
 								<option value="Partially Met">Partially Met</option>
 								<option value="Denied">Denied</option>
