@@ -9,7 +9,8 @@
 
 ## 1 Main Pages:
 * index.php
-  ** Login Page that handles single sign on (routes to LDAP login)
+
+   Login Page that handles single sign on (routes to LDAP login)  
 * home_page.php
 - Checks whether the user is actually in the database once LDAP has authenticated them, then routes to productivity_report_page.php
 * productivity_report_page.php
