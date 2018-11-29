@@ -18,8 +18,11 @@
 		die(print_r( sqlsrv_errors(), true));
 	}
 
-	$sqlCheck = "SELECT claimID FROM dbo.claim_table WHERE (claimID = (?) )";
-	$checkParams = array($_POST['claimID']);
+	$encryptedSSN = openssl_encrypt ($_POST['claimantSSN'], ENCRPYTIONMETHOD, HASH, false, IV);
+
+
+	$sqlCheck = "SELECT claimID FROM dbo.claim_table WHERE (claimID = (?) ) AND (claimantSSN = (?) )";
+	$checkParams = array($_POST['claimID'], $encryptedSSN);
 	$checkResult = sqlsrv_query($conn, $sqlCheck, $checkParams);
 	if($checkResult === false || !$checkResult) {
 		// echo print_r( sqlsrv_errors(), true);
@@ -32,7 +35,6 @@
 	if ($rCount > 0) {
 		echo "existing_claim";
 	} else {
-		$encryptedSSN = openssl_encrypt ($_POST['claimantSSN'], ENCRPYTIONMETHOD, HASH, false, IV);
 		$ssnCheck = "SELECT claimantSSN FROM dbo.claim_table WHERE (claimantSSN = (?) )";
 		$ssnParams = array($encryptedSSN);
 		$ssnResult = sqlsrv_query($conn, $ssnCheck, $ssnParams);
